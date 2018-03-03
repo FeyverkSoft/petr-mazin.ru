@@ -1,0 +1,67 @@
+import React from 'react';
+import { Lang, CurrentLang } from './lang.jsx';
+import { $ } from 'jQuery';
+
+class LangSelector extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            langList: props.langList || ['ru']
+        };
+    }
+    setLang(lang) {
+        if (this.props.onChangeLangCallback)
+            this.props.onChangeLangCallback(lang);
+    }
+    render() {
+        let $this = this;
+        let langList = [CurrentLang()];
+        langList = langList.concat($this.state.langList.filter((item) => item !== CurrentLang()));
+        return (
+            <div className="lang-selector">
+                <ul className="items">
+                    {langList.map((item) => {
+                        return (<li key={`lang+${item}`}
+                            className="item"
+                            onClick={() => $this.setLang(item)}>
+                            {Lang(item)}
+                        </li>);
+                    })}</ul>
+            </div>);
+    }
+}
+
+export class Header extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            menueHide: true
+        }
+        this.toggleMenu = this.toggleMenu.bind(this);
+    }
+    toggleMenu(tm) {
+        if (typeof (tm) != 'boolean')
+            this.setState({ menueHide: !this.state.menueHide })
+        else
+            this.setState({ menueHide: tm })
+    }
+    render() {
+        let $this = this;
+        return (
+            <div className="header">
+                <div className="logo"></div>
+                <div className="menu-button" onClick={$this.toggleMenu}>
+                    <span className={`fa ${$this.state.menueHide ? 'fa-bars' : 'fa-ellipsis-v'}`} />
+                </div>
+                <nav className={`menu ${$this.state.menueHide ? 'menu-hide' : ''}`}>
+                    <ul>
+                        {this.props.children}
+                    </ul>
+                </nav>
+                <LangSelector
+                    onChangeLangCallback={$this.props.onChangeLangCallback}
+                    langList={['ru', 'en']} />
+            </div>
+        );
+    }
+}

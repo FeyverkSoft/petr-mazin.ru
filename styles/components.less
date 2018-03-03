@@ -1,0 +1,175 @@
+@import 'var.less';
+@import 'mixin.less';
+.page {
+    margin: 0 1em;
+    position: relative;
+    @media (max-width: @ExtraSm) {
+        margin: 0 .5em !important;
+    }
+    .page-title {
+        text-align: center;
+        color: @LightTextColor;
+        padding: 2em 1em 1em 1em;
+        font-size: @Font150;
+        font-weight: 500;
+    }
+    .paper {
+        height: 100%;
+        padding: 1em;
+        position: relative;
+        margin: 0 auto 1em auto;
+        max-width: 1500px;
+        background-color: @PaperColor;
+        border-radius: 1em 1em 0.5em .5em;
+        box-shadow: @z-shadow-3;
+        min-height: 10em;
+        display: flex;
+        flex-direction: column;
+        color: @DarkTextColor;
+        @media (max-width: @ExtraSm) {
+            border-radius: .5em .5em .25em .25em !important;
+        }
+        .sub-title {
+            font-size: @Font125;
+            text-align: center;
+            padding-top: 2em;
+            flex: 0 0;
+            @media (max-width: @ExtraSm) {
+                padding-top: 1em !important;
+            }
+        }
+        .search-field {
+            float: right;
+            margin-bottom: 1em;
+            @media (max-width: @ExtraSm) {
+                width: 100%;
+            }
+            @media (min-width: @ExtraSm) {
+                position: absolute;
+                right: 1em;
+                float: inherit !important;
+            }
+        }
+        .paper-content {
+            flex: 1 0;
+        }
+    }
+}
+
+.omni-field {
+    display: flex;
+    align-items: center;
+    .open-icon {
+        margin: 0 .5em -.4em 0;
+        cursor: pointer;
+    }
+    .input-field-wrapper {
+        transition: 0.2s ease width;
+        -moz-transition: 0.2s ease width;
+        -webkit-transition: 0.2s ease width;
+        width: 360px;
+        @media (max-width: @ExtraSm) {
+            width: 100%;
+        }
+        .close-icon {
+            margin-left: -1em;
+            cursor: pointer;
+            vertical-align: middle;
+        }
+        .input-field {
+            border: 0;
+            border-bottom: 1px solid @MainColor; //background-color: @PaperColor;
+            background-color: transparent;
+            padding: .5em 0 .25em 0;
+            outline: none;
+            font-size: @NormalFontSize;
+            width: 100%;
+            transition: 0.2s ease width;
+            -moz-transition: 0.2s ease width;
+            -webkit-transition: 0.2s ease width;
+            @media (max-width: @ExtraSm) {
+                width: 100%;
+            }
+            &:focus~.bar:before,
+            &:focus~.bar:after {
+                width: 50%;
+            }
+        }
+    }
+}
+
+.bar {
+    display: block;
+    position: relative;
+    &::before,
+    &::after {
+        content: "";
+        height: 2px;
+        width: 0;
+        bottom: 0;
+        position: absolute;
+        .transition(all);
+    }
+    &:before {
+        left: 50%
+    }
+    &:after {
+        right: 50%
+    }
+    &.light-bar {
+        &::before,
+        &::after {
+            background: @LightTextColor;
+        }
+    }
+    &.main-bar {
+        &::before,
+        &::after {
+            background: @MainColor;
+        }
+    }
+}
+
+.additional-icons-wrapper {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    justify-content: flex-end;
+    .icons {
+        font-size: 1.5em;
+        color: @IconPaperColor;
+        padding: 0 .25em;
+        cursor: pointer;
+        &:hover {
+            color: @DarkTextColor + @hover;
+        }
+    }
+}
+
+.pagination {
+    display: flex;
+    align-items: center;
+    .pg {
+        color: @IconPaperColor;
+        line-height: 1;
+        padding: .3em;
+        user-select: none;
+        min-width: 1.2em;
+        text-align: center;
+        cursor: pointer;
+        &.active {
+            font-weight: 500;
+            color: @LightTextColor;
+            background-color: @MainColor;
+            cursor: inherit;
+        }
+        &:hover:not(.active) {
+            font-weight: 500;
+            color: @DarkTextColor + @hover;
+        }
+    }
+}
+
+.hide-field {
+    width: 0px !important;
+}

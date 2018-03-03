@@ -1,0 +1,28 @@
+.-img(@img-name, @background-size: 60px, @background-position: center center, @min-size: 4em) {
+    background: url("@{img-name}.png") no-repeat @background-position;
+    background-size: @background-size;
+    min-height: @min-size;
+    min-width: @min-size;
+    image-rendering: pixelated;
+    image-rendering: -webkit-optimize-contrast;
+    @media screen and (-webkit-min-device-pixel-ratio: 1.5), screen and (-moz-min-device-pixel-ratio: 1.5), screen and (-o-min-device-pixel-ratio: 3/2), screen and (min-device-pixel-ratio: 1.5), screen and (min-resolution: 144dpi) {
+        background: url("@{img-name}@2x.png") no-repeat @background-position;
+        background-size: @background-size;
+    }
+    @media screen and (-webkit-min-device-pixel-ratio: 2),
+    screen and (-moz-min-device-pixel-ratio: 2),
+    screen and (-o-min-device-pixel-ratio: 2),
+    screen and (min-device-pixel-ratio: 2),
+    screen and (min-resolution: 192dpi) {
+        background: url("@{img-name}@2x.png") no-repeat @background-position;
+        background-size: @background-size;
+    }
+    @media screen and (-webkit-min-device-pixel-ratio: 3),
+    screen and (-moz-min-device-pixel-ratio: 3),
+    screen and (-o-min-device-pixel-ratio: 3),
+    screen and (min-device-pixel-ratio: 3),
+    screen and (min-resolution: 288dpi) {
+        background: url("@{img-name}@2x.png") no-repeat @background-position;
+        background-size: @background-size;
+    }
+}

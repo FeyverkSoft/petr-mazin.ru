@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <title>Petr-Mazin personal page</title>
+    <meta name="theme-color" content="#237d13">
+    <meta name="msapplication-TileColor" content="#237d13">
+    <link async="true" href="styles/app.css?v=28022018" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+    <div class="wrapper">
+        <!-- Begin React App -->
+        <div class="app-wrapper" id="app">
+            <div class="loading">
+                <div class="wBall" id="wBall_1">
+                    <div class="wInnerBall"></div>
+                </div>
+                <div class="wBall" id="wBall_2">
+                    <div class="wInnerBall"></div>
+                </div>
+                <div class="wBall" id="wBall_3">
+                    <div class="wInnerBall"></div>
+                </div>
+                <div class="wBall" id="wBall_4">
+                    <div class="wInnerBall"></div>
+                </div>
+                <div class="wBall" id="wBall_5">
+                    <div class="wInnerBall"></div>
+                </div>
+            </div>
+        </div>
+        <!-- End React App -->
+        <div class="footer">
+            <div id="copiright" class="copiright">© Petr Mazin 2018</div>
+        </div>
+    </div>
+    <script>
+        var data = {
+            scripts:[
+                {
+                    Name:"BadText",
+                    Title:"Генерация странного текста",
+                    Description:"Данный скрипт генерирует текст, который портит чаты вконтакте итд, символами торчащими во все стороны."
+                },
+                {
+                    Name:"Lun",
+                    Title:"Калькулятор алгоритма луна",
+                    Description:"Калькулятор алгоритма луна"
+                }
+            ]
+        };
+        try {
+            document.getElementById("copiright").innerText = "© Petr Mazin 2017 - " + (new Date()).getFullYear();
+        } catch (e) {
+            console.debug(e);
+        }
+    </script>
+    <script crossorigin async="true" src="./public/bundle.js"></script>
+    <link async="true" rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+</body>

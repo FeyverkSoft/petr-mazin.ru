@@ -1,0 +1,171 @@
+@import url('https://fonts.googleapis.com/css?family=Material+Icons|Roboto:300,300i,400,400i,500,500i&subset=cyrillic');
+@import 'var.less';
+@import 'mixin.less';
+@import 'loading.less';
+@import 'header.less';
+@import 'components.less';
+* {
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    height: 100%;
+}
+
+body {
+    font-family: Roboto, Lato;
+    font-weight: 300;
+    height: 100%;
+    background-color: @BgColor;
+    .app-wrapper {
+        &::after {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            margin: 0;
+            transform: translate(-50%, -50%);
+            font-family: Roboto, Lato, Symbola, emoji, Android, "Segoe UI Emoji";
+            font-size: 5em;
+            z-index: -2;
+            content: "\01F62F"; //😯
+        }
+    }
+    .wrapper {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        .app-wrapper {
+            flex: 1 0 auto;
+            .header();
+            .cover('.//img/header',
+            @MainColor);
+            .body-wrapper {
+                padding-top: 4em;
+            }
+        }
+        .footer {
+            width: 100%;
+            min-height: 3em;
+            color: @DarkTextColor;
+            display: flex;
+            flex: 0 0 auto;
+            .copiright {
+                display: flex;
+                align-items: center;
+                margin: 0 1em;
+            }
+        }
+        .lang-selector {
+            cursor: pointer;
+            position: relative;
+            margin: 0 1em;
+            outline: none;
+            height: 1.5em;
+            @media (max-width: @ExtraSm) {
+                width: 100%;
+                height: inherit;
+            }
+            &:not(:hover) {
+                .items {
+                    height: 2em;
+                }
+            }
+            .items {
+                float: left;
+                overflow: hidden;
+                list-style: none;
+                right: 0;
+                height: 4.45em;
+                text-transform: uppercase;
+                font-size: @Font75;
+                &:hover {
+                    box-shadow: @z-shadow-1;
+                    background-color: @MainColor;
+                }
+                .transition(height);
+                .item {
+                    user-select: none;
+                    padding: .5em 1em;
+                    &:hover {
+                        background-color: @MainColor + @hover;
+                    }
+                }
+                @media (max-width: @ExtraSm) {
+                    width: 100%;
+                    height: 2.8em !important;
+                    &:hover {
+                        height: 5.5em !important;
+                    }
+                    .item {
+                        font-size: @Font85;
+                        padding: 1em !important;
+                    }
+                }
+            }
+        }
+    }
+    .hide {
+        display: none;
+    }
+    .loading {
+        .loading(@MainColor);
+    }
+}
+
+.material-icon {
+    font-family: "Material Icons", Roboto, Lato, Symbola, emoji, Android;
+    text-rendering: optimizeLegibility;
+    font-feature-settings: 'liga' 1;
+    -webkit-font-smoothing: antialiased;
+    font-style: normal;
+    text-transform: none;
+    font-size: @Font150;
+    line-height: 1;
+    display: inline-block;
+    color: @MainColor;
+    user-select: none;
+}
+
+.cover(@img-name,
+@color,
+@background-position : center center) {
+    .cover {
+        -o-filter: hue-rotate(@deg) sepia(50%);
+        -moz-filter: hue-rotate(@deg) sepia(50%);
+        -webkit-filter: hue-rotate(@deg) sepia(50%);
+        filter: hue-rotate(@deg) sepia(50%);
+        display: block;
+        position: absolute;
+        width: 100%;
+        z-index: -1;
+        min-height: 256px;
+        image-rendering: pixelated;
+        image-rendering: -webkit-optimize-contrast;
+        border-bottom: 10px solid spin(@MainColor + @hover, -@deg);
+        background-color: spin(@MainColor, -@deg);
+        background:spin(@MainColor,
+        -@deg) url("@{img-name}.png") no-repeat @background-position;
+        background-size: cover;
+        @media screen and (-webkit-min-device-pixel-ratio: 1.5), screen and (-moz-min-device-pixel-ratio: 1.5), screen and (-o-min-device-pixel-ratio: 3/2), screen and (min-device-pixel-ratio: 1.5), screen and (min-resolution: 144dpi) {
+            background: url("@{img-name}@2x.png") no-repeat @background-position;
+            background-size: cover;
+        }
+        @media screen and (-webkit-min-device-pixel-ratio: 2),
+        screen and (-moz-min-device-pixel-ratio: 2),
+        screen and (-o-min-device-pixel-ratio: 2),
+        screen and (min-device-pixel-ratio: 2),
+        screen and (min-resolution: 192dpi) {
+            background: url("@{img-name}@2x.png") no-repeat @background-position;
+            background-size: cover;
+        }
+        @media screen and (-webkit-min-device-pixel-ratio: 3),
+        screen and (-moz-min-device-pixel-ratio: 3),
+        screen and (-o-min-device-pixel-ratio: 3),
+        screen and (min-device-pixel-ratio: 3),
+        screen and (min-resolution: 288dpi) {
+            background: url("@{img-name}@2x.png") no-repeat @background-position;
+            background-size: cover;
+        }
+    }
+}

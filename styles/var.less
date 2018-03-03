@@ -1,0 +1,28 @@
+@deg: 110deg;
+@Color: spin(#237d13, @deg); //#237d13
+@MainColor: @Color;
+@BorderColor: lighten(@MainColor , 25%);
+@LightTextColor: contrast(@Color);
+@DarkTextColor: lighten(contrast(@LightTextColor), 5%);
+@PaperColor: contrast(@DarkTextColor, darken(@DarkTextColor, 5.5%), lighten(@DarkTextColor, 92%));
+@IconPaperColor: contrast(@PaperColor, mix(lighten(@PaperColor, 50), @Color, 60%), mix(darken(@PaperColor, 50), @Color, 60%));
+@BgColor: #E6E6E6;
+@z-shadow-1: 0 2px 4px darken(fade(@MainColor, 35%), 15%),
+0 2px 3px darken(fade(@MainColor, 35%), 25%);
+@z-shadow-2: 0 3px 6px darken(fade(@MainColor, 35%), 50%),
+0 3px 5px darken(fade(@MainColor, 35%), 50%);
+@z-shadow-3: 0 16px 24px 2px mix(darken(fade(@MainColor, 14%), 50%), @Color, 95%),
+0 6px 30px 5px mix(darken(fade(@MainColor, 12%), 50%), @Color, 98%),
+0 8px 10px -5px mix(darken(fade(@MainColor, 20%), 50%), @Color, 98%);
+@NormalFontSize: 1em;
+@Font150: @NormalFontSize * 1.5;
+@Font125: @NormalFontSize * 1.25;
+@Font75: @NormalFontSize * 0.75;
+@Font85: @NormalFontSize * 0.85;
+@ExtraSm: 576px;
+@hover: 15;
+.transition(@s) {
+    transition: 0.2s ease @s;
+    -moz-transition: 0.2s ease @s;
+    -webkit-transition: 0.2s ease @s;
+}

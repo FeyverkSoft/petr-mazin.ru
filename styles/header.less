@@ -1,0 +1,105 @@
+@import 'var.less';
+@import 'mixin.less';
+.header() {
+    .header {
+        //шапка
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        position: fixed;
+        z-index: 10;
+        background-color: fade(@MainColor, 90%);
+        color: @LightTextColor;
+        width: 100%;
+        contain: layout;
+        box-shadow: @z-shadow-1;
+        min-height: 2em;
+        @media (max-width: @ExtraSm) {
+            flex-direction: column;
+            width: 100%;
+        }
+        .logo {
+            @media screen and (max-width: @ExtraSm) {
+                .-img('.//img/logo', 1.25em, center center, 1.25em);
+                padding-top: .75em;
+            }
+            @media screen and (min-width: @ExtraSm) {
+                padding: 0 1em;
+                .-img('.//img/logo', 2.5em, center center, 2.5em);
+            }
+        }
+        .menu-button {
+            //кнопка меню
+            cursor: pointer;
+            width: 100%;
+            position: absolute;
+            left: 0;
+            margin: .35em .9em;
+            color: @BgColor - @hover;
+            @media (min-width: @ExtraSm) {
+                display: none !important;
+            }
+            &:hover {
+                color: @LightTextColor;
+            }
+            span {
+                margin: auto;
+            }
+        }
+        a {
+            color: @BgColor;
+            text-transform: uppercase;
+            text-decoration: none;
+            font-size: @NormalFontSize;
+            font-weight: 300;
+            &:hover {
+                color: @LightTextColor;
+            }
+            @media (max-width: @ExtraSm) {
+                font-size: @Font85;
+            }
+        }
+        .menu {
+            //меню
+            &.menu-hide {
+                @media (max-width: @ExtraSm) {
+                    display: none !important;
+                }
+            }
+            @media (max-width: @ExtraSm) {
+                width: 100%;
+            }
+            ul {
+                list-style: none;
+                li {
+                    display: inline-block;
+                    .transition(background-color);
+                    .link-text {
+                        user-select: none !important;
+                        padding: 1.25em 1em;
+                    }
+                    &:hover {
+                        background-color: @MainColor + @hover;
+                    }
+                    a {
+                        &.active {
+                            font-weight: 500;
+                            color: @LightTextColor;
+                            .bar::after,
+                            .bar::before {
+                                width: 50%;
+                            }
+                        }
+                    }
+                    @media (max-width: @ExtraSm) {
+                        width: 100%;
+                        .link-text {
+                            padding: 1em !important;
+                            border-bottom: 1px solid fade(@MainColor + @hover, 50%);
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
