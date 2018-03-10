@@ -1,5 +1,5 @@
 import React from 'react';
-import { ApiInstance } from "./Api.jsx";
+import { ApiInstance, getGuid } from "./Api.jsx";
 import { Lang } from './lang.jsx';
 
 /// Холст 
@@ -198,16 +198,30 @@ export class Tils extends React.Component {
     }
     render() {
         let $this = this;
+        if (!$this.state.CurrentItems || $this.state.CurrentItems.length == 0) {
+            return (
+                <div className="deserted">
+                    {Lang('deserted')}
+                </div>);
+        }
         return (
             <div className="tils-wrapper">
                 {$this.state.CurrentItems.map(x => {
-                    return <Til key={x.Name} />
+                    return <Til key={x.Name}
+                        Id={x.Name}
+                        Title={x.Title}
+                        Description={x.Description}
+                        Date={'10-03-2018'}
+                    //onSelected={}
+                    />
                 })}
-                <Pagination
-                    CurrentPage={$this.state.CurrentPage}
-                    TotalPages={$this.state.TotalPages}
-                    onSelectPage={$this.onSelectPage}
-                />
+                <div className={'pagination-wrapper'}>
+                    <Pagination
+                        CurrentPage={$this.state.CurrentPage}
+                        TotalPages={$this.state.TotalPages}
+                        onSelectPage={$this.onSelectPage}
+                    />
+                </div>
             </div>);
     }
 }
@@ -215,13 +229,27 @@ export class Tils extends React.Component {
 export class Til extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {};
-        this.getItems = this.getItems.bind(this);
+        this.state = {
+            id: props.Id,
+            Title: props.Title,
+            Description: props.Description,
+            Date: props.Date
+        };
+        this.onClick = this.onClick.bind(this);
+    }
+    onClick() {
+        if (this.props.onClick) {
+            this.props.onClick(this.state.id);
+        }
     }
     render() {
         let $this = this;
         return (
-            <div className="til">
+            <div className="til"
+                onClick={$this.onClick}>
+                <div>{$this.state.Title}</div>
+                <div>{$this.state.Description}</div>
+                <div>{$this.state.Date}</div>
             </div>);
     }
 }
@@ -231,8 +259,8 @@ export class Pagination extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            Count: 10,
-            CurrentPage: 1
+            Count: props.TotalPages,
+            CurrentPage: props.CurrentPage
         };
         this.selectedPage = this.selectedPage.bind(this);
     }
@@ -300,11 +328,15 @@ export class Pagination extends React.Component {
         }
         return result;
     }
+
     selectedPage(e) {
         if (e && e.target && e.target.id && e.target.id != -1 && e.target.id != this.state.CurrentPage) {
             this.setState({ CurrentPage: parseInt(e.target.id) });
+            if (this.props.onSelectPage)
+                this.props.onSelectPage(this.state.CurrentPage);
         }
     }
+
     render() {
         let $this = this;
         let items = $this.getItems();
@@ -312,7 +344,7 @@ export class Pagination extends React.Component {
             <div className="pagination">
                 {items.map(x => {
                     return (
-                        <div
+                        <div key={getGuid()}
                             className={`pg ${x.className ? x.className : ''}`}
                             onClick={$this.selectedPage}
                             id={x.index || -1}>{x.body}</div>

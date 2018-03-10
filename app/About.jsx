@@ -1,6 +1,7 @@
 import React from 'react';
 import { Lang } from './lang.jsx';
 import { Page } from "./Components.jsx";
+import { ApiInstance } from "./Api.jsx";
 
 export class About extends React.Component {
     constructor(props) {

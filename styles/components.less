@@ -23,6 +23,10 @@
         border-radius: 1em 1em 0.5em .5em;
         box-shadow: @z-shadow-3;
         min-height: 10em;
+        display: -webkit-box;
+        display: -moz-box;
+        display: -ms-flexbox;
+        display: -webkit-flex;
         display: flex;
         flex-direction: column;
         color: @DarkTextColor;
@@ -52,11 +56,29 @@
         }
         .paper-content {
             flex: 1 0;
+            .pagination-wrapper {
+                display: -webkit-box;
+                display: -moz-box;
+                display: -ms-flexbox;
+                display: -webkit-flex;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                padding-top: 1em;
+            }
+        }
+        .deserted {
+            text-align: center;
+            padding: 2em;
         }
     }
 }
 
 .omni-field {
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
     display: flex;
     align-items: center;
     .open-icon {
@@ -131,6 +153,10 @@
 }
 
 .additional-icons-wrapper {
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
     display: flex;
     align-items: center;
     flex-direction: row;
@@ -147,6 +173,10 @@
 }
 
 .pagination {
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
     display: flex;
     align-items: center;
     .pg {

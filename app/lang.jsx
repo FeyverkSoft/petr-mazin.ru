@@ -7,7 +7,9 @@ const locString = {
         about_title: "About me",
         search: "Search",
         scripts_title: "Scripts",
-        scripts_sub_title: "Scripts list"
+        scripts_sub_title: "Scripts list",
+        deserted: 'This place is utterly, totally deserted...',
+        home_page_sub_title: 'Notes & news'
     },
     ru: {
         menu_home: "Домой",
@@ -18,6 +20,8 @@ const locString = {
         search: "Искать",
         scripts_title: "Скрипты",
         scripts_sub_title: "Список некоторых скриптов, которыми я иногда пользуюсь",
+        deserted: 'Это место абсолютно пустынно...',
+        home_page_sub_title: 'Заметки и новости',
         ru: "Русский",
         en: "English"
     }
