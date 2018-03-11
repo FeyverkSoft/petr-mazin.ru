@@ -86,7 +86,7 @@ class Scripts {
                 page = 1;
             let ret = {
                 scripts: result.slice((page - 1) * query.itemPerPage, page * query.itemPerPage),
-                totalCount: parseInt(data.scripts.length),
+                totalCount: parseInt(result.length),
                 page: parseInt(page)
             };
             if (this.DEBUG) {
@@ -122,5 +122,8 @@ export const hashVal = function (id) {
     });
     if (!arr)
         return undefined;
-    return (arr.filter(x => x && (x.id || '').toLowerCase() == trimmedId)[0] || {}).val;
+    let tempVal = (arr.filter(x => x && (x.id || '').toLowerCase() == trimmedId)[0] || {}).val;
+    if (tempVal)
+        return decodeURI(tempVal);
+    return tempVal;
 }

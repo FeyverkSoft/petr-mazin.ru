@@ -143,9 +143,9 @@
   width: 0;
   bottom: 0;
   position: absolute;
-  transition: 0.2s ease all;
-  -moz-transition: 0.2s ease all;
-  -webkit-transition: 0.2s ease all;
+  transition: 0.3s ease all;
+  -moz-transition: 0.3s ease all;
+  -webkit-transition: 0.3s ease all;
 }
 .bar:before {
   left: 50%;
@@ -417,9 +417,9 @@ body .wrapper .app-wrapper .header .menu ul {
 }
 body .wrapper .app-wrapper .header .menu ul li {
   display: inline-block;
-  transition: 0.2s ease background-color;
-  -moz-transition: 0.2s ease background-color;
-  -webkit-transition: 0.2s ease background-color;
+  transition: 0.3s ease background-color;
+  -moz-transition: 0.3s ease background-color;
+  -webkit-transition: 0.3s ease background-color;
 }
 body .wrapper .app-wrapper .header .menu ul li .link-text {
   user-select: none !important;
@@ -527,9 +527,9 @@ body .wrapper .lang-selector .items {
   height: 4.45em;
   text-transform: uppercase;
   font-size: 0.75em;
-  transition: 0.2s ease height;
-  -moz-transition: 0.2s ease height;
-  -webkit-transition: 0.2s ease height;
+  transition: 0.3s ease height;
+  -moz-transition: 0.3s ease height;
+  -webkit-transition: 0.3s ease height;
 }
 body .wrapper .lang-selector .items:hover {
   box-shadow: 0 2px 4px rgba(9, 25, 59, 0.35), 0 2px 3px rgba(2, 6, 14, 0.35);

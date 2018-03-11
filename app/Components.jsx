@@ -40,6 +40,7 @@ export class Page extends React.Component {
                                 icons="search"
                                 placeHolder={Lang("search")}
                                 onChange={this.props.onSearch}
+                                value={this.props.searchValue}
                             />
                         </div> : ''}
                     {shovSt ?
@@ -68,7 +69,7 @@ export class OmniTextBox extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            IsHide: this.props.isHide || true,
+            IsHide: this.props.isHide || ((this.props.value || '') == ''),
             value: this.props.value || '',
             typingTimeOut: 0
         };
@@ -76,15 +77,23 @@ export class OmniTextBox extends React.Component {
         this.show = this.show.bind(this);
         this.onChange = this.onChange.bind(this);
     }
-
+    componentWillReceiveProps(props) {
+        if (this.state.value != (props.value || '')) {
+            this.setState({ value: props.value || '' });
+        }
+    }
     hide() {
-        if (!this.state.IsHide)
-            this.setState({ IsHide: true })
+        if (!this.state.IsHide) {
+            this.setState({ IsHide: true });
+            this.pagesearchfield.blur();
+        }
     }
 
     show() {
-        if (this.state.IsHide)
-            this.setState({ IsHide: false })
+        if (this.state.IsHide) {
+            this.setState({ IsHide: false });
+            this.pagesearchfield.focus();
+        }
     }
 
     onChange(event) {
@@ -113,9 +122,11 @@ export class OmniTextBox extends React.Component {
                 </span>
                 <div className={`input-field-wrapper ${$this.state.IsHide ? 'hide-field' : ''}`}>
                     <input className="input-field"
+                        ref={(input) => { this.pagesearchfield = input; }}
                         placeholder={$this.props.placeHolder}
                         onChange={$this.onChange}
                         value={$this.state.value}
+                        autoFocus={!$this.state.IsHide}
                     />
                     <span className={`close-icon material-icon ${$this.state.IsHide ? 'hide' : ''}`}
                         onClick={$this.hide}>
@@ -191,22 +202,16 @@ export class Tils extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            CurrentItems: props.Items || [],
-            CurrentPage: props.CurrentPage || 0,
-            TotalPages: props.TotalPages || 0
+            CurrentItems: props.Items || []
         };
     }
     componentWillReceiveProps(props) {
-        if (props.Items != this.state.Items ||
-            props.CurrentPage != this.state.CurrentPage ||
-            props.TotalPages != this.state.TotalPages
-        )
+        if (props.Items != this.state.Items)
             this.setState({
-                CurrentItems: props.Items || [],
-                CurrentPage: props.CurrentPage || 0,
-                TotalPages: props.TotalPages || 0
+                CurrentItems: props.Items || []
             });
     }
+
     render() {
         let $this = this;
         if (!$this.state.CurrentItems || $this.state.CurrentItems.length == 0) {
@@ -223,16 +228,9 @@ export class Tils extends React.Component {
                         Title={x.Title}
                         Description={x.Description}
                         Date={x.Date}
-                    //onSelected={}
+                        onClick={$this.props.onSelectedTil}
                     />
                 })}
-                <div className={'pagination-wrapper'}>
-                    <Pagination
-                        CurrentPage={$this.state.CurrentPage}
-                        TotalPages={$this.state.TotalPages}
-                        onSelectPage={$this.onSelectPage}
-                    />
-                </div>
             </div>);
     }
 }
@@ -286,6 +284,12 @@ export class Pagination extends React.Component {
             CurrentPage: props.CurrentPage
         };
         this.selectedPage = this.selectedPage.bind(this);
+    }
+    componentWillReceiveProps(props) {
+        this.setState({
+            Count: props.TotalPages,
+            CurrentPage: props.CurrentPage
+        });
     }
     //надо бы переписать эту дичь :D
     getItems() {
@@ -354,9 +358,10 @@ export class Pagination extends React.Component {
 
     selectedPage(e) {
         if (e && e.target && e.target.id && e.target.id != -1 && e.target.id != this.state.CurrentPage) {
-            this.setState({ CurrentPage: parseInt(e.target.id) });
+            let currentPage = parseInt(e.target.id);
+            this.setState({ CurrentPage: currentPage });
             if (this.props.onSelectPage)
-                this.props.onSelectPage(this.state.CurrentPage);
+                this.props.onSelectPage(currentPage);
         }
     }
 

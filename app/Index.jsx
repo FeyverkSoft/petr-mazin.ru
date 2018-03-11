@@ -6,7 +6,7 @@ import { Home } from './HomePage.jsx';
 import { About } from './About.jsx';
 import { Header } from './Menu.jsx';
 import { Scripts } from './ScriptsPage.jsx';
-
+import { ScriptSelector } from './ScriptSelector.jsx';
 export default class MyApp extends React.Component {
     constructor(props) {
         super(props);
@@ -47,8 +47,8 @@ export default class MyApp extends React.Component {
                     <div className="body-wrapper">
                         <Route exact path='/' component={Home} />
                         <Switch>
+                            <Route path='/scripts/:id' component={ScriptSelector} />
                             <Route path='/scripts' component={Scripts} />
-                            <Route path='/scripts/:id' component={Scripts} />
                         </Switch>
                         <Route exact path='/about' component={About} />
                     </div>
