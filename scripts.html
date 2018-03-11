@@ -5,8 +5,8 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1.0, maximum-scale=1.0">
     <title>Petr-Mazin personal page</title>
-    <meta name="theme-color" content="#237d13">
-    <meta name="msapplication-TileColor" content="#237d13">
+    <meta name="theme-color" content="#13357d">
+    <meta name="msapplication-TileColor" content="#13357d">
     <link async="true" href="styles/app.css?v=28022018" rel="stylesheet" type="text/css">
 </head>
 
@@ -39,16 +39,34 @@
     </div>
     <script>
         var data = {
-            scripts:[
+            main: {
+                additionalIcons: [
+                    {
+                        id: 'vk',
+                        isShareLink: true,
+                        icon: 'fa fa-vk',
+                        uri: 'https://vk.com/share.php',
+                        shareParams: [{ name: "url", val: "_Uri" }, { name: "title", val: "_Title" }]
+                    },
+                    {
+                        id: 'vk2',
+                        icon: 'fa fa-user',
+                        uri: 'https://vk.com/petr_mazin'
+                    }
+                ]
+            },
+            scripts: [
                 {
-                    Name:"BadText",
-                    Title:"Генерация странного текста",
-                    Description:"Данный скрипт генерирует текст, который портит чаты вконтакте итд, символами торчащими во все стороны."
+                    Name: "BadText",
+                    Title: "Генерация странного текста",
+                    Description: "Данный скрипт генерирует текст, который портит чаты вконтакте итд, символами торчащими во все стороны.",
+                    Date: '11-03-2018'
                 },
                 {
-                    Name:"Lun",
-                    Title:"Калькулятор алгоритма луна",
-                    Description:"Калькулятор алгоритма луна"
+                    Name: "Lun",
+                    Title: "Калькулятор алгоритма луна",
+                    Description: "Алгоритм вычисления контрольной цифры номера пластиковой карты в соответствии со стандартом ISO/IEC 7812.",
+                    Date: '11-03-2018'
                 }
             ]
         };
@@ -58,6 +76,6 @@
             console.debug(e);
         }
     </script>
-    <script crossorigin async="true" src="./public/bundle.js"></script>
+    <script crossorigin async="true" src="./public/bundle.js?v=28022018"></script>
     <link async="true" rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 </body>

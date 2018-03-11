@@ -196,6 +196,17 @@ export class Tils extends React.Component {
             TotalPages: props.TotalPages || 0
         };
     }
+    componentWillReceiveProps(props) {
+        if (props.Items != this.state.Items ||
+            props.CurrentPage != this.state.CurrentPage ||
+            props.TotalPages != this.state.TotalPages
+        )
+            this.setState({
+                CurrentItems: props.Items || [],
+                CurrentPage: props.CurrentPage || 0,
+                TotalPages: props.TotalPages || 0
+            });
+    }
     render() {
         let $this = this;
         if (!$this.state.CurrentItems || $this.state.CurrentItems.length == 0) {
@@ -211,7 +222,7 @@ export class Tils extends React.Component {
                         Id={x.Name}
                         Title={x.Title}
                         Description={x.Description}
-                        Date={'10-03-2018'}
+                        Date={x.Date}
                     //onSelected={}
                     />
                 })}
@@ -247,9 +258,21 @@ export class Til extends React.Component {
         return (
             <div className="til"
                 onClick={$this.onClick}>
-                <div>{$this.state.Title}</div>
-                <div>{$this.state.Description}</div>
-                <div>{$this.state.Date}</div>
+                <div className="til-content-wrapper">
+                    <div className="img"></div>
+                    <div className="til-content">
+                        <div className='til-title'>{$this.state.Title}</div>
+                        <div>{$this.state.Description}</div>
+                    </div>
+                </div>
+                <div className='til-footer'>
+                    <div>
+                        <div className='light-text'>{$this.state.Date}</div>
+                    </div>
+                    <div>
+                        <div className='more-info'>{Lang('more_info')}</div>
+                    </div>
+                </div>
             </div>);
     }
 }

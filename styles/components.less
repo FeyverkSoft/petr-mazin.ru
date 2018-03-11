@@ -37,6 +37,7 @@
             font-size: @Font125;
             text-align: center;
             padding-top: 2em;
+            padding-bottom: 2em;
             flex: 0 0;
             @media (max-width: @ExtraSm) {
                 padding-top: 1em !important;
@@ -202,4 +203,55 @@
 
 .hide-field {
     width: 0px !important;
+}
+
+.til {
+    box-shadow: @z-shadow-1;
+    margin-bottom: 1em;
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    flex-direction: column;
+    &:hover {
+        box-shadow: @z-shadow-2;
+        cursor: pointer;
+    }
+    .til-content-wrapper {
+        .img{
+
+        }
+        .til-content {
+            .til-title {
+                font-weight: 400;
+                padding-bottom: .5em;
+            }
+            padding: 1em;
+        }
+    }
+    .til-footer {
+        padding: .5em 1em .5em 1em;
+        border-top: 1px solid @BgColor;
+        display: -webkit-box;
+        display: -moz-box;
+        display: -ms-flexbox;
+        display: -webkit-flex;
+        display: flex;
+        text-transform: uppercase;
+        justify-content: space-between;
+        cursor: initial;
+        .light-text {
+            color: @BgColor - 30;
+        }
+        .more-info {
+            font-size: @Font85;
+            font-weight: 300;
+            color: @MainColor;
+            &:hover {
+                font-weight: 500;
+                cursor: pointer;
+            }
+        }
+    }
 }

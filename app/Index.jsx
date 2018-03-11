@@ -50,7 +50,6 @@ export default class MyApp extends React.Component {
                             <Route path='/scripts' component={Scripts} />
                             <Route path='/scripts/:id' component={Scripts} />
                         </Switch>
-                        <Route path='/script/:id' component={Scripts} />
                         <Route exact path='/about' component={About} />
                     </div>
                 </div>

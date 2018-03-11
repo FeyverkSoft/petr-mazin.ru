@@ -22,6 +22,7 @@ const locString = {
         scripts_sub_title: "Список некоторых скриптов, которыми я иногда пользуюсь",
         deserted: 'Это место абсолютно пустынно...',
         home_page_sub_title: 'Заметки и новости',
+        more_info: 'подробнее...',
         ru: "Русский",
         en: "English"
     }

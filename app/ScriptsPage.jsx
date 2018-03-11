@@ -1,7 +1,7 @@
 import React from 'react';
 import { Lang } from './lang.jsx';
 import { Page, Tils } from "./Components.jsx";
-import { ApiInstance } from "./Api.jsx";
+import { ApiInstance, hashVal } from "./Api.jsx";
 
 export class Scripts extends React.Component {
     constructor(props) {
@@ -9,13 +9,23 @@ export class Scripts extends React.Component {
         this.state = {
             Items: [],
             TotalPages: 0,
-            CurrentPage: props.match.params.id || 1,
-            ItemPerPage: props.ItemPerPage || 10,
-            Search: props.match.params.search || props.search || ''
+            CurrentPage: props.match.params.id || hashVal('id') || 1,
+            ItemPerPage: props.match.params.count || hashVal('count') || 10,
+            Search: props.match.params.search || hashVal('search') || ''
         };
+        this.loadData = this.loadData.bind(this);
         this.onSearch = this.onSearch.bind(this);
     }
-    componentWillMount() {
+
+    componentWillReceiveProps(props) {
+        this.setState({
+            CurrentPage: props.match.params.id || hashVal('id') || 1,
+            ItemPerPage: props.match.params.count || hashVal('count') || 10,
+            Search: props.match.params.search || hashVal('search') || ''
+        }, this.loadData);
+    }
+
+    loadData() {
         let $this = this;
         ApiInstance.Scripts.GetScripts(
             {
@@ -34,6 +44,11 @@ export class Scripts extends React.Component {
                 }
             })
     }
+
+    componentWillMount() {
+        this.loadData();
+    }
+
     onSearch(val) {
         let $this = this;
         ApiInstance.Scripts.GetScripts(

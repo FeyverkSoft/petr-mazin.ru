@@ -42,6 +42,7 @@
   font-size: 1.25em;
   text-align: center;
   padding-top: 2em;
+  padding-bottom: 2em;
   flex: 0 0;
 }
 @media (max-width: 576px) {
@@ -208,6 +209,51 @@
 }
 .hide-field {
   width: 0px !important;
+}
+.til {
+  box-shadow: 0 2px 4px rgba(9, 25, 59, 0.35), 0 2px 3px rgba(2, 6, 14, 0.35);
+  margin-bottom: 1em;
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  flex-direction: column;
+}
+.til:hover {
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.35), 0 3px 5px rgba(0, 0, 0, 0.35);
+  cursor: pointer;
+}
+.til .til-content-wrapper .til-content {
+  padding: 1em;
+}
+.til .til-content-wrapper .til-content .til-title {
+  font-weight: 400;
+  padding-bottom: .5em;
+}
+.til .til-footer {
+  padding: .5em 1em .5em 1em;
+  border-top: 1px solid #E6E6E6;
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  text-transform: uppercase;
+  justify-content: space-between;
+  cursor: initial;
+}
+.til .til-footer .light-text {
+  color: #c8c8c8;
+}
+.til .til-footer .more-info {
+  font-size: 0.85em;
+  font-weight: 300;
+  color: #13357d;
+}
+.til .til-footer .more-info:hover {
+  font-weight: 500;
+  cursor: pointer;
 }
 * {
   margin: 0;

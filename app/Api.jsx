@@ -14,6 +14,7 @@ Array.prototype.firstOrDefault = function getIndex(func, def) {
     }
     return def || undefined;
 };
+
 ///Рекурсивная ф-я устновки значения поля объекта по указанному пути
 export const getObject = function (obj, path, value) {
     let temp = path.match(/[^.]+/g);
@@ -69,9 +70,18 @@ class Scripts {
         if (data && data.scripts) {
             let result = data.scripts;
             let page = query.page;
-            if (query.search)
-                result = result.filter(
-                    x => (x.Name || '').content(query.search) || (x.Description || '').content(query.search));
+            if (query.search) {
+                let search = query.search.trim().toLowerCase();
+                if (String.prototype.includes)
+                    result = result.filter(
+                        x => (x.Title || '').toLowerCase().includes(search) ||
+                            (x.Description || '').toLowerCase().includes(search));
+                else
+                    if (String.prototype.contains)
+                        result = result.filter(
+                            x => (x.Title || '').toLowerCase().includes(search) ||
+                                (x.Description || '').toLowerCase().includes(search));
+            }
             if (!query.page)
                 page = 1;
             let ret = {
@@ -101,3 +111,16 @@ class Api {
 }
 
 export const ApiInstance = new Api;
+
+export const hashVal = function (id) {
+    let trimmedId = (id || '').trim().toLowerCase();
+    let arr = (window.location.hash || '').replace('#', '').split('&').map(x => {
+        if (!x)
+            return;
+        let temp = x.split('=');
+        return { id: temp[0], val: temp[1] };
+    });
+    if (!arr)
+        return undefined;
+    return (arr.filter(x => x && (x.id || '').toLowerCase() == trimmedId)[0] || {}).val;
+}
