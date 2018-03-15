@@ -9,7 +9,8 @@ const locString = {
         scripts_title: "Scripts",
         scripts_sub_title: "Scripts list",
         deserted: 'This place is utterly, totally deserted...',
-        home_page_sub_title: 'Notes & news'
+        home_page_sub_title: 'Notes & news',
+        script_lun: 'Calculator Luhn algorithm',
     },
     ru: {
         menu_home: "Домой",
@@ -24,7 +25,9 @@ const locString = {
         home_page_sub_title: 'Заметки и новости',
         more_info: 'подробнее...',
         ru: "Русский",
-        en: "English"
+        en: "English",
+        script_lun: 'Калькулятор алгоритма Луна',
+        script_badtext: 'Генерация странного текста'
     }
 }
 export const getCookie = function getCookie(name) {

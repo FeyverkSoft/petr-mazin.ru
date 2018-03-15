@@ -11,7 +11,8 @@ export class Scripts extends React.Component {
             TotalPages: 0,
             CurrentPage: props.match.params.id || hashVal('id') || 1,
             ItemPerPage: props.match.params.count || hashVal('count') || 10,
-            Search: props.match.params.search || hashVal('search') || ''
+            Search: props.match.params.search || hashVal('search') || '',
+            isLoading: false
         };
         this.loadData = this.loadData.bind(this);
         this.onSearch = this.onSearch.bind(this);
@@ -24,7 +25,8 @@ export class Scripts extends React.Component {
         this.setState({
             CurrentPage: props.match.params.id || hashVal('id') || this.state.CurrentPage || 1,
             ItemPerPage: props.match.params.count || hashVal('count') || this.state.ItemPerPage || 10,
-            Search: props.match.params.search || hashVal('search') || this.state.Search || ''
+            Search: props.match.params.search || hashVal('search') || this.state.Search || '',
+            isLoading: true
         }, this.loadData);
     }
 
@@ -48,7 +50,8 @@ export class Scripts extends React.Component {
                         Items: data.scripts,
                         TotalPages: totalPage + (totalPage * ItemPerPage == data.totalCount ? 0 : 1),
                         CurrentPage: data.page,
-                        Search: search || $this.state.Search
+                        Search: search || $this.state.Search,
+                        isLoading: false
                     }, collback);
                 }
             })
@@ -87,7 +90,8 @@ export class Scripts extends React.Component {
                 SubTitle={Lang('scripts_sub_title')}
                 ShowAdditionalIcons={true}
                 onSearch={$this.onSearch}
-                searchValue={$this.state.Search}>
+                searchValue={$this.state.Search}
+                isLoading={$this.state.isLoading}>
                 <Tils
                     Items={$this.state.Items || []}
                     TotalPages={$this.state.TotalPages}

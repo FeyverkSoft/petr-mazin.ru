@@ -1,3 +1,6 @@
+/**
+ * Файл с разными компонентами, надо бы его попилить на куски, но ну на.
+ */
 import React from 'react';
 import { ApiInstance, getGuid } from "./Api.jsx";
 import { Lang } from './lang.jsx';
@@ -49,6 +52,9 @@ export class Page extends React.Component {
                         </div>
                         : ''}
                     <div className="paper-content">
+                        {//Анимация загрузки
+                            this.props.isLoading ? <Spinner /> : ''
+                        }
                         {this.props.children}
                     </div>
                     {
@@ -379,5 +385,19 @@ export class Pagination extends React.Component {
                     )
                 })}
             </div>);
+    }
+}
+
+export class Spinner extends React.Component {
+    render() {
+        return (
+            <div className="loading-overlay">
+                <div className="spinner">
+                    <div className="bounce1"></div>
+                    <div className="bounce2"></div>
+                    <div className="bounce3"></div>
+                </div>
+            </div>
+        );
     }
 }

@@ -1,3 +1,6 @@
+/**
+ * Мок апи, пока что так, так как хостинг самый дешманский
+ */
 import $ from 'jquery';
 
 Array.prototype.getIndex = function getIndex(func) {

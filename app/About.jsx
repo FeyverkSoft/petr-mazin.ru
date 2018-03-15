@@ -1,3 +1,6 @@
+/**
+ * Страница с информацией обо мне
+ */
 import React from 'react';
 import { Lang } from './lang.jsx';
 import { Page } from "./Components.jsx";

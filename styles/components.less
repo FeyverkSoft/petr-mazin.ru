@@ -33,6 +33,10 @@
         @media (max-width: @ExtraSm) {
             border-radius: .5em .5em .25em .25em !important;
         }
+        &::before {
+            display: block;
+            content: '';
+        }
         .sub-title {
             font-size: @Font125;
             text-align: center;
@@ -56,6 +60,7 @@
             }
         }
         .paper-content {
+            position: relative;
             flex: 1 0;
             .pagination-wrapper {
                 display: -webkit-box;
@@ -85,6 +90,9 @@
     .open-icon {
         margin: 0 .5em -.4em 0;
         cursor: pointer;
+        &:hover {
+            color: @DarkTextColor + @hover;
+        }
     }
     .input-field-wrapper {
         transition: 0.2s ease width;
@@ -98,6 +106,9 @@
             margin-left: -1em;
             cursor: pointer;
             vertical-align: middle;
+            &:hover {
+                color: @DarkTextColor + @hover;
+            }
         }
         .input-field {
             border: 0;
@@ -206,7 +217,7 @@
 }
 
 .til {
-    box-shadow: @z-shadow-1;
+    box-shadow: @z-shadow-0_5;
     margin-bottom: 1em;
     display: -webkit-box;
     display: -moz-box;
@@ -219,9 +230,7 @@
         cursor: pointer;
     }
     .til-content-wrapper {
-        .img{
-
-        }
+        .img {}
         .til-content {
             .til-title {
                 font-weight: 400;
