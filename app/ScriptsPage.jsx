@@ -12,7 +12,8 @@ export class Scripts extends React.Component {
             CurrentPage: props.match.params.id || hashVal('id') || 1,
             ItemPerPage: props.match.params.count || hashVal('count') || 10,
             Search: props.match.params.search || hashVal('search') || '',
-            isLoading: false
+            isLoading: false,
+            columnCount: 2
         };
         this.loadData = this.loadData.bind(this);
         this.onSearch = this.onSearch.bind(this);
@@ -96,7 +97,8 @@ export class Scripts extends React.Component {
                     Items={$this.state.Items || []}
                     TotalPages={$this.state.TotalPages}
                     CurrentPage={$this.state.CurrentPage}
-                    onSelectedTil={$this.onSelectedTil} />
+                    onSelectedTil={$this.onSelectedTil}
+                    columnCount={$this.state.columnCount} />
                 <div className={'pagination-wrapper'}>
                     <Pagination
                         CurrentPage={$this.state.CurrentPage}

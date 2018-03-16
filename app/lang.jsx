@@ -11,6 +11,7 @@ const locString = {
         deserted: 'This place is utterly, totally deserted...',
         home_page_sub_title: 'Notes & news',
         script_lun: 'Calculator Luhn algorithm',
+        more_info: 'more...',
     },
     ru: {
         menu_home: "Домой",

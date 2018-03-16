@@ -229,13 +229,18 @@ export class Tils extends React.Component {
         return (
             <div className="tils-wrapper">
                 {$this.state.CurrentItems.map(x => {
-                    return <Til key={x.Name}
+                    let til = <Til key={x.Name}
                         Id={x.Name}
                         Title={x.Title}
                         Description={x.Description}
                         Date={x.Date}
                         onClick={$this.props.onSelectedTil}
-                    />
+                        img={x.Logo}
+                    />;
+                    return $this.props.columnCount ?
+                        <div className={`col-${$this.props.columnCount}`}>
+                            {til}
+                        </div> : til
                 })}
             </div>);
     }
@@ -259,25 +264,25 @@ export class Til extends React.Component {
     }
     render() {
         let $this = this;
+        let imgStyle = { background: `url('${$this.props.img}') no-repeat left center` };
         return (
-            <div className="til"
+            <div className='til'
                 onClick={$this.onClick}>
+                {$this.props.img ?
+                    <div className="img" style={imgStyle}> </div>
+                    : ''
+                }
                 <div className="til-content-wrapper">
-                    <div className="img"></div>
                     <div className="til-content">
                         <div className='til-title'>{$this.state.Title}</div>
                         <div>{$this.state.Description}</div>
                     </div>
-                </div>
-                <div className='til-footer'>
-                    <div>
+                    <div className='til-footer'>
                         <div className='light-text'>{$this.state.Date}</div>
-                    </div>
-                    <div>
-                        <div className='more-info'>{Lang('more_info')}</div>
+                        <LinkButton value={Lang('more_info')} />
                     </div>
                 </div>
-            </div>);
+            </div >);
     }
 }
 
@@ -397,6 +402,16 @@ export class Spinner extends React.Component {
                     <div className="bounce2"></div>
                     <div className="bounce3"></div>
                 </div>
+            </div>
+        );
+    }
+}
+
+export class LinkButton extends React.Component {
+    render() {
+        return (
+            <div className='link-button'>
+                {this.props.value}
             </div>
         );
     }

@@ -30,7 +30,7 @@ export class ScriptSelector extends React.Component {
         let $this = this;
         return (
             <Page
-                Title={getLocalTitle()}
+                Title={$this.getLocalTitle()}
                 ShowAdditionalIcons={true}
             >{this.selectContent($this.state.id)}</Page>
         );
