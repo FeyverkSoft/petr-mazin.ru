@@ -13,6 +13,8 @@ export class Home extends React.Component {
             Title={Lang('homepage_title')}
             SubTitle={Lang('home_page_sub_title')}
             ShowAdditionalIcons={true}
-        />;
+        >
+            Ресурс находится в перманентной разработке, :D
+        </Page>;
     }
 }

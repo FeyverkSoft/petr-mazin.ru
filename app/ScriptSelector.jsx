@@ -3,6 +3,7 @@ import { Lang } from './lang.jsx';
 import { Page } from "./Components.jsx";
 import { Lun } from "./Scripts/Lun.jsx";
 import { BadText } from "./Scripts/BadText.jsx";
+import { NoMatch } from './NoMatch.jsx';
 export class ScriptSelector extends React.Component {
     constructor(props) {
         super(props);
@@ -28,11 +29,17 @@ export class ScriptSelector extends React.Component {
     }
     render() {
         let $this = this;
-        return (
-            <Page
-                Title={$this.getLocalTitle()}
-                ShowAdditionalIcons={true}
-            >{this.selectContent($this.state.id)}</Page>
-        );
+        let page = $this.selectContent($this.state.id);
+        if (page) {
+            return (
+                <Page
+                    Title={$this.getLocalTitle()}
+                    ShowAdditionalIcons={true}
+                >{page}</Page>
+            );
+        }
+        else {
+            return <NoMatch />
+        }
     }
 }

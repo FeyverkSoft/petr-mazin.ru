@@ -1,12 +1,29 @@
 import React from 'react';
-import { render } from 'react-dom';
-import { BrowserRouter, Route, Link, NavLink, Switch } from 'react-router-dom';
+import { render } from 'react-dom'
+import { Router, Route, Link, NavLink, Switch } from 'react-router-dom';
 import { Lang, setCookie, CurrentLang } from './lang.jsx';
 import { Home } from './HomePage.jsx';
 import { About } from './About.jsx';
 import { Header } from './Menu.jsx';
 import { Scripts } from './ScriptsPage.jsx';
 import { ScriptSelector } from './ScriptSelector.jsx';
+import { NoMatch } from './NoMatch.jsx';
+
+/**Блок гугл гавнолитики */
+import createBrowserHistory from 'history/createBrowserHistory';
+const history = createBrowserHistory();
+if (window.ga)
+    window.ga('create', 'UA-115818194-1', 'auto');
+
+history.listen((location, action) => {
+    console.log(action, location.pathname);
+    if (window.ga) {
+        window.ga('set', 'page', location.pathname + location.search);
+        window.ga('send', 'pageview', location.pathname + location.search);
+    }
+})
+/**Конец блока гугл гавнолитики */
+
 export default class MyApp extends React.Component {
     constructor(props) {
         super(props);
@@ -20,7 +37,7 @@ export default class MyApp extends React.Component {
     }
     render() {
         return (
-            <BrowserRouter>
+            <Router history={history}>
                 <div className="content">
                     <Header
                         onChangeLangCallback={this.onChangeLang}>
@@ -45,15 +62,19 @@ export default class MyApp extends React.Component {
                     </Header>
                     <div className="cover"></div>
                     <div className="body-wrapper">
-                        <Route exact path='/' component={Home} />
                         <Switch>
+                            <Route exact path='/' component={Home} />
+
                             <Route path='/scripts/:id' component={ScriptSelector} />
                             <Route path='/scripts' component={Scripts} />
+
+                            <Route exact path='/about' component={About} />
+
+                            <Route component={NoMatch} />
                         </Switch>
-                        <Route exact path='/about' component={About} />
                     </div>
                 </div>
-            </BrowserRouter>
+            </Router>
         );
     }
 }
@@ -62,8 +83,3 @@ render(
     <MyApp />,
     document.getElementById('app')
 );
-/*
-<Route path='/scripts' component={Scripts} />
-<Route path='/about' component={About} />
-*/
-

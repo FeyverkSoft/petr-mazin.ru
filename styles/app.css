@@ -307,6 +307,11 @@
     max-width: 100%;
   }
 }
+.tils-wrapper .col-2:only-child {
+  -ms-flex-preferred-size: 100% !important;
+  flex-basis: 100% !important;
+  max-width: 100% !important;
+}
 .til {
   display: -webkit-box;
   display: -moz-box;
