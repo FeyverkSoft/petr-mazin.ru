@@ -13,9 +13,13 @@ export class Lun extends React.Component {
 
         for (let i = 0; i < value.length; i++) {
             let number = parseInt(value.charAt(i), 10);
-            if (i % 2 != 0)
+
+            if (i % 2 != 0) {
                 number *= 2;
-            str = str + number;
+                sum += (number / 10 | 0) + (number % 10);
+                continue;
+            }
+            sum += number;
         }
         for (let i = 0; i < str.length; i++) {
             let num = parseInt(str.charAt(i), 10);

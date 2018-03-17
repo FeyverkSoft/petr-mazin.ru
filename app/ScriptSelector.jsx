@@ -1,6 +1,6 @@
 import React from 'react';
 import { Lang } from './lang.jsx';
-import { Page } from "./Components.jsx";
+import { Page } from "./Components/Components.jsx";
 import { Lun } from "./Scripts/Lun.jsx";
 import { BadText } from "./Scripts/BadText.jsx";
 import { NoMatch } from './NoMatch.jsx';

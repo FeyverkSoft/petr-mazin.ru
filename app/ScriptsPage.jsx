@@ -1,6 +1,6 @@
 import React from 'react';
 import { Lang } from './lang.jsx';
-import { Page, Tils, Pagination } from "./Components.jsx";
+import { Page, Tils, Pagination } from "./Components/Components.jsx";
 import { ApiInstance, hashVal } from "./Api.jsx";
 
 export class Scripts extends React.Component {

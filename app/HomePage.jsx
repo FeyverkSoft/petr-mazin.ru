@@ -1,6 +1,6 @@
 import React from 'react';
 import { Lang } from './lang.jsx';
-import { Page } from "./Components.jsx";
+import { Page } from "./Components/Components.jsx";
 import { ApiInstance } from "./Api.jsx";
 
 export class Home extends React.Component {

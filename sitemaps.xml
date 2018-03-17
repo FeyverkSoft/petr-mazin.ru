@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="https://www.sitemaps.org/schemas/sitemap/0.9">
+   <url>
+      <loc>https://petr-mazin.ru/</loc>
+      <lastmod>2018-03-17</lastmod>
+      <changefreq>weekly</changefreq>
+      <priority>0.8</priority>
+   </url>
+   <url>
+      <loc>https://petr-mazin.ru/scripts</loc>
+      <lastmod>2018-03-17</lastmod>
+      <changefreq>weekly</changefreq>
+      <priority>0.8</priority>
+   </url>
+   <url>
+      <loc>https://petr-mazin.ru/about</loc>
+      <lastmod>2018-03-17</lastmod>
+      <changefreq>weekly</changefreq>
+      <priority>0.8</priority>
+   </url>
+   <url>
+      <loc>https://petr-mazin.ru/scripts/BadText</loc>
+      <lastmod>2018-03-17</lastmod>
+      <changefreq>monthly</changefreq>
+      <priority>0.8</priority>
+   </url>
+   <url>
+      <loc>https://petr-mazin.ru/scripts/Lun</loc>
+      <lastmod>2018-03-17</lastmod>
+      <changefreq>monthly</changefreq>
+      <priority>0.8</priority>
+   </url>
+</urlset>

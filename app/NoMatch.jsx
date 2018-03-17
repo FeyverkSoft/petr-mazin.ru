@@ -1,6 +1,6 @@
 import React from 'react';
 import { Lang } from './lang.jsx';
-import { Page } from "./Components.jsx";
+import { Page } from "./Components/Components.jsx";
 
 export class NoMatch extends React.Component {
     constructor(props) {

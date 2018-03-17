@@ -128,7 +128,6 @@
 }
 .page .paper .paper-content {
   position: relative;
-  flex: 1 0;
 }
 .page .paper .paper-content .pagination-wrapper {
   display: -webkit-box;
@@ -164,6 +163,7 @@
   -moz-transition: 0.3s ease width;
   -webkit-transition: 0.3s ease width;
   width: 360px;
+  position: relative;
 }
 @media (max-width: 576px) {
   .omni-field .input-field-wrapper {
@@ -171,9 +171,10 @@
   }
 }
 .omni-field .input-field-wrapper .close-icon {
-  margin-left: -1em;
   cursor: pointer;
-  vertical-align: middle;
+  position: absolute;
+  top: 0.25em;
+  right: 0;
 }
 .omni-field .input-field-wrapper .close-icon:hover {
   color: #1c1c1c;
