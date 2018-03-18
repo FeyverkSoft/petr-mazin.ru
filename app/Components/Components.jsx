@@ -209,7 +209,7 @@ export class Til extends React.Component {
                         <LinkButton value={Lang('more_info')} />
                     </div>
                 </div>
-            </div >);
+            </div>);
     }
 }
 
