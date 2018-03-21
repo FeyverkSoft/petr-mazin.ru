@@ -295,6 +295,8 @@
   flex-direction: row;
   -ms-flex-wrap: wrap;
   flex-wrap: wrap;
+  -webkit-align-items: center;
+  align-items: center;
 }
 .col-wrapper .col-2 {
   -ms-flex-preferred-size: 50%;
