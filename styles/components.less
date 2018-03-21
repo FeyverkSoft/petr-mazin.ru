@@ -302,7 +302,8 @@
         cursor: pointer;
         background-color: @BgColor;
     }
-    &.disabled, &disabled {
+    &.disabled,
+    &disabled {
         color: @IconPaperColor + 80;
         cursor: not-allowed;
     }
@@ -334,7 +335,8 @@
     &:not(.disabled):not(disabled):active {
         background-color: @MainColor + 30!important;
     }
-    &.disabled, &disabled {
+    &.disabled,
+    &disabled {
         color: @IconPaperColor + 80;
         cursor: not-allowed;
         background-color: @BgColor - 10;
@@ -353,7 +355,17 @@
         top: 1rem;
         .transition(all);
     }
+    .input-textarea {
+        .inp();
+        margin-bottom: -3px!important;
+        min-height: 6em;
+        font-family: Roboto, Lato;
+        font-weight: 300;
+    }
     .input-field {
+        .inp();
+    }
+    .inp() {
         border: 0;
         border-bottom: 1px solid @MainColor; //background-color: @PaperColor;
         background-color: transparent;
@@ -366,10 +378,12 @@
         @media (max-width: @ExtraSm) {
             width: 100%;
         }
-        &:focus~.bar:before, &:focus~.bar:after {
+        &:focus~.bar:before,
+        &:focus~.bar:after {
             width: 50%;
         }
-        &:focus~label, &.full~label {
+        &:focus~label,
+        &.full~label {
             top: 0rem;
             font-size: .75em;
         }
@@ -379,7 +393,8 @@
         &.invalid~label {
             color: @InvalidColor;
         }
-        &.invalid~.bar:after, &.invalid~.bar:before {
+        &.invalid~.bar:after,
+        &.invalid~.bar:before {
             background: @InvalidColor;
         }
     }
@@ -402,4 +417,12 @@
 
 .calc-wrapper {
     padding: 1rem;
+}
+
+.result-area{
+    overflow: hidden;
+    padding: 2em 0;
+    text-align: center;
+    font-weight: 300;
+    font-family: Roboto, Lato;
 }

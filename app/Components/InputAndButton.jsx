@@ -9,7 +9,8 @@ export class OmniTextBox extends React.Component {
         this.state = {
             IsHide: this.props.isHide || ((this.props.value || '') == ''),
             value: this.props.value || '',
-            typingTimeOut: 0
+            typingTimeOut: 0,
+            path: props.path
         };
         this.hide = this.hide.bind(this);
         this.show = this.show.bind(this);
@@ -44,7 +45,7 @@ export class OmniTextBox extends React.Component {
             $this.setState({
                 value: event.target.value,
                 typingTimeout: setTimeout(function () {
-                    $this.props.onChange($this.state.value);
+                    $this.props.onChange($this.state.value, true, $this.state.path);
                 }, 500)
             });
         }
@@ -65,6 +66,7 @@ export class OmniTextBox extends React.Component {
                         onChange={$this.onChange}
                         value={$this.state.value}
                         autoFocus={!$this.state.IsHide}
+                        data-path={$this.state.path}
                     />
                     <span className="bar main-bar" />
                     <span className={`close-icon material-icon ${$this.state.IsHide ? 'hide' : ''}`}
@@ -127,7 +129,8 @@ export class Input extends React.Component {
             value: this.props.value || '',
             typingTimeOut: 0,
             timeout: this.props.timeout || 500,
-            valid: true
+            valid: true,
+            path: props.path
         };
         this.onChange = this.onChange.bind(this);
         this.validate = this.validate.bind(this);
@@ -158,7 +161,7 @@ export class Input extends React.Component {
             value: val,
             typingTimeout: setTimeout(function () {
                 if ($this.props.onChange) {
-                    $this.props.onChange(val, valid);
+                    $this.props.onChange(val, valid, $this.state.path);
                 }
             }, $this.state.timeout),
             valid: valid
@@ -196,6 +199,7 @@ export class Input extends React.Component {
                     onChange={$this.onChange}
                     value={$this.state.value}
                     autoFocus={!$this.state.IsHide}
+                    data-path={$this.state.path}
                 />
                 <span className="bar main-bar" />
                 {label}
@@ -216,5 +220,92 @@ export class LabeledContent extends React.Component {
         } else {
             return labeledContent;
         }
+    }
+}
+
+export class AreaInput extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            value: this.props.value || '',
+            typingTimeOut: 0,
+            timeout: this.props.timeout || 500,
+            valid: true,
+            path: this.props.path
+        };
+        this.onChange = this.onChange.bind(this);
+        this.validate = this.validate.bind(this);
+    }
+    componentWillMount() {
+        this.setState({ valid: this.validate() });
+    }
+
+    componentWillReceiveProps(props) {
+        if (this.state.value != (props.value || '')) {
+            this.setState({
+                value: props.value || '',
+                valid: this.validate(props.value)
+            });
+        }
+    }
+
+    onChange(event) {
+        let $this = this;
+        let val = event.target.value;
+        let valid = $this.validate(val);
+
+        if ($this.state.typingTimeout) {
+            clearTimeout($this.state.typingTimeout);
+        }
+
+        $this.setState({
+            value: val,
+            typingTimeout: setTimeout(function () {
+                if ($this.props.onChange) {
+                    $this.props.onChange(val, valid, $this.state.path);
+                }
+            }, $this.state.timeout),
+            valid: valid
+        });
+    }
+
+    validate(value) {
+        let $this = this;
+        let val = (value || ($this.state || {}).value);
+        let valid = true;
+        if ($this.props.IsRequired && !val)
+            valid &= false;
+        if ($this.props.regEx && val) {
+            let reg = new RegExp($this.props.regEx, 'gi');
+
+            if ((val || '').match(reg) == (val || ''))
+                valid &= true;
+            else
+                valid &= false;
+        }
+        return valid;
+    }
+
+    render() {
+        let $this = this;
+        let label;
+        if ($this.props.label)
+            label = <label>{$this.props.label}</label>;
+        return (
+            <div className='input-wrapper'>
+                <textarea
+                    className={`input-textarea${$this.state.value ? ' full' : ''}${$this.state.valid ? '' : ' invalid'}`}
+                    type="text"
+                    ref={(input) => { this.pagesearchfield = input; }}
+                    placeholder={$this.props.placeHolder}
+                    onChange={$this.onChange}
+                    value={$this.state.value}
+                    autoFocus={!$this.state.IsHide}
+                    data-path={$this.state.path}
+                />
+                <span className="bar main-bar" />
+                {label}
+            </div>
+        );
     }
 }

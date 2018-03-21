@@ -15,7 +15,9 @@ const locString = {
         page_not_found_title: 'Page not found',
         input_number: 'Input number',
         result_of_checking: 'Result of checking:',
-        next_digit: 'Next digit:'
+        next_digit: 'Next digit:',
+        calc: 'calculate',
+        input_text: 'Input text'
     },
     ru: {
         menu_home: "Домой",
@@ -37,7 +39,9 @@ const locString = {
         page_not_found: 'Опачки! Сорян, бро... Страница не найдена...',
         input_number: 'Введите число',
         result_of_checking: 'Результат проверки:',
-        next_digit: 'Следующая цифра:'
+        next_digit: 'Следующая цифра:',
+        calc: 'Рассчитать',
+        input_text: 'Введите текст'
     }
 }
 export const getCookie = function getCookie(name) {

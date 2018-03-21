@@ -472,6 +472,47 @@
   -moz-transition: 0.3s ease all;
   -webkit-transition: 0.3s ease all;
 }
+.input-wrapper .input-textarea {
+  border: 0;
+  border-bottom: 1px solid #13357d;
+  background-color: transparent;
+  padding: .5em 0 .25em 0;
+  outline: none;
+  font-size: 1em;
+  width: 100%;
+  padding-top: 1.2em;
+  transition: 0.3s ease width;
+  -moz-transition: 0.3s ease width;
+  -webkit-transition: 0.3s ease width;
+  margin-bottom: -3px !important;
+  min-height: 6em;
+  font-family: Roboto, Lato;
+  font-weight: 300;
+}
+@media (max-width: 576px) {
+  .input-wrapper .input-textarea {
+    width: 100%;
+  }
+}
+.input-wrapper .input-textarea:focus ~ .bar:before,
+.input-wrapper .input-textarea:focus ~ .bar:after {
+  width: 50%;
+}
+.input-wrapper .input-textarea:focus ~ label,
+.input-wrapper .input-textarea.full ~ label {
+  top: 0rem;
+  font-size: .75em;
+}
+.input-wrapper .input-textarea.invalid {
+  border-bottom: 1px solid #da8d00;
+}
+.input-wrapper .input-textarea.invalid ~ label {
+  color: #da8d00;
+}
+.input-wrapper .input-textarea.invalid ~ .bar:after,
+.input-wrapper .input-textarea.invalid ~ .bar:before {
+  background: #da8d00;
+}
 .input-wrapper .input-field {
   border: 0;
   border-bottom: 1px solid #13357d;
@@ -525,6 +566,13 @@
 }
 .calc-wrapper {
   padding: 1rem;
+}
+.result-area {
+  overflow: hidden;
+  padding: 2em 0;
+  text-align: center;
+  font-weight: 300;
+  font-family: Roboto, Lato;
 }
 * {
   margin: 0;

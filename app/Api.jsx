@@ -18,6 +18,9 @@ Array.prototype.firstOrDefault = function getIndex(func, def) {
     return def || undefined;
 };
 
+export const getRandomInt = function (min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+}
 ///Рекурсивная ф-я устновки значения поля объекта по указанному пути
 export const getObject = function (obj, path, value) {
     let temp = path.match(/[^.]+/g);
