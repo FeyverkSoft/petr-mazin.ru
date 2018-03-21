@@ -258,7 +258,7 @@
 }
 .pagination .pg {
   color: #505d7a;
-  line-height: 1;
+  line-height: 1.2em;
   padding: .3em;
   user-select: none;
   min-width: 1.2em;
@@ -270,6 +270,7 @@
   color: #ffffff;
   background-color: #13357d;
   cursor: inherit;
+  border-radius: 2px;
 }
 .pagination .pg:hover:not(.active) {
   font-weight: 500;
@@ -278,7 +279,7 @@
 .hide-field {
   width: 0px !important;
 }
-.tils-wrapper {
+.col-wrapper {
   box-sizing: border-box;
   display: -webkit-box;
   display: -moz-box;
@@ -295,23 +296,45 @@
   -ms-flex-wrap: wrap;
   flex-wrap: wrap;
 }
-.tils-wrapper .col-2 {
+.col-wrapper .col-2 {
   -ms-flex-preferred-size: 50%;
   flex-basis: 50%;
   max-width: 50%;
   height: 100%;
+  margin: 0 auto;
 }
 @media (max-width: 576px) {
-  .tils-wrapper .col-2 {
+  .col-wrapper .col-2 {
     -ms-flex-preferred-size: 100%;
     flex-basis: 100%;
     max-width: 100%;
   }
 }
-.tils-wrapper .col-2:only-child {
+.col-wrapper .col-2:only-child {
   -ms-flex-preferred-size: 100% !important;
   flex-basis: 100% !important;
   max-width: 100% !important;
+}
+.col-wrapper .col-3 {
+  -ms-flex-preferred-size: 33.33333333%;
+  flex-basis: 33.33333333%;
+  max-width: 33.33333333%;
+  height: 100%;
+  margin: 0 auto;
+}
+@media (max-width: 576px * 1.3) and (min-width: 576px) {
+  .col-wrapper .col-3 {
+    -ms-flex-preferred-size: 50%;
+    flex-basis: 50%;
+    max-width: 50%;
+  }
+}
+@media (max-width: 576px) {
+  .col-wrapper .col-3 {
+    -ms-flex-preferred-size: 100%;
+    flex-basis: 100%;
+    max-width: 100%;
+  }
 }
 .til {
   display: -webkit-box;
@@ -389,10 +412,119 @@
   -moz-transition: 0.3s ease background;
   -webkit-transition: 0.3s ease background;
 }
-.link-button:hover {
+.link-button:not(.disabled):not(disabled):hover {
   font-weight: 500;
   cursor: pointer;
   background-color: #E6E6E6;
+}
+.link-button.disabled,
+.link-buttondisabled {
+  color: #a0adca;
+  cursor: not-allowed;
+}
+.button {
+  transition: 0.3s ease background, box-shadow:;
+  -moz-transition: 0.3s ease background, box-shadow:;
+  -webkit-transition: 0.3s ease background, box-shadow:;
+  box-shadow: 0 2px 4px rgba(9, 25, 59, 0.35), 0 2px 3px rgba(2, 6, 14, 0.35);
+  display: inline-block;
+  text-align: center;
+  position: relative;
+  cursor: pointer;
+  overflow: hidden;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
+  vertical-align: middle;
+  padding: .5rem 2rem;
+  text-transform: uppercase;
+  border: none;
+  border-radius: 2px;
+  background-color: #13357d;
+  color: #ffffff;
+}
+.button:not(.disabled):not(disabled):hover {
+  cursor: pointer;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.35), 0 3px 5px rgba(0, 0, 0, 0.35);
+  background-color: #22448c;
+}
+.button:not(.disabled):not(disabled):active {
+  background-color: #31539b !important;
+}
+.button.disabled,
+.buttondisabled {
+  color: #a0adca;
+  cursor: not-allowed;
+  background-color: #dcdcdc;
+  box-shadow: 0 2px 4px rgba(9, 25, 59, 0.15), 0 2px 2px rgba(2, 6, 14, 0.25);
+}
+.input-wrapper {
+  position: relative;
+  margin-bottom: 1rem;
+}
+.input-wrapper label {
+  position: absolute;
+  pointer-events: none;
+  color: #505d7a;
+  left: 0;
+  top: 1rem;
+  transition: 0.3s ease all;
+  -moz-transition: 0.3s ease all;
+  -webkit-transition: 0.3s ease all;
+}
+.input-wrapper .input-field {
+  border: 0;
+  border-bottom: 1px solid #13357d;
+  background-color: transparent;
+  padding: .5em 0 .25em 0;
+  outline: none;
+  font-size: 1em;
+  width: 100%;
+  padding-top: 1.2em;
+  transition: 0.3s ease width;
+  -moz-transition: 0.3s ease width;
+  -webkit-transition: 0.3s ease width;
+}
+@media (max-width: 576px) {
+  .input-wrapper .input-field {
+    width: 100%;
+  }
+}
+.input-wrapper .input-field:focus ~ .bar:before,
+.input-wrapper .input-field:focus ~ .bar:after {
+  width: 50%;
+}
+.input-wrapper .input-field:focus ~ label,
+.input-wrapper .input-field.full ~ label {
+  top: 0rem;
+  font-size: .75em;
+}
+.input-wrapper .input-field.invalid {
+  border-bottom: 1px solid #da8d00;
+}
+.input-wrapper .input-field.invalid ~ label {
+  color: #da8d00;
+}
+.input-wrapper .input-field.invalid ~ .bar:after,
+.input-wrapper .input-field.invalid ~ .bar:before {
+  background: #da8d00;
+}
+.labeled-content {
+  margin: .5rem 0;
+  align-items: center;
+}
+.labeled-content .label {
+  color: #13357d;
+  font-weight: 400;
+  display: inline-block;
+  padding-right: 1rem;
+}
+.labeled-content .content {
+  display: inline-block;
+  font-weight: 400;
+}
+.calc-wrapper {
+  padding: 1rem;
 }
 * {
   margin: 0;

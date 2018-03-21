@@ -102,6 +102,15 @@ class Scripts {
         }
         onSuccess({ totalCount: 0, page: 1, scripts: [] });
     }
+    GetMarkdown(query, onSuccess) {
+        if (data && data.scripts) {
+            let id = ((query || {}).id || '');
+            let scr = data.scripts.filter(x => (x.Name || '').toLowerCase() == id.toLowerCase());
+            onSuccess({ markdown: scr.markdown || '' });
+            return;
+        }
+        onSuccess({ markdown: '' });
+    }
 }
 
 //TODO: Как появится сервер, переписать на ajax

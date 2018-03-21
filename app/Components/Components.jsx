@@ -4,7 +4,7 @@
 import React from 'react';
 import { ApiInstance, getGuid } from "../Api.jsx";
 import { Lang } from '../lang.jsx';
-import { OmniTextBox } from './InputAndButton.jsx';
+import { OmniTextBox, LinkButton } from './InputAndButton.jsx';
 
 /// Холст 
 export class Page extends React.Component {
@@ -154,7 +154,7 @@ export class Tils extends React.Component {
                 </div>);
         }
         return (
-            <div className="tils-wrapper">
+            <div className="col-wrapper">
                 {$this.state.CurrentItems.map(x => {
                     let til = <Til key={x.Name}
                         Id={x.Name}
@@ -165,7 +165,8 @@ export class Tils extends React.Component {
                         img={x.Logo}
                     />;
                     return $this.props.columnCount ?
-                        <div className={`col-${$this.props.columnCount}`}>
+                        <div className={`col-${$this.props.columnCount}`}
+                            key={getGuid()}>
                             {til}
                         </div> : til
                 })}
@@ -329,16 +330,6 @@ export class Spinner extends React.Component {
                     <div className="bounce2"></div>
                     <div className="bounce3"></div>
                 </div>
-            </div>
-        );
-    }
-}
-
-export class LinkButton extends React.Component {
-    render() {
-        return (
-            <div className='link-button'>
-                {this.props.value}
             </div>
         );
     }

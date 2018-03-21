@@ -12,7 +12,10 @@ const locString = {
         home_page_sub_title: 'Notes & news',
         script_lun: 'Calculator Luhn algorithm',
         more_info: 'more...',
-        page_not_found_title:'Page not found'
+        page_not_found_title: 'Page not found',
+        input_number: 'Input number',
+        result_of_checking: 'Result of checking:',
+        next_digit: 'Next digit:'
     },
     ru: {
         menu_home: "Домой",
@@ -30,8 +33,11 @@ const locString = {
         en: "English",
         script_lun: 'Калькулятор алгоритма Луна',
         script_badtext: 'Генерация странного текста',
-        page_not_found_title:'Страница не найдена',
-        page_not_found:'Опачки! Сорян, бро... Страница не найдена...'
+        page_not_found_title: 'Страница не найдена',
+        page_not_found: 'Опачки! Сорян, бро... Страница не найдена...',
+        input_number: 'Введите число',
+        result_of_checking: 'Результат проверки:',
+        next_digit: 'Следующая цифра:'
     }
 }
 export const getCookie = function getCookie(name) {

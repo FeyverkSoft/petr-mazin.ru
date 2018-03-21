@@ -170,7 +170,7 @@
     align-items: center;
     .pg {
         color: @IconPaperColor;
-        line-height: 1;
+        line-height: 1.2em;
         padding: .3em;
         user-select: none;
         min-width: 1.2em;
@@ -181,6 +181,7 @@
             color: @LightTextColor;
             background-color: @MainColor;
             cursor: inherit;
+            border-radius: 2px;
         }
         &:hover:not(.active) {
             font-weight: 500;
@@ -193,7 +194,7 @@
     width: 0px !important;
 }
 
-.tils-wrapper {
+.col-wrapper {
     box-sizing: border-box;
     .flex();
     -webkit-box-flex: 0;
@@ -210,6 +211,7 @@
         flex-basis: (1.0/2.0)*100%;
         max-width: (1.0/2.0)*100%;
         height: 100%;
+        margin: 0 auto;
         @media (max-width: @ExtraSm) {
             -ms-flex-preferred-size: 100%;
             flex-basis: 100%;
@@ -219,6 +221,23 @@
             -ms-flex-preferred-size: 100% !important;
             flex-basis: 100% !important;
             max-width: 100% !important;
+        }
+    }
+    .col-3 {
+        -ms-flex-preferred-size: (1.0/3.0)*100%;
+        flex-basis: (1.0/3.0)*100%;
+        max-width: (1.0/3.0)*100%;
+        height: 100%;
+        margin: 0 auto;
+        @media (max-width: @ExtraSm * 1.3) and (min-width: @ExtraSm) {
+            -ms-flex-preferred-size: 50%;
+            flex-basis: 50%;
+            max-width: 50%;
+        }
+        @media (max-width: @ExtraSm) {
+            -ms-flex-preferred-size: 100%;
+            flex-basis: 100%;
+            max-width: 100%;
         }
     }
 }
@@ -278,9 +297,109 @@
     font-weight: 300;
     color: @MainColor;
     .transition(background);
-    &:hover {
+    &:not(.disabled):not(disabled):hover {
         font-weight: 500;
         cursor: pointer;
         background-color: @BgColor;
     }
+    &.disabled, &disabled {
+        color: @IconPaperColor + 80;
+        cursor: not-allowed;
+    }
+}
+
+.button {
+    .transition(~'background, box-shadow:');
+    box-shadow: @z-shadow-1;
+    display: inline-block;
+    text-align: center;
+    position: relative;
+    cursor: pointer;
+    overflow: hidden;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    user-select: none;
+    vertical-align: middle;
+    padding: .5rem 2rem;
+    text-transform: uppercase;
+    border: none;
+    border-radius: 2px;
+    background-color: @MainColor;
+    color: @LightTextColor;
+    &:not(.disabled):not(disabled):hover {
+        cursor: pointer;
+        box-shadow: @z-shadow-2;
+        background-color: @MainColor + 15;
+    }
+    &:not(.disabled):not(disabled):active {
+        background-color: @MainColor + 30!important;
+    }
+    &.disabled, &disabled {
+        color: @IconPaperColor + 80;
+        cursor: not-allowed;
+        background-color: @BgColor - 10;
+        box-shadow: @z-shadow-0_5;
+    }
+}
+
+.input-wrapper {
+    position: relative;
+    margin-bottom: 1rem;
+    label {
+        position: absolute;
+        pointer-events: none;
+        color: @IconPaperColor;
+        left: 0;
+        top: 1rem;
+        .transition(all);
+    }
+    .input-field {
+        border: 0;
+        border-bottom: 1px solid @MainColor; //background-color: @PaperColor;
+        background-color: transparent;
+        padding: .5em 0 .25em 0;
+        outline: none;
+        font-size: @NormalFontSize;
+        width: 100%;
+        padding-top: 1.2em;
+        .transition(width);
+        @media (max-width: @ExtraSm) {
+            width: 100%;
+        }
+        &:focus~.bar:before, &:focus~.bar:after {
+            width: 50%;
+        }
+        &:focus~label, &.full~label {
+            top: 0rem;
+            font-size: .75em;
+        }
+        &.invalid {
+            border-bottom: 1px solid @InvalidColor;
+        }
+        &.invalid~label {
+            color: @InvalidColor;
+        }
+        &.invalid~.bar:after, &.invalid~.bar:before {
+            background: @InvalidColor;
+        }
+    }
+}
+
+.labeled-content {
+    margin: .5rem 0;
+    align-items: center;
+    .label {
+        color: #13357d;
+        font-weight: 400;
+        display: inline-block;
+        padding-right: 1rem;
+    }
+    .content {
+        display: inline-block;
+        font-weight: 400;
+    }
+}
+
+.calc-wrapper {
+    padding: 1rem;
 }
