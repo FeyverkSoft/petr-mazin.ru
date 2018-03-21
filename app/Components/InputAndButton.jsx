@@ -194,6 +194,8 @@ export class Input extends React.Component {
             <div className='input-wrapper'>
                 <input className={`input-field${$this.state.value ? ' full' : ''}${$this.state.valid ? '' : ' invalid'}`}
                     type="text"
+                    id={$this.props.id}
+                    name={$this.props.id}
                     ref={(input) => { this.pagesearchfield = input; }}
                     placeholder={$this.props.placeHolder}
                     onChange={$this.onChange}
@@ -294,6 +296,8 @@ export class AreaInput extends React.Component {
         return (
             <div className='input-wrapper'>
                 <textarea
+                    id={$this.props.id}
+                    name={$this.props.id}
                     className={`input-textarea${$this.state.value ? ' full' : ''}${$this.state.valid ? '' : ' invalid'}`}
                     type="text"
                     ref={(input) => { this.pagesearchfield = input; }}
@@ -307,5 +311,65 @@ export class AreaInput extends React.Component {
                 {label}
             </div>
         );
+    }
+}
+
+export class Select extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            value: props.value || '',
+            items: props.items || [],
+            path: props.path
+        };
+        this.onChange = this.onChange.bind(this);
+    }
+
+    componentWillReceiveProps(props) {
+        if (this.state.value != (props.value || '') ||
+            props.items != this.state.items ||
+            this.state.path != props.path
+        ) {
+            this.setState({
+                value: props.value || '',
+                items: props.items || [],
+                path: props.path
+            });
+        }
+    }
+
+    onChange(val) {
+        let $this = this;
+        let value = val.target.value;
+        if (value != $this.state.value) {
+            $this.setState({
+                value: value
+            });
+            $this.props.onChange(value, true, $this.state.path);
+        }
+    }
+    render() {
+        let $this = this;
+        let label;
+        if ($this.props.label)
+            label = <label>{$this.props.label}</label>;
+        return (
+            <div className='select-wrapper'>
+                {label}
+                <select
+                    id={$this.props.id}
+                    name={$this.props.id}
+                    onChange={$this.onChange}
+                    data-path={$this.state.path}
+                    value={$this.state.value}>
+                    {
+                        $this.state.items.map((item) => {
+                            return <option key={item.key || item}> {item.value || item} </option>;
+                        })
+                    }
+                </select>
+                <span className="bar main-bar" />
+            </div>
+        )
     }
 }

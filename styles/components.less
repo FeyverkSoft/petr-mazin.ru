@@ -419,10 +419,43 @@
     padding: 1rem;
 }
 
-.result-area{
+.result-area {
     overflow: hidden;
     padding: 2em 0;
     text-align: center;
     font-weight: 300;
     font-family: Roboto, Lato;
+}
+
+.select-wrapper {
+    display: inline-block;
+    select {
+        border: 0;
+        border-bottom: 1px solid @MainColor; //background-color: @PaperColor;
+        background-color: transparent;
+        display: inline-block;
+        padding: .5rem 2rem .5rem 1rem;
+        text-transform: uppercase;
+        outline: none;
+        cursor: pointer;
+        width: 100%;
+        &:focus~.bar:before,
+        &:focus~.bar:after {
+            width: 50%;
+        }
+    }
+    label {
+        pointer-events: none;
+        color: @IconPaperColor;
+        display: block;
+        font-size: .8em;
+        padding-bottom: .5rem;
+        padding-right: 1rem;
+    }
+}
+
+.space-between {
+    .flex();
+    justify-content: space-between;
+    align-items: center;
 }
