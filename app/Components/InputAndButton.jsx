@@ -114,8 +114,9 @@ export class Button extends React.Component {
     render() {
         let disabled = this.props.disabled ? ' disabled' : '';
         return (
-            <div className={`button${disabled}`}
-                onClick={this.onClick}>
+            <div className={`button${disabled} ${this.props.className ? this.props.className : ''}`}
+                onClick={this.onClick}
+                style={this.props.style}>
                 {this.props.value || this.props.children}
             </div>
         );
@@ -354,7 +355,8 @@ export class Select extends React.Component {
         if ($this.props.label)
             label = <label>{$this.props.label}</label>;
         return (
-            <div className='select-wrapper'>
+            <div className={`select-wrapper ${$this.props.className ? $this.props.className : ''}`}
+                style={$this.props.style}>
                 {label}
                 <select
                     id={$this.props.id}

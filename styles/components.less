@@ -327,6 +327,7 @@
     border-radius: 2px;
     background-color: @MainColor;
     color: @LightTextColor;
+    box-sizing: border-box;
     &:not(.disabled):not(disabled):hover {
         cursor: pointer;
         box-shadow: @z-shadow-2;
@@ -454,8 +455,12 @@
     }
 }
 
-.space-between {
-    .flex();
-    justify-content: space-between;
-    align-items: center;
+.padding-bottom {
+    padding-bottom: .5rem;
+}
+
+.min-screen-100-width {
+    @media (max-width: @ExtraSm) {
+        width: 100%;
+    }
 }

@@ -59,7 +59,6 @@ export class BadText extends React.Component {
                             label={Lang('input_text')}
                             onChange={$this.onInputVal}
                             path='srcValue'
-                            regEx='[\d ]+'
                             value={$this.state.srcValue}
                         />
                     </div>
@@ -67,17 +66,23 @@ export class BadText extends React.Component {
                         <pre className='result-area'>{$this.state.result}</pre>
                     </div>
                 </div>
-                <div className='space-between'>
-                    <Select
-                        items={[5, 10, 20, 40, 50, 100]}
-                        value={$this.state.textFactor}
-                        onChange={$this.onInputVal}
-                        label={Lang('text_factor')}
-                        path='textFactor'
-                    />
-                    <Button
-                        onClick={$this.calc}
-                        value={Lang('calc')} />
+                <div className='col-wrapper'>
+                    <div className='col-2 padding-bottom'>
+                        <Select
+                            items={[5, 10, 20, 40, 50, 100]}
+                            value={$this.state.textFactor}
+                            onChange={$this.onInputVal}
+                            label={Lang('text_factor')}
+                            path='textFactor'
+                            className='min-screen-100-width'
+                        />
+                    </div>
+                    <div className='col-2 padding-bottom'>
+                        <Button
+                            onClick={$this.calc}
+                            value={Lang('calc')}
+                            className='min-screen-100-width' />
+                    </div>
                 </div>
             </div>);
     }
