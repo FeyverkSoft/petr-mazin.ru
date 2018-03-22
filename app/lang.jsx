@@ -18,7 +18,8 @@ const locString = {
         next_digit: 'Next digit:',
         calc: 'calculate',
         input_text: 'Input text',
-        text_factor: 'Aggressiveness filter'
+        text_factor: 'Aggressiveness filter',
+        result: 'Result'
     },
     ru: {
         menu_home: "Домой",
@@ -43,7 +44,8 @@ const locString = {
         next_digit: 'Следующая цифра:',
         calc: 'Рассчитать',
         input_text: 'Введите текст',
-        text_factor: 'Агрессивность фильтра'
+        text_factor: 'Агрессивность фильтра',
+        result: 'Результат'
     }
 }
 export const getCookie = function getCookie(name) {

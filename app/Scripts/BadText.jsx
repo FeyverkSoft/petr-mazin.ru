@@ -1,7 +1,7 @@
 import React from 'react';
 import { Lang } from '../lang.jsx';
 import { getObject } from '../Api.jsx';
-import { AreaInput, Button, Select } from "../Components/InputAndButton.jsx";
+import { AreaInput, Button, Select, LabeledPre } from "../Components/InputAndButton.jsx";
 
 export class BadText extends React.Component {
     constructor(props) {
@@ -63,11 +63,12 @@ export class BadText extends React.Component {
                         />
                     </div>
                     <div className='col-2'>
-                        <pre className='result-area'>{$this.state.result}</pre>
+                        <LabeledPre label={Lang('result')}
+                            value={$this.state.result} />
                     </div>
                 </div>
-                <div className='col-wrapper'>
-                    <div className='col-2 padding-bottom'>
+                <div className='col-wrapper col-center'>
+                    <div className='col element-padding'>
                         <Select
                             items={[5, 10, 20, 40, 50, 100]}
                             value={$this.state.textFactor}
@@ -77,7 +78,7 @@ export class BadText extends React.Component {
                             className='min-screen-100-width'
                         />
                     </div>
-                    <div className='col-2 padding-bottom'>
+                    <div className='col element-padding'>
                         <Button
                             onClick={$this.calc}
                             value={Lang('calc')}

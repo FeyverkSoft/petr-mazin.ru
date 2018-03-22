@@ -295,8 +295,20 @@
   flex-direction: row;
   -ms-flex-wrap: wrap;
   flex-wrap: wrap;
+}
+.col-wrapper.col-center {
   -webkit-align-items: center;
   align-items: center;
+}
+.col-wrapper .col {
+  height: 100%;
+}
+@media (max-width: 576px) {
+  .col-wrapper .col {
+    -ms-flex-preferred-size: 100%;
+    flex-basis: 100%;
+    max-width: 100%;
+  }
 }
 .col-wrapper .col-2 {
   -ms-flex-preferred-size: 50%;
@@ -570,7 +582,18 @@
 .calc-wrapper {
   padding: 1rem;
 }
-.result-area {
+.labeled-pre {
+  position: relative;
+}
+.labeled-pre label {
+  pointer-events: none;
+  color: #505d7a;
+  display: block;
+  font-size: .8em;
+  padding-bottom: .5rem;
+  padding-right: 1rem;
+}
+.labeled-pre pre {
   overflow: hidden;
   padding: 2em 0;
   text-align: center;
@@ -585,7 +608,7 @@
   border-bottom: 1px solid #13357d;
   background-color: transparent;
   display: inline-block;
-  padding: .5rem 2rem .5rem 1rem;
+  padding: .5rem 2rem .5rem 0;
   text-transform: uppercase;
   outline: none;
   cursor: pointer;
@@ -603,8 +626,13 @@
   padding-bottom: .5rem;
   padding-right: 1rem;
 }
-.padding-bottom {
-  padding-bottom: .5rem;
+.element-padding {
+  padding: 0 1rem 0.5rem 0;
+}
+@media (max-width: 576px) {
+  .element-padding {
+    padding: 0 0 1rem 0;
+  }
 }
 @media (max-width: 576px) {
   .min-screen-100-width {

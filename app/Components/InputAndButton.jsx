@@ -375,3 +375,18 @@ export class Select extends React.Component {
         )
     }
 }
+
+export class LabeledPre extends React.Component {
+    render() {
+        let labeledContent =
+            <div className='labeled-pre'>
+                <label>{this.props.label}</label>
+                <pre>{this.props.value || this.props.children}</pre>
+            </div>;
+        if (this.props.className) {
+            return <div className={this.props.className}>{labeledContent}</div>
+        } else {
+            return labeledContent;
+        }
+    }
+}
