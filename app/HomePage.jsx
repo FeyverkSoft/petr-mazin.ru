@@ -48,7 +48,7 @@ export class Home extends React.Component {
         
         _You **can** combine them_
         
-        \`\`\`javascript
+        \`\`\`
         function fancyAlert(arg) {
           if(arg) {
             $.facebox({div:'#foo'})

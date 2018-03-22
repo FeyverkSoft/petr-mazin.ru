@@ -85,7 +85,7 @@ export class LinkButton extends React.Component {
         this.onClick = this.onClick.bind(this);
     }
     onClick(e) {
-        if (!this.props.disabled) {
+        if (!this.props.disabled && this.props.onClick) {
             this.props.onClick(e);
         }
     }

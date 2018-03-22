@@ -308,6 +308,9 @@
     font-size: @Font85;
     font-weight: 300;
     color: @MainColor;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    user-select: none;
     .transition(background);
     &:not(.disabled):not(disabled):hover {
         font-weight: 500;
@@ -323,6 +326,8 @@
 
 .button {
     .transition(~'background, box-shadow:');
+    background-color: @MainColor;
+    color: @LightTextColor;
     box-shadow: @z-shadow-1;
     display: inline-block;
     text-align: center;
@@ -337,9 +342,8 @@
     text-transform: uppercase;
     border: none;
     border-radius: 2px;
-    background-color: @MainColor;
-    color: @LightTextColor;
     box-sizing: border-box;
+    letter-spacing: 0.03em;
     &:not(.disabled):not(disabled):hover {
         cursor: pointer;
         box-shadow: @z-shadow-2;
@@ -372,21 +376,21 @@
         .inp();
         margin-bottom: -3px!important;
         min-height: 6em;
+        padding: 1.2em 0 0 0;
         font-family: Roboto, Lato;
         font-weight: 300;
     }
     .input-field {
         .inp();
+        padding: 1.2em 0 .25em 0;
     }
     .inp() {
         border: 0;
         border-bottom: 1px solid @MainColor; //background-color: @PaperColor;
         background-color: transparent;
-        padding: .5em 0 .25em 0;
         outline: none;
         font-size: @NormalFontSize;
         width: 100%;
-        padding-top: 1.2em;
         .transition(width);
         @media (max-width: @ExtraSm) {
             width: 100%;
@@ -417,7 +421,7 @@
     margin: .5rem 0;
     align-items: center;
     .label {
-        color: #13357d;
+        color: @IconPaperColor - 25;
         font-weight: 400;
         display: inline-block;
         padding-right: 1rem;
@@ -438,7 +442,7 @@
         pointer-events: none;
         color: @IconPaperColor;
         display: block;
-        font-size: .8em;
+        font-size: .75em;
         padding-bottom: .5rem;
         padding-right: 1rem;
     }
