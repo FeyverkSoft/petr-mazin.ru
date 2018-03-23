@@ -206,7 +206,7 @@ export class Til extends React.Component {
                         <div>{$this.state.Description}</div>
                     </div>
                     <div className='til-footer'>
-                        <div className='light-text'>{$this.state.Date}</div>
+                        <time className='light-text'>{$this.state.Date}</time>
                         <LinkButton value={Lang('more_info')} />
                     </div>
                 </div>
