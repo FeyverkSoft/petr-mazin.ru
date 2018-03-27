@@ -10,7 +10,7 @@ export class Home extends React.Component {
 
     render() {
         let markdownContent = `Sometimes you want numbered lists:
-!===
+!=== info
 1. One
 2. Two
 3. Three
@@ -59,7 +59,7 @@ function fancyAlert(arg) {
 \`\`\`
 
 ~|First Header | Second Header|
-|Content from cell 1 | Content from cell 2|
+|Content !(/img/logo.png)!#from cell 1 | Content from cell 2|
 |Content in the first column | Content in the second column|`
 
         return <Page
