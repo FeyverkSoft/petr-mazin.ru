@@ -232,28 +232,28 @@ export class Pagination extends React.Component {
     }
     //надо бы переписать эту дичь :D
     getItems() {
+        class items {
+            index;
+            body;
+            className;
+            constructor(index, body, className) {
+                this.index = index;
+                this.body = body;
+                this.className = className;
+            }
+        }
         let $this = this;
         let arr = [];
         for (let i = 1; i <= this.state.Count; i++) {
             if ($this.state.CurrentPage == i + 1 || $this.state.CurrentPage == i - 1) {
-                arr = arr.concat([{
-                    index: i,
-                    body: i
-                }])
+                arr = arr.concat(new items(i, i))
             } else {
                 if ($this.state.CurrentPage == i) {
-                    arr = arr.concat([{
-                        index: i,
-                        body: i,
-                        className: "active"
-                    }]);
+                    arr = arr.concat(new items(i, i, 'active'));
                 }
                 else {
                     if (i == 1 || i == this.state.Count)
-                        arr = arr.concat([{
-                            index: i,
-                            body: i
-                        }]);
+                        arr = arr.concat(new items(i, i));
                 }
             }
         }
@@ -267,17 +267,9 @@ export class Pagination extends React.Component {
         }
         arr = distinct;
         if ($this.state.CurrentPage > 1)
-            arr = [{
-                index: $this.state.CurrentPage - 1,
-                body: "keyboard_arrow_left",
-                className: "material-icon"
-            }].concat(arr)
+            arr = [new items($this.state.CurrentPage - 1, 'keyboard_arrow_left', 'material-icon')].concat(arr);
         if ($this.state.CurrentPage < $this.state.Count)
-            arr = arr.concat([{
-                index: parseInt(1) + parseInt($this.state.CurrentPage),
-                body: "keyboard_arrow_right",
-                className: "material-icon"
-            }]);
+            arr.push(new items(parseInt(1) + parseInt($this.state.CurrentPage), 'keyboard_arrow_right', 'material-icon'));
 
         let result = [];
         for (let i = 0; i < arr.length; i++) {
@@ -285,11 +277,7 @@ export class Pagination extends React.Component {
             if (arr[i + 1] && arr[i + 1].index)
                 if ((Math.abs(arr[i + 1].index) - Math.abs(arr[i].index)) > 1) {
                     if (arr[i - 1] && arr[i - 1].index != -1)
-                        result = result.concat([{
-                            index: -1,
-                            body: "more_horiz",
-                            className: "material-icon"
-                        }])
+                        result = result.concat(new items(-1, 'more_horiz', 'material-icon'));
                 }
         }
         return result;

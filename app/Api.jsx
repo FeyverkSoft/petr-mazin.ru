@@ -18,6 +18,26 @@ Array.prototype.firstOrDefault = function getIndex(func, def) {
     return def || undefined;
 };
 
+//что-то кроссбраузерное
+export const contains = function (str, search, ignoreCase) {
+    let _str;
+    let _search;
+    if (ignoreCase) {
+        _str = (str || '').toLowerCase();
+        _search = (search || '').toLowerCase();
+    } else {
+        _str = (str || '');
+        _search = (search || '');
+    }
+    if (String.prototype.includes)
+        return _str.includes(_search);
+    if (String.prototype.contains)
+        return _str.contains(_search);
+    if (String.prototype.indexOf)
+        return _str.indexOf(_search) >= 0;
+    return false;
+}
+
 export const getRandomInt = function (min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
@@ -78,15 +98,8 @@ class Scripts {
             let page = query.page;
             if (query.search) {
                 let search = query.search.trim().toLowerCase();
-                if (String.prototype.includes)
-                    result = result.filter(
-                        x => (x.Title || '').toLowerCase().includes(search) ||
-                            (x.Description || '').toLowerCase().includes(search));
-                else
-                    if (String.prototype.contains)
-                        result = result.filter(
-                            x => (x.Title || '').toLowerCase().includes(search) ||
-                                (x.Description || '').toLowerCase().includes(search));
+                result = result.filter(
+                    x => contains(x.Title, search, true) || contains(x.Description, search, true));
             }
             if (!query.page)
                 page = 1;

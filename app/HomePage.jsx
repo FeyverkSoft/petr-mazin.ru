@@ -26,9 +26,10 @@ Alternatively,
 - And if you have sub points, put two spaces before the dash or star:
   - Like this
   - And this
+!===
 
 # Structured documents
-!===
+
 Sometimes it's useful to have different levels of headings to structure your documents. Start lines with a \`#\` to create headings. Multiple \`##\` in a row denote smaller heading sizes.
 
 ### This is a third-tier heading
@@ -46,9 +47,11 @@ _This will also be italic_
 **This text will be bold**
 __This will also be bold__
 
+!:/script:скрипты:!
+
 !(/img/logo.png)
 
-_You **can** combine them_
+ _You **can** combine them_
 
 \`\`\` js
 function fancyAlert(arg) {
@@ -59,7 +62,7 @@ function fancyAlert(arg) {
 \`\`\`
 
 ~|First Header | Second Header|
-|Content !(/img/logo.png)!#from cell 1 | Content from cell 2|
+|(center) Content !(/img/logo.png)!#from cell 1 | Content from cell 2|
 |Content in the first column | Content in the second column|`
 
         return <Page
@@ -67,7 +70,7 @@ function fancyAlert(arg) {
             SubTitle={Lang('home_page_sub_title')}
             ShowAdditionalIcons={true}
         >
-            Ресурс находится в перманентной разработке, :D
+            Ресурс находится в перманентной разработке, :D Ниже тест самопального парсера Markdown
             <MarkdownContent
                 value={markdownContent} />
         </Page>;
