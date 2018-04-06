@@ -1,0 +1,13 @@
+Options +FollowSymLinks
+RewriteEngine On
+#401  Авторизация не выполнена
+ErrorDocument 401 /index.html 
+#403  Доступ запрещен
+ErrorDocument 403 /index.html
+#404  Страница не найдена
+ErrorDocument 404 /index.html
+#500  Внутренняя ошибка сервера
+ErrorDocument 500 /index.html
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)$ index.html [L]

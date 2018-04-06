@@ -5,9 +5,9 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1.0, maximum-scale=1.0">
     <title>Petr-Mazin personal page</title>
-    <meta name="theme-color" content="#136a7d">
-    <meta name="msapplication-TileColor" content="#136a7d">
-    <link async="true" href="../styles/app.css?v=23032018" rel="stylesheet" type="text/css">
+    <meta name="theme-color" content="#137d76">
+    <meta name="msapplication-TileColor" content="#137d76">
+    <link async="true" href="../styles/app.css?v=20180406" rel="stylesheet" type="text/css">
 </head>
 
 <body>
@@ -55,18 +55,86 @@
                     }
                 ]
             },
+            news: [
+                {
+                    Id: '1',
+                    Title: 'Привет Мир!',
+                    Description: 'Первая новость моего бложика О_о. Не стоит в ней искать сокрального смысла.',
+                    DateTime: '06-04-2018',
+                    Cover: '',
+                    Markdown: `##:(center) Привет Мир! Блог родился!
+С пустя долгих 2 месяца работы в свободное от работы и иные занятия время это случилось! Я зарелизил первую версию своего блога О_о
+#####:(center) Звук фанфар
+Разработка велась достаточно тяжело и долго, так как при разработке я решил устроить себе некий челлендж, и отказаться по максимуму от кучи npn модулей. 
+Голый реакт наше все :D, ну или почти голый.
+Хочу отметить то что, постепенно блог будет дорабатываться, а со временем планирую переползти на нормальный хостинг.
+### Планы
+Постепенно буде обновлять и добавлять новые записи. А так же стоит время от времени проверять раздел со скриптами и алгоритмами. 
+Начну сначала с тех что я сам использую буквально каждый день. А потом постепенно буду расширять стандартными алгоритмами и демо примерами.
+Посмотреть скрипты вы всегда сможете в разделе !:/scripts:скриптов:!, а новости и заметки  !:./:тут:!,
+            
+Hello, world!
+`
+                }
+            ],
             scripts: [
                 {
                     Name: "BadText",
                     Title: "Генерация странного текста",
                     Description: "Данный скрипт генерирует текст, который портит чаты вконтакте итд, символами торчащими во все стороны.",
-                    Date: '11-03-2018'
+                    Date: '11-03-2018',
+                    Markdown: `!#
+#### Генерация текста с особыми символами.
+Днный калькулятор преобразовывает текст добавляя в него особые символы, которые торчат в разные стороны, и выходят за контейнер с текстом.
+Алгоритм очень простой, после каждой буквы слова необходимо добавить некоторое количество unicode символов из следующих групп:
+1. !:http://www.unicode.org/charts/PDF/U0300.pdf:Combining Diacritical Marks:!
+2. !:http://www.unicode.org/charts/beta/script/chart_Mark-Nonspacing.html:Mark-Nonspacing:!
+`
                 },
                 {
                     Name: "Lun",
                     Title: "Калькулятор алгоритма луна",
                     Description: "Алгоритм вычисления контрольной цифры номера пластиковой карты в соответствии со стандартом ISO/IEC 7812.",
-                    Date: '11-03-2018'
+                    Date: '11-03-2018',
+                    Markdown: `!#
+#### Описание алгоритма Луна для расчёта контрольной суммы
+В 1954 году Гансом Луном был разработан алгоритм для вычисления контрольной суммы идентификационных номеров пластиковых карт __ISO/IEC 7812__. Алгоритм позволяет детектировать ошибки ввода одной неправильной цифры, и/или почти все перестановки соседних цифр.
+Для того чтобы рассчитать контрольную сумму необходимо просуммировать все нечетные цифры последовательности справа налево, далее прибавить к сумме сумму всех четных цифр умноженных на 2, если в результате произведения число получается больше 10, то из произведения вычитается 9.
+
+Для определения проверочной цифры к последовательности добавляем 0, и вычисляем контрольную сумму, если контрольная сумма кратна 10, то проверочная цифра 0, иначе проверочная цифра определяется путем вычитания последней цифры полученной контрольной суммы из 10.
+
+##### Пример проверки контрольной суммы на JS
+\`\`\` js
+function getLuhn(val) {
+    let str = (val || '').replace(/[\s]+/gi, '');
+    let sum = 0;
+    var flag = str.length % 2 != 0;
+    for (let i = 0; i < str.length; i++) {
+        let number = parseInt(str[i]);
+
+        if (i % 2 == flag) {
+            number *= 2;
+            number -= number > 9 ? 9 : 0;
+            sum += number;
+            continue;
+        }
+        sum += number;
+    }
+    return sum;
+}
+\`\`\`
+
+##### Пример проверки контрольной суммы на C#
+\`\`\` cs
+public bool IsValidLuhn(string num)
+{
+    if (string.IsNullOrEmpty(num))
+        return false;
+
+    var digits = num.Select(c => c - '0').ToArray();
+    return digits.Select((d, i) => i % 2 == digits.Length % 2 ? ((2 * d) % 10) + d / 5 : d).Sum() % 10 == 0;
+}
+\`\`\``
                 }
             ]
         };
@@ -76,46 +144,52 @@
             console.debug(e);
         }
     </script>
-    <script crossorigin async="true" src="../public/bundle.js?v=22032018"></script>
+    <script crossorigin async="true" src="../public/bundle.js?v=20180406"></script>
     <link async="true" rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-<!-- Global site tag (gtag.js) - Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-115818194-1"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+    
+    
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-115818194-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
 
-  gtag('config', 'UA-115818194-1');
-</script>
+        gtag('config', 'UA-115818194-1');
+    </script>
 
-<!-- Yandex.Metrika counter -->
-<script type="text/javascript" >
-    (function (d, w, c) {
-        (w[c] = w[c] || []).push(function() {
-            try {
-                w.yaCounter48156110 = new Ya.Metrika({
-                    id:48156110,
-                    clickmap:true,
-                    trackLinks:true,
-                    accurateTrackBounce:true,
-                    trackHash:true
-                });
-            } catch(e) { }
-        });
+    <!-- Yandex.Metrika counter -->
+    <script type="text/javascript">
+        (function (d, w, c) {
+            (w[c] = w[c] || []).push(function () {
+                try {
+                    w.yaCounter48156110 = new Ya.Metrika({
+                        id: 48156110,
+                        clickmap: true,
+                        trackLinks: true,
+                        accurateTrackBounce: true,
+                        trackHash: true
+                    });
+                } catch (e) { }
+            });
 
-        var n = d.getElementsByTagName("script")[0],
-            s = d.createElement("script"),
-            f = function () { n.parentNode.insertBefore(s, n); };
-        s.type = "text/javascript";
-        s.async = true;
-        s.src = "https://mc.yandex.ru/metrika/watch.js";
+            var n = d.getElementsByTagName("script")[0],
+                s = d.createElement("script"),
+                f = function () { n.parentNode.insertBefore(s, n); };
+            s.type = "text/javascript";
+            s.async = true;
+            s.src = "https://mc.yandex.ru/metrika/watch.js";
 
-        if (w.opera == "[object Opera]") {
-            d.addEventListener("DOMContentLoaded", f, false);
-        } else { f(); }
-    })(document, window, "yandex_metrika_callbacks");
-</script>
-<noscript><div><img src="https://mc.yandex.ru/watch/48156110" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
-<!-- /Yandex.Metrika counter -->
+            if (w.opera == "[object Opera]") {
+                d.addEventListener("DOMContentLoaded", f, false);
+            } else { f(); }
+        })(document, window, "yandex_metrika_callbacks");
+    </script>
+    <noscript>
+        <div>
+            <img src="https://mc.yandex.ru/watch/48156110" style="position:absolute; left:-9999px;" alt="" />
+        </div>
+    </noscript>
+    <!-- /Yandex.Metrika counter -->
 
 </body>

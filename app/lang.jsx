@@ -56,7 +56,7 @@ export const getCookie = function getCookie(name) {
 }
 
 export const setCookie = function setCookie(name, val) {
-    document.cookie = name + "=" + val;
+    document.cookie = `${name}=${val}; path=../`;
 }
 export const CurrentLang = function () {
     return getCookie("Lang") || 'ru';

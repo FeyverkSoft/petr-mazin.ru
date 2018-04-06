@@ -23,13 +23,14 @@ export class Lun extends React.Component {
     getLuhn(val) {
         let str = (val || '').replace(/[\s]+/gi, '');
         let sum = 0;
-
+        var flag = str.length % 2 != 0;
         for (let i = 0; i < str.length; i++) {
-            let number = parseInt(str.charAt(i), 10);
+            let number = parseInt(str[i]);
 
-            if (i % 2 == 0) {
+            if (i % 2 == flag) {
                 number *= 2;
-                sum += (number / 10 | 0) + (number % 10);
+                number -= number > 9 ? 9 : 0;
+                sum += number;
                 continue;
             }
             sum += number;
@@ -61,6 +62,7 @@ export class Lun extends React.Component {
                     onChange={$this.onInputVal}
                     regEx='[\d ]+'
                     value={this.state.value}
+                    regExMessage='invalid format'
                 />
                 <div className='col-wrapper'>
                     <LabeledContent

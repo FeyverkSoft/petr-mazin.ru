@@ -9,7 +9,7 @@ export class Scripts extends React.Component {
         this.state = {
             Items: [],
             TotalPages: 0,
-            CurrentPage: props.match.params.id || hashVal('id') || 1,
+            CurrentPage: props.match.params.id || hashVal('page') || 1,
             ItemPerPage: props.match.params.count || hashVal('count') || 10,
             Search: props.match.params.search || hashVal('search') || '',
             isLoading: false,
@@ -24,7 +24,7 @@ export class Scripts extends React.Component {
 
     componentWillReceiveProps(props) {
         this.setState({
-            CurrentPage: props.match.params.id || hashVal('id') || this.state.CurrentPage || 1,
+            CurrentPage: props.match.params.id || hashVal('page') || this.state.CurrentPage || 1,
             ItemPerPage: props.match.params.count || hashVal('count') || this.state.ItemPerPage || 10,
             Search: props.match.params.search || hashVal('search') || this.state.Search || '',
             isLoading: true
@@ -48,7 +48,7 @@ export class Scripts extends React.Component {
                 if (data) {
                     let totalPage = parseInt(data.totalCount / ItemPerPage);
                     $this.setState({
-                        Items: data.scripts,
+                        Items: data.items,
                         TotalPages: totalPage + (totalPage * ItemPerPage == data.totalCount ? 0 : 1),
                         CurrentPage: data.page,
                         Search: search || $this.state.Search,
@@ -64,12 +64,6 @@ export class Scripts extends React.Component {
             CurrentPage: 1
         }, this.updateHash)
     }
-
-    onSelectedTil(val) {
-        this.props.history.push({
-            pathname: `${this.props.location.pathname}/${val}`
-        });
-    }
     onSelectPage(page) {
         this.setState({ CurrentPage: page }, this.updateHash);
     }
@@ -77,9 +71,16 @@ export class Scripts extends React.Component {
     updateHash() {
         this.props.history.push({
             hash:
-                `#id=${this.state.CurrentPage}` +
+                `#page=${this.state.CurrentPage}` +
                 `${(this.state.Search || '') != '' ? `&search=${encodeURI(this.state.Search)}` : ''}` +
                 `${(this.state.ItemPerPage || '') != '' ? `&count=${this.state.ItemPerPage}` : ''}`
+        });
+    }
+
+    
+    onSelectedTil(val) {
+        this.props.history.push({
+            pathname: `${this.props.location.pathname}/${val}`
         });
     }
 

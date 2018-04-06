@@ -39,7 +39,7 @@
             text-align: center;
             padding-top: 2em;
             padding-bottom: 2em;
-            flex: 0 0;
+            flex: 0 0 auto;
             @media (max-width: @ExtraSm) {
                 padding-top: 1em !important;
             }
@@ -58,6 +58,9 @@
         }
         .paper-content {
             position: relative;
+            &:first-child {
+                margin-top: 1rem;
+            }
             .pagination-wrapper {
                 .flex();
                 align-items: center;
@@ -213,18 +216,26 @@
     }
     .col {
         height: 100%;
+        margin-bottom: .25rem;
         @media (max-width: @ExtraSm) {
             -ms-flex-preferred-size: 100%;
             flex-basis: 100%;
             max-width: 100%;
         }
     }
+    .col-1 {
+        -ms-flex-preferred-size: 100%;
+        flex-basis: 100%;
+        max-width: 100%;
+        height: 100%;
+        margin: 0 auto .25rem auto;
+    }
     .col-2 {
         -ms-flex-preferred-size: (1.0/2.0)*100%;
         flex-basis: (1.0/2.0)*100%;
         max-width: (1.0/2.0)*100%;
         height: 100%;
-        margin: 0 auto;
+        margin: 0 auto .25rem auto;
         @media (max-width: @ExtraSm) {
             -ms-flex-preferred-size: 100%;
             flex-basis: 100%;
@@ -241,8 +252,30 @@
         flex-basis: (1.0/3.0)*100%;
         max-width: (1.0/3.0)*100%;
         height: 100%;
-        margin: 0 auto;
-        @media (max-width: @ExtraSm * 1.3) and (min-width: @ExtraSm) {
+        margin: 0 auto .25rem auto;
+        @media (max-width: (@ExtraSm * 1.5px)) and (min-width: @ExtraSm) {
+            -ms-flex-preferred-size: 50%;
+            flex-basis: 50%;
+            max-width: 50%;
+        }
+        @media (max-width: @ExtraSm) {
+            -ms-flex-preferred-size: 100%;
+            flex-basis: 100%;
+            max-width: 100%;
+        }
+    }
+    .col-4 {
+        -ms-flex-preferred-size: (1.0/4.0)*100%;
+        flex-basis: (1.0/4.0)*100%;
+        max-width: (1.0/4.0)*100%;
+        height: 100%;
+        margin: 0 auto .25rem auto;
+        @media (max-width: (@ExtraSm * 2px)) and (min-width: (@ExtraSm * 1.5px)) {
+            -ms-flex-preferred-size: 33.333333%;
+            flex-basis: 33.333333%;
+            max-width: 33.333333%;
+        }
+        @media (max-width: (@ExtraSm * 1.5px)) and (min-width: @ExtraSm) {
             -ms-flex-preferred-size: 50%;
             flex-basis: 50%;
             max-width: 50%;
@@ -257,10 +290,13 @@
 
 .til {
     .flex();
+    -moz-transition: 0.3s cubic-bezier(0.44, 2.26, 0.32, 0.16) box-shadow;
+    -webkit-transition: 0.3s cubic-bezier(0.44, 2.26, 0.32, 0.16) box-shadow;
+    transition: 0.3s cubic-bezier(0.44, 2.26, 0.32, 0.16) box-shadow;
     contain: layout;
     box-shadow: @z-shadow-0_5;
     margin: 0em 1em 1em 1em;
-    background-color: @PaperColor + 5;
+    background-color: @TillColor;
     flex-direction: row;
     height: 100%;
     &:hover {
@@ -271,6 +307,8 @@
         .flex();
         flex-direction: column;
         flex: 1 0;
+        background-size: cover !important;
+        max-width: 10rem;
     }
     .til-content-wrapper {
         width: 100%;
@@ -291,7 +329,7 @@
         }
     }
     .til-footer {
-        padding: .5em;
+        padding: .5em .25em;
         border-top: 1px solid @BgColor;
         .flex();
         text-transform: uppercase;
@@ -328,7 +366,7 @@
 }
 
 .button {
-    .transition(~'background, box-shadow:');
+    .transition(~'background, box-shadow');
     background-color: @MainColor;
     color: @LightTextColor;
     box-shadow: @z-shadow-1;
@@ -353,7 +391,7 @@
         background-color: @MainColor + 15;
     }
     &:not(.disabled):not(disabled):active {
-        background-color: @MainColor + 30!important;
+        background-color: @MainColor + 30 !important;
     }
     &.disabled,
     &disabled {
@@ -375,9 +413,15 @@
         top: 1rem;
         .transition(all);
     }
+    .valid-message {
+        color: @InvalidColor;
+        font-size: .55em;
+        position: absolute;
+        padding-top: .2em;
+    }
     .input-textarea {
         .inp();
-        margin-bottom: -3px!important;
+        margin-bottom: -3px !important;
         min-height: 6em;
         padding: 1.2em 0 0 0;
         font-family: Roboto, Lato;
@@ -437,6 +481,15 @@
 
 .calc-wrapper {
     padding: 1rem;
+    &:not(:last-child) {
+        margin-top: 1rem;
+        border-radius: .5rem;
+        box-shadow: @z-shadow-0_5;
+        background-color: @TillColor;
+    }
+    &:last-child {
+        margin-bottom: 2rem;
+    }
 }
 
 .labeled-pre {

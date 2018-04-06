@@ -6,6 +6,7 @@ import { Home } from './HomePage.jsx';
 import { About } from './About.jsx';
 import { Header } from './Menu.jsx';
 import { Scripts } from './ScriptsPage.jsx';
+import { News } from './News.jsx';
 import { ScriptSelector } from './ScriptSelector.jsx';
 import { NoMatch } from './NoMatch.jsx';
 
@@ -14,20 +15,37 @@ import createBrowserHistory from 'history/createBrowserHistory';
 const history = createBrowserHistory();
 if (window.ga)
     window.ga('create', 'UA-115818194-1', 'auto');
-
-history.listen((location, action) => {
-    console.log(action, location.pathname);
-    if (window.ga) {
-        window.ga('set', 'page', location.pathname + location.search);
-        window.ga('send', 'pageview', location.pathname + location.search);
-    }
-})
 /**Конец блока гугл гавнолитики */
 
 export default class MyApp extends React.Component {
     constructor(props) {
         super(props);
+        this.state = {
+            menueHide: true
+        }
+        this.onLocationChange = this.onLocationChange.bind(this);
+        this.onToggleMenu = this.onToggleMenu.bind(this);
     }
+
+    componentWillMount() {
+        if (history) {
+            history.listen(this.onLocationChange);
+        }
+        if (window)
+            window.addEventListener('scroll', this.onScroll);
+    }
+
+    onLocationChange(action, location) {
+        let $this = this;
+        if (!$this.state.menueHide)
+            $this.setState({ menueHide: true });
+        console.log(action, location.pathname);
+        if (window.ga) {
+            window.ga('set', 'page', location.pathname + location.search);
+            window.ga('send', 'pageview', location.pathname + location.search);
+        }
+    }
+
     onChangeLang(lng) {
         if (CurrentLang() !== lng) {
             setCookie("Lang", lng);
@@ -35,15 +53,24 @@ export default class MyApp extends React.Component {
                 window.location.reload();
         }
     }
+    onToggleMenu() {
+        this.setState({ menueHide: !this.state.menueHide });
+    }
+
     render() {
         return (
-            <Router history={history}>
+            <Router history={history}
+                onScroll={this.onScroll}>
                 <div className="content">
                     <Header
-                        onChangeLangCallback={this.onChangeLang}>
+                        onChangeLangCallback={this.onChangeLang}
+                        menueHide={this.state.menueHide}
+                        onToggleMenu={this.onToggleMenu}
+                        minifi={this.state.minifiMenu}>
                         <li>
-                            <NavLink to="/" exact activeClassName="active" >
-                                <div className="link-text">{Lang('menu_home')}</div>
+                            <NavLink to="/" activeClassName="active"
+                                isActive={(match, location) => /\/(?!\w)|(\/\d{1,10}(?!\w))/.test(location.pathname)}>
+                                <div className='link-text'>{Lang('menu_home')}</div>
                                 <span className="bar light-bar" />
                             </NavLink>
                         </li>
@@ -63,12 +90,13 @@ export default class MyApp extends React.Component {
                     <div className="cover"></div>
                     <div className="body-wrapper">
                         <Switch>
-                            <Route exact path='/' component={Home} />
-
                             <Route path='/scripts/:id' component={ScriptSelector} />
                             <Route path='/scripts' component={Scripts} />
 
                             <Route exact path='/about' component={About} />
+
+                            <Route path='/:id([\d]{1,10})' component={News} />
+                            <Route path='/' component={Home} />
 
                             <Route component={NoMatch} />
                         </Switch>

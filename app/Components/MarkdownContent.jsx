@@ -1,4 +1,6 @@
 import React from 'react';
+import { ColoredCode } from './Code.jsx';
+
 class Token {
     element;
     content;
@@ -43,9 +45,10 @@ export class MarkdownContent extends React.Component {
     }
 
     primaryRecognize(src) {
-        const header = /^(?![ ]+)([#]{1,6})([ ]{1})/gi;
-        const qote = /^(?![ ]+)([>]{1})([ ]{1})/gi;
+        const header = /^(?![ ]+)([#]{1,6})((\:\(([\w\s]+)\)){0,1})([ ]{1})/i;
+        const quote = /^(?![ ]+)([>]{1})([ ]{1})/gi;
         const section = /^(?![ ]+)(!===)/gi;
+        const hr = /^(?![ ]+)(\_\_\_)/gi;
         const code = /^(?![ ]+)(```)/gi;
         const num = /^(?![ ]+)((\*)|(\d\.))([ ]{1})/gi;
         const mark = /^(?![ ]+)(\-)([ ]{1})/gi;
@@ -67,15 +70,19 @@ export class MarkdownContent extends React.Component {
             let addClass = src.replace(code, '').replace(/ /g, '');
             return new Token('code', undefined, true, true, addClass);
         }
+        //Линия, HR
+        if (hr.test(src))
+            return new Token('hr');
         //Блок примитивов
         //заголовки
         if (header.test(src)) {
-            let length = src.match(header)[0].length - 1;
-            return new Token(`h${length}`, src.replace(header, ''), false, true);
+            let length = src.match(header)[1].length;
+            let className = src.match(header)[4];
+            return new Token(`h${length}`, src.replace(header, ''), false, true, className);
         }
         //цитаты
-        if (qote.test(src)) {
-            return new Token(`div`, src.replace(qote, ''), false, true, 'quote');
+        if (quote.test(src)) {
+            return new Token(`div`, src.replace(quote, ''), false, true, 'quote');
         }
         //нумированный список
         if (subNum.test(src)) {
@@ -87,7 +94,8 @@ export class MarkdownContent extends React.Component {
         }
         //картинки
         if (img.test(src)) {
-            return new Token('img', src.match(img)[1]);
+            let res = src.match(img)[1].split(':').filter(x => x != '');
+            return new Token('img', res[0], false, true, res[1]);
         }
 
         //заголовок таблицы
@@ -123,14 +131,16 @@ export class MarkdownContent extends React.Component {
         for (let i = 0; i < arr.length; i++) {
             if (element && element.component) {
                 let temp = this.primaryRecognize(arr[i]);
-                if ((element.class == temp.class || !temp.class) && element.element == temp.element) {
+                if ((element.className == temp.className || !temp.className) && element.element == temp.element) {
                     if (element.content && !element.onlyText)
                         element.content = this.primaryParse(element.content);
                     tokens.push(element);
                     element = undefined;
                 }
-                else
-                    element.content = `${(element.content || '')}\n${arr[i]}`;
+                else {
+                    let content = (element.content || '');
+                    element.content = `${content.length == 0 ? content : content + '\n'}${arr[i]}`;
+                }
                 continue;
             }
             if (element) {
@@ -164,7 +174,7 @@ export class MarkdownContent extends React.Component {
                 br = true;
                 token = new Token('br');
             }
-            if (!br && !/([\~]{2})([\w\W]+)([\~]{2})|([\_])([\w\W]+)([\_])|([\*])([\w\W]+)([\*])|([\*]{2})([\w\W]+)([\*]{2})|([\_]{2})([\w\W]+)([\_]{2})|([\`]{1})([\w\W]+)([\`]{1})|(\!\#)|(\!\([\w\/\.]+\))|(\!\:[\wа-яА-Я\/\.\:]+\:\!)/i.test(src))
+            if (!br && !/([\~]{2})([\w\W]+)([\~]{2})|([\_])([\w\W]+)([\_])|([\*])([\w\W]+)([\*])|([\*]{2})([\w\W]+)([\*]{2})|([\_]{2})([\w\W]+)([\_]{2})|([\`]{1})([\w\W]+)([\`]{1})|(\!\#)|(\!\([\w\/\.]+\))|(\!\:[\w а-яА-Я\/\.\:\_\-]+\:\!)/i.test(src))
                 break;
             //блок кода
             if (!br && src[i] == '`') {
@@ -219,7 +229,8 @@ export class MarkdownContent extends React.Component {
                     j++;
                     if (`${src[j]}` == ')') {
                         br = true;
-                        token = new Token('img', src.substring(i + 2, j));
+                        let imgContent = src.substring(i + 2, j).split(':').filter(x => x != '');
+                        token = new Token('img', imgContent[0], false, false, imgContent[1]);
                         break;
                     }
                 }
@@ -230,7 +241,7 @@ export class MarkdownContent extends React.Component {
                     j++;
                     if (`${src[j]}${src[j + 1]}` == ':!') {
                         br = true;
-                        let linkContent = src.substring(i + 2, j).split(':').filter(x => x != '');
+                        let linkContent = src.substring(i + 2, j).split(/\:(?!\/\/)/i).filter(x => x != '');
                         if (linkContent.length > 1)
                             token = new Token('a', linkContent[1]);
                         else
@@ -303,17 +314,20 @@ export class MarkdownContent extends React.Component {
                     temp.push(this.normalizeVirtDom(element[i]));
                     continue;
                 }
+                //нормализация нод списков
                 if (element[i].element == 'ol' || element[i].element == 'ul') {
                     const content = element[i].content;
-                    if (temp[temp.length - 1].element == element[i].element) {
-                        temp[temp.length - 1].content = ((temp[temp.length - 1].content instanceof Array) ?
-                            temp[temp.length - 1].content : [temp[temp.length - 1].content])
+                    const tempInd = temp.length - 1;
+                    if (temp[tempInd] && temp[tempInd].element == element[i].element) {
+                        temp[tempInd].content = ((temp[tempInd].content instanceof Array) ?
+                            temp[tempInd].content : [temp[tempInd].content])
                             .concat(new Token('li', content));
                     } else
                         temp.push(new Token(element[i].element, new Token('li', content)));
                     continue;
                 }
 
+                //нормализация дерева с таблицами, объединение нод итд
                 if (element[i].element == 'tr' || element[i].element == 'thead') {
                     const thead = [];
                     const tbody = [];
@@ -332,6 +346,40 @@ export class MarkdownContent extends React.Component {
                     if (tbody.length > 0)
                         content.push(new Token('tbody', tbody.length == 1 ? tbody[0] : tbody));
                     temp.push(new Token('table', content.length == 1 ? content[0] : content));
+                    continue;
+                }
+                if (element[i].className == 'quote' && element[i].element == 'div' || element[i].element == 'span') {
+                    let quote = [];
+                    let el = element[i];
+                    while (i < element.length && (element[i].className == el.className && element[i].element == el.element || element[i].element == 'br')) {
+                        if (element[i].element == 'br') {
+                            quote.push(element[i]);
+                        }
+                        else {
+                            quote.push(element[i].content);
+                            if (quote.length > 0 && quote[quote.length - 1].element != 'br')
+                                quote.push(new Token('br'));
+                        }
+                        i++;
+                    }
+                    if (el.className == 'quote')
+                        quote.pop();//удаляем лишний br
+                    i--;
+                    temp.push(new Token(el.element, quote, el.component, el.onlyText, el.className));
+                    if (el.className == 'quote')
+                        temp.push(new Token('br'));
+                    continue;
+                }
+                //нормализация flex таблиц, надо подумать механизм управления
+                if (element[i].className == 'flex-tr') {
+                    let tr = [];
+                    let el = element[i];
+                    while (i < element.length && element[i].className == 'flex-tr') {
+                        tr.push(element[i].content);
+                        i++;
+                    }
+                    i--;
+                    temp.push(new Token(el.element, tr, el.component, el.onlyText, el.className));
                     continue;
                 }
                 temp.push(element[i]);
@@ -366,7 +414,7 @@ export class MarkdownContent extends React.Component {
                     case 'img':
                         return <img key={dom.key} src={dom.content} className={dom.className} />
                     case 'code':
-                        return <code key={dom.key} className={dom.className}><pre>{dom.content}</pre></code>
+                        return <ColoredCode key={dom.key} className={dom.className}>{dom.content}</ColoredCode>
                     case 'a':
                         return <a key={dom.key} className={dom.className} href={dom.uri}>{dom.content}</a>
                     default:
@@ -376,6 +424,8 @@ export class MarkdownContent extends React.Component {
             if (typeof (dom) == typeof ({}))
                 return <dom.element key={dom.key} className={dom.className}>{this.renderTree(dom.content)}</dom.element>;
         }
+        if (typeof (dom) == typeof (''))
+            return dom;
         return undefined;
     }
 

@@ -156,13 +156,13 @@ export class Tils extends React.Component {
         return (
             <div className="col-wrapper">
                 {$this.state.CurrentItems.map(x => {
-                    let til = <Til key={x.Name}
-                        Id={x.Name}
+                    let til = <Til key={x.Id}
+                        Id={x.Id}
                         Title={x.Title}
                         Description={x.Description}
                         Date={x.Date}
                         onClick={$this.props.onSelectedTil}
-                        img={x.Logo}
+                        Cover={x.Cover}
                     />;
                     return $this.props.columnCount ?
                         <div className={`col-${$this.props.columnCount}`}
@@ -181,7 +181,8 @@ export class Til extends React.Component {
             id: props.Id,
             Title: props.Title,
             Description: props.Description,
-            Date: props.Date
+            Date: props.Date,
+            Cover: props.Cover
         };
         this.onClick = this.onClick.bind(this);
     }
@@ -192,11 +193,11 @@ export class Til extends React.Component {
     }
     render() {
         let $this = this;
-        let imgStyle = { background: `url('${$this.props.img}') no-repeat left center` };
+        let imgStyle = { background: `url('${$this.state.Cover}') no-repeat left center` };
         return (
             <div className='til'
                 onClick={$this.onClick}>
-                {$this.props.img ?
+                {$this.state.Cover ?
                     <div className="img" style={imgStyle}> </div>
                     : ''
                 }

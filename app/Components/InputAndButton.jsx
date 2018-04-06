@@ -188,9 +188,11 @@ export class Input extends React.Component {
 
     render() {
         let $this = this;
-        let label;
+        let label, valid;
         if ($this.props.label)
             label = <label>{$this.props.label}</label>;
+        if (!$this.state.valid && $this.props.regExMessage)
+            valid = <span className='valid-message'>{$this.props.regExMessage}</span>;
         return (
             <div className='input-wrapper'>
                 <input className={`input-field${$this.state.value ? ' full' : ''}${$this.state.valid ? '' : ' invalid'}`}
@@ -206,6 +208,7 @@ export class Input extends React.Component {
                 />
                 <span className="bar main-bar" />
                 {label}
+                {valid}
             </div>
         );
     }

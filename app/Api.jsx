@@ -92,9 +92,22 @@ class Scripts {
         this.DEBUG = DEBUG;
     }
 
+    normalize(scr) {
+        return scr.map(x => {
+            return {
+                Id: x.Name,
+                Title: x.Title,
+                Description: x.Description,
+                Date: x.Date,
+                Cover: x.Img,
+                Markdown: x.Markdown
+            }
+        });
+    }
+
     GetScripts(query, onSuccess) {
         if (data && data.scripts) {
-            let result = data.scripts;
+            let result = this.normalize(data.scripts);
             let page = query.page;
             if (query.search) {
                 let search = query.search.trim().toLowerCase();
@@ -104,12 +117,12 @@ class Scripts {
             if (!query.page)
                 page = 1;
             let ret = {
-                scripts: result.slice((page - 1) * query.itemPerPage, page * query.itemPerPage),
+                items: result.slice((page - 1) * query.itemPerPage, page * query.itemPerPage),
                 totalCount: parseInt(result.length),
                 page: parseInt(page)
             };
             if (this.DEBUG) {
-                console.log(data.scripts, query.search, query.page, ret);
+                console.log(result, query.search, query.page, ret);
             }
             onSuccess(ret);
             return;
@@ -121,20 +134,75 @@ class Scripts {
     GetMarkdown(query, onSuccess) {
         if (data && data.scripts) {
             let id = ((query || {}).id || '');
-            let scr = data.scripts.filter(x => (x.Name || '').toLowerCase() == id.toLowerCase());
-            onSuccess({ markdown: scr.markdown || '' });
+            let scr = this.normalize(data.scripts).filter(x => (x.Id || '').toLowerCase() == id.toLowerCase())[0];
+            onSuccess({ Markdown: (scr || {}).Markdown || '' });
             return;
         }
-        onSuccess({ markdown: '' });
+        onSuccess({ Markdown: '' });
     }
 }
 
+class News {
+    constructor(DEBUG) {
+        this.DEBUG = DEBUG;
+    }
+    normalize(scr) {
+        return scr.map(x => {
+            return {
+                Id: x.Id,
+                Title: x.Title,
+                Description: x.Description,
+                Date: x.DateTime,
+                Cover: x.Cover,
+                Markdown: x.Markdown
+            }
+        });
+    }
+
+    GetNews(query, onSuccess) {
+        if (data && data.news) {
+            let result = this.normalize(data.news);
+            let page = query.page;
+            if (query.search) {
+                let search = query.search.trim().toLowerCase();
+                result = result.filter(
+                    x => contains(x.Title, search, true) || contains(x.Description, search, true)
+                        || contains(x.Markdown.substring(0, 1500), search, true));
+            }
+            if (!query.page)
+                page = 1;
+            let ret = {
+                items: result.slice((page - 1) * query.itemPerPage, page * query.itemPerPage),
+                totalCount: parseInt(result.length),
+                page: parseInt(page)
+            };
+            if (this.DEBUG) {
+                console.log(result, query.search, query.page, ret);
+            }
+            onSuccess(ret);
+            return;
+        } else {
+            console.info('news data is empty')
+        }
+        onSuccess({ totalCount: 0, page: 1, news: [] });
+    }
+    GetMarkdown(query, onSuccess) {
+        if (data && data.news) {
+            let id = ((query || {}).id || '');
+            let scr = this.normalize(data.news).filter(x => (x.Id || '').toLowerCase() == id.toLowerCase())[0];
+            onSuccess({ Markdown: (scr || {}).Markdown || '' });
+            return;
+        }
+        onSuccess({ Markdown: '' });
+    }
+}
 //TODO: Как появится сервер, переписать на ajax
 class Api {
     constructor() {
         let DEBUG = true;
         this.MainData = new MainData(DEBUG);
         this.Scripts = new Scripts(DEBUG);
+        this.News = new News(DEBUG);
     }
 }
 

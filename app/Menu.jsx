@@ -34,16 +34,13 @@ class LangSelector extends React.Component {
 export class Header extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {
-            menueHide: true
-        }
         this.toggleMenu = this.toggleMenu.bind(this);
     }
+
     toggleMenu(tm) {
-        if (typeof (tm) != 'boolean')
-            this.setState({ menueHide: !this.state.menueHide })
-        else
-            this.setState({ menueHide: tm })
+        if (this.props.onToggleMenu) {
+            this.props.onToggleMenu();
+        }
     }
     render() {
         let $this = this;
@@ -51,9 +48,9 @@ export class Header extends React.Component {
             <div className="header">
                 <div className="logo"></div>
                 <div className="menu-button" onClick={$this.toggleMenu}>
-                    <span className={`fa ${$this.state.menueHide ? 'fa-bars' : 'fa-ellipsis-v'}`} />
+                    <span className={`fa ${$this.props.menueHide ? 'fa-bars' : 'fa-ellipsis-v'}`} />
                 </div>
-                <nav className={`menu ${$this.state.menueHide ? 'menu-hide' : ''}`}>
+                <nav className={`menu ${$this.props.menueHide ? 'menu-hide' : ''}`}>
                     <ul>
                         {this.props.children}
                     </ul>
