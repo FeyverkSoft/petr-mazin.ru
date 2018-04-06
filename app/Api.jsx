@@ -99,7 +99,7 @@ class Scripts {
                 Title: x.Title,
                 Description: x.Description,
                 Date: x.Date,
-                Cover: x.Img,
+                Cover: x.Cover,
                 Markdown: x.Markdown
             }
         });

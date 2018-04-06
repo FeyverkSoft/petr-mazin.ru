@@ -91,7 +91,7 @@ function fancyAlert(arg) {
         return <Page
             Title={Lang('about_title')}
             ShowAdditionalIcons={true}>
-            <MarkdownContent value={this.state.test ? markdownContent : this.state.markdownContent} />
+            <MarkdownContent value={this.state.test=='true' ? markdownContent : this.state.markdownContent} />
         </Page>;
     }
 }

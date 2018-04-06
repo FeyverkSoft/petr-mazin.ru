@@ -99,7 +99,8 @@ export class Home extends React.Component {
                 TotalPages={$this.state.TotalPages}
                 CurrentPage={$this.state.CurrentPage}
                 onSelectedTil={$this.onSelectedTil}
-                columnCount={$this.state.columnCount} />
+                columnCount={$this.state.columnCount}
+                className='auto-size' />
             <div className={'pagination-wrapper'}>
                 <Pagination
                     CurrentPage={$this.state.CurrentPage}

@@ -165,7 +165,7 @@ export class Tils extends React.Component {
                         Cover={x.Cover}
                     />;
                     return $this.props.columnCount ?
-                        <div className={`col-${$this.props.columnCount}`}
+                        <div className={`col-${$this.props.columnCount} ${$this.props.className}`}
                             key={getGuid()}>
                             {til}
                         </div> : til

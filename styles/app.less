@@ -150,6 +150,7 @@ body {
         background:spin(@MainColor,
         -@deg) url("@{img-name}.png") no-repeat @background-position;
         background-size: cover;
+        image-rendering: fast;
         @media screen and (-webkit-min-device-pixel-ratio: 1.5), screen and (-moz-min-device-pixel-ratio: 1.5), screen and (-o-min-device-pixel-ratio: 3/2), screen and (min-device-pixel-ratio: 1.5), screen and (min-resolution: 144dpi) {
             background: url("@{img-name}@2x.png") no-repeat @background-position;
             background-size: cover;

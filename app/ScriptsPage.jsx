@@ -77,7 +77,7 @@ export class Scripts extends React.Component {
         });
     }
 
-    
+
     onSelectedTil(val) {
         this.props.history.push({
             pathname: `${this.props.location.pathname}/${val}`
@@ -99,7 +99,8 @@ export class Scripts extends React.Component {
                     TotalPages={$this.state.TotalPages}
                     CurrentPage={$this.state.CurrentPage}
                     onSelectedTil={$this.onSelectedTil}
-                    columnCount={$this.state.columnCount} />
+                    columnCount={$this.state.columnCount}
+                    className='large' />
                 <div className={'pagination-wrapper'}>
                     <Pagination
                         CurrentPage={$this.state.CurrentPage}
