@@ -132,6 +132,7 @@
         bottom: 0;
         position: absolute;
         .transition(all);
+        will-change: width;
     }
     &:before {
         left: 50%
@@ -296,6 +297,7 @@
     background-color: @TillColor;
     flex-direction: row;
     height: 100%;
+    will-change: box-shadow;
     &:hover {
         box-shadow: @z-shadow-2;
         cursor: pointer;
@@ -388,6 +390,7 @@
     border-radius: 2px;
     box-sizing: border-box;
     letter-spacing: 0.03em;
+    will-change: background-color, box-shadow;
     &:not(.disabled):not(disabled):hover {
         cursor: pointer;
         box-shadow: @z-shadow-2;
@@ -415,6 +418,7 @@
         left: 0;
         top: 1rem;
         .transition(all);
+        will-change: top, font-size, transition;
     }
     .valid-message {
         color: @InvalidColor;

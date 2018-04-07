@@ -1,5 +1,7 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { ColoredCode } from './Code.jsx';
+import { ReactLink } from './ReactLink.jsx';
 
 class Token {
     element;
@@ -416,7 +418,7 @@ export class MarkdownContent extends React.Component {
                     case 'code':
                         return <ColoredCode key={dom.key} className={dom.className}>{dom.content}</ColoredCode>
                     case 'a':
-                        return <a key={dom.key} className={dom.className} href={dom.uri}>{dom.content}</a>
+                        return <ReactLink key={dom.key} className={dom.className} to={dom.uri}>{dom.content}</ReactLink>
                     default:
                         return <dom.element key={dom.key} className={dom.className}>{dom.content || ''}</dom.element>;
                 }
