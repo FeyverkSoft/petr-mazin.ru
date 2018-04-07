@@ -3,38 +3,52 @@ import { Link } from 'react-router-dom';
 import { ColoredCode } from './Code.jsx';
 import { ReactLink } from './ReactLink.jsx';
 
-class Token {
+class Element {
     element;
+    constructor(element) {
+        this.element = element;
+    }
+    get key() {
+        function s4() {
+            return Math.floor((1 + Math.random()) * 0x10000)
+                .toString(16)
+                .substring(1);
+        }
+        return s4() + s4() + '-' + s4() + '-' + s4();
+    }
+}
+class Token extends Element {
     content;
     onlyText;
     component;
     className;
     constructor(element, content, component, onlyText, className) {
-        this.element = element;
+        super(element);
         this.component = component || false;
         this.onlyText = onlyText || false;
         this.className = className;
         this.content = content;
     }
     get key() {
-        if (this.element == 'br') {
-            function s4() {
-                return Math.floor((1 + Math.random()) * 0x10000)
-                    .toString(16)
-                    .substring(1);
-            }
-            return s4() + s4() + '-' + s4() + '-' + s4();
-        }
         let _temp = JSON.stringify(this);
         let hash = 0;
         for (var i = 0; i < _temp.length; i++) {
             var character = _temp.charCodeAt(i);
             hash = ((hash << 5) - hash) + character;
-            hash = hash & hash; // Convert to 32bit integer
+            hash = hash & hash; // в 32bit хы
         }
         return hash;
     }
 }
+
+class Flex extends Token {
+    col;
+    constructor(content, className, col) {
+        super('div', content, true, false, `flex-tr${className ? ` ${className}` : ''}`);
+        this.col = col;
+    }
+}
+
 export class MarkdownContent extends React.Component {
     constructor(props) {
         super(props);
@@ -57,8 +71,8 @@ export class MarkdownContent extends React.Component {
         const subNum = /^([ ]{0,3}((\*)|(\d\.)))([ ]{1})/gi;
         const subMark = /^([ ]{0,3})(\-)([ ]{1})/gi;
         const th = /^(?![ ]+)(\~\|)/gi;
-        const tr = /^(?![ ]+)((\|)|(\!\|))/gi;
-        const trHidden = /^(?![ ]+)(\!\|)/gi;
+        const tr = /^(?![ ]+)(\|)(?!\!)/gi;
+        const trFlex = /^(?![ ]+)(\!\||\|\!)/gi;
         const img = /(?:^(?![ ]+)(?:\!\())(.*?)(?:[)] ?)/i;
         const tdClass = /^(?![ ]+)(\(([\s\w]+)\))\s/i;
         //сложный объект секция, может содержать в нутри себя другие элементы
@@ -74,7 +88,7 @@ export class MarkdownContent extends React.Component {
         }
         //Линия, HR
         if (hr.test(src))
-            return new Token('hr');
+            return new Element('hr');
         //Блок примитивов
         //заголовки
         if (header.test(src)) {
@@ -108,19 +122,25 @@ export class MarkdownContent extends React.Component {
 
         //строки таблицы
         if (tr.test(src)) {
-            let isHidden = trHidden.test(src);
             let col = src.replace(tr, '').split('|').filter(x => x != '');
-            return new Token(isHidden ? 'div' : 'tr',
+            return new Token('tr',
                 col.map(x => {
                     let addClass = ((x || '').match(tdClass) || '')[2];
                     addClass = addClass ? ' ' + addClass : '';
-                    return new Token(isHidden ? 'div' : 'td', x.replace(tdClass, ''), false, false, isHidden ? `col-${col.length}${addClass}` : `td${addClass}`);
+                    return new Token('td', x.replace(tdClass, ''), false, false, `td${addClass}`);
                 }),
-                false, false, isHidden ? 'flex-tr' : 'tr')
+                false, false, 'tr')
+        }
+
+        //строки таблицы
+        if (trFlex.test(src)) {
+            let addClass = src.replace(trFlex, '').replace(/( )|(\:\d)/g, '');
+            let col = src.replace(trFlex, '').split(':')[1];
+            return new Flex(undefined, addClass, col);
         }
 
         if (src == '')
-            return new Token('br');
+            return new Element('br');
 
         return new Token('span', src, false, false, 'text');
     }
@@ -133,7 +153,10 @@ export class MarkdownContent extends React.Component {
         for (let i = 0; i < arr.length; i++) {
             if (element && element.component) {
                 let temp = this.primaryRecognize(arr[i]);
-                if ((element.className == temp.className || !temp.className) && element.element == temp.element) {
+                if ((element.className == temp.className
+                    || !temp.className
+                    || element.className.indexOf(temp.className) == 0)
+                    && element.element == temp.element) {
                     if (element.content && !element.onlyText)
                         element.content = this.primaryParse(element.content);
                     tokens.push(element);
@@ -312,6 +335,33 @@ export class MarkdownContent extends React.Component {
         if (element instanceof Array) {//array
             let temp = [];
             for (let i = 0; i < element.length; i++) {
+
+                //нормализация flex таблиц, надо подумать механизм управления
+                if (element[i].className && element[i].className.indexOf('flex-tr') == 0) {
+                    let add = function (colContents, cols, lenght) {
+                        if (colContents.length > 0) {
+                            if (colContents.length > 1)
+                                cols.push(new Token('div', colContents, false, false, `col${lenght ? `-${lenght}` : ''}`));
+                            else
+                                cols.push(new Token('div', colContents[0], false, false, `col${lenght ? `-${lenght}` : ''}`));
+                        }
+                    }
+                    let colContent = [];
+                    let col = [];
+                    let el = element[i].content;
+                    for (let co = 0; co < el.length; co++) {
+                        if (el[co].element != 'tr') {
+                            colContent.push(el[co]);
+                        } else {
+                            add(colContent, col, element[i].col);
+                            colContent = [];
+                        }
+                    }
+                    add(colContent, col, element[i].col);
+
+                    element[i].content = col;
+                }
+
                 if (element[i].component && !element[i].onlyText) {
                     temp.push(this.normalizeVirtDom(element[i]));
                     continue;
@@ -350,6 +400,7 @@ export class MarkdownContent extends React.Component {
                     temp.push(new Token('table', content.length == 1 ? content[0] : content));
                     continue;
                 }
+
                 if (element[i].className == 'quote' && element[i].element == 'div' || element[i].element == 'span') {
                     let quote = [];
                     let el = element[i];
@@ -360,7 +411,7 @@ export class MarkdownContent extends React.Component {
                         else {
                             quote.push(element[i].content);
                             if (quote.length > 0 && quote[quote.length - 1].element != 'br')
-                                quote.push(new Token('br'));
+                                quote.push(new Element('br'));
                         }
                         i++;
                     }
@@ -369,19 +420,7 @@ export class MarkdownContent extends React.Component {
                     i--;
                     temp.push(new Token(el.element, quote, el.component, el.onlyText, el.className));
                     if (el.className == 'quote')
-                        temp.push(new Token('br'));
-                    continue;
-                }
-                //нормализация flex таблиц, надо подумать механизм управления
-                if (element[i].className == 'flex-tr') {
-                    let tr = [];
-                    let el = element[i];
-                    while (i < element.length && element[i].className == 'flex-tr') {
-                        tr.push(element[i].content);
-                        i++;
-                    }
-                    i--;
-                    temp.push(new Token(el.element, tr, el.component, el.onlyText, el.className));
+                        temp.push(new Element('br'));
                     continue;
                 }
                 temp.push(element[i]);

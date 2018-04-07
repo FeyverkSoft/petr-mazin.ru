@@ -45,7 +45,7 @@ export class ColoredCode extends React.Component {
     }
     render() {
         return (
-            <code class={this.props.className}
+            <code className={this.props.className}
                 dangerouslySetInnerHTML={{ __html: this.Syntax(this.props.children) }}>
             </code>);
     }

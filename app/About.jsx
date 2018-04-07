@@ -21,7 +21,7 @@ export class About extends React.Component {
 Hello, world!`
         }
     }
-    
+
     render() {
         let markdownContent = `##:(center) Ресурс находится в перманентной разработке, :D 
 Sometimes you want numbered lists:
@@ -84,14 +84,28 @@ function fancyAlert(arg) {
 
 # And flex-box table
 
-!|(center) Content !(/img/logo.png)!#from cell 1 | Content from cell 2|
-!|Content in the first column | Content in the second column|
+|! center:2
+Content !(/img/logo.png)!#from cell 1 
+|
+Content from cell 2 Line 1
+Content from cell 2 Line 2
+!=== 
+dfdfdf
+!===
+!|
+
+|!:2
+Content in the first column 
+|
+Content in the second column
+!|
 `
 
-        return <Page
-            Title={Lang('about_title')}
-            ShowAdditionalIcons={true}>
-            <MarkdownContent value={this.state.test=='true' ? markdownContent : this.state.markdownContent} />
-        </Page>;
+        return (
+            <Page
+                Title={Lang('about_title')}
+                ShowAdditionalIcons={true}>
+                <MarkdownContent value={this.state.test == 'true' ? markdownContent : this.state.markdownContent} />
+            </Page>);
     }
 }

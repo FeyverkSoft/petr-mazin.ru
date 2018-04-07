@@ -193,7 +193,7 @@ export class Til extends React.Component {
     }
     render() {
         let $this = this;
-        let imgStyle = { background: `url('${$this.state.Cover}') no-repeat left center` };
+        let imgStyle = { background: `url('${$this.state.Cover}') no-repeat right center` };
         return (
             <div className='til'
                 onClick={$this.onClick}>
