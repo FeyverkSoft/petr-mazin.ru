@@ -328,9 +328,24 @@ export class MarkdownContent extends React.Component {
         return result;//заглушка
     }
 
+    smile(text) {
+        if (typeof (text) != typeof (''))
+            return text;
+        const smile = [
+            { reg: /\:\)/, sm: '😊' }, { reg: /\:\(/, sm: '☹' }, { reg: /\:D/, sm: '😁' }, { reg: /\:8/, sm: '😎' }
+        ];
+        for (let i = 0; i < smile.length; i++)
+            text = text.replace(smile[i].reg, smile[i].sm);
+        return text;
+    }
     normalizeVirtDom(element) {
         if (!element || typeof (element) == typeof ('') || element.onlyText)
             return element;
+
+        if (typeof (element) == typeof ({})) {//object
+            if (!element.onlyText && element.content && element.content instanceof Array)
+                element.content = this.normalizeVirtDom(element.content);
+        }
 
         if (element instanceof Array) {//array
             let temp = [];
@@ -341,7 +356,7 @@ export class MarkdownContent extends React.Component {
                     let add = function (colContents, cols, lenght) {
                         if (colContents.length > 0) {
                             if (colContents.length > 1)
-                                cols.push(new Token('div', colContents, false, false, `col${lenght ? `-${lenght}` : ''}`));
+                                cols.push(new Token('div', colContents, true, false, `col${lenght ? `-${lenght}` : ''}`));
                             else
                                 cols.push(new Token('div', colContents[0], false, false, `col${lenght ? `-${lenght}` : ''}`));
                         }
@@ -394,10 +409,10 @@ export class MarkdownContent extends React.Component {
                     }
                     i--;
                     if (thead.length > 0)
-                        content.push(new Token('thead', thead.length == 1 ? thead[0] : thead));
+                        content.push(new Token('thead', thead.length == 1 ? thead[0] : thead, thead.length > 1));
                     if (tbody.length > 0)
-                        content.push(new Token('tbody', tbody.length == 1 ? tbody[0] : tbody));
-                    temp.push(new Token('table', content.length == 1 ? content[0] : content));
+                        content.push(new Token('tbody', tbody.length == 1 ? tbody[0] : tbody, tbody.length > 1));
+                    temp.push(new Token('table', content.length == 1 ? content[0] : content, content.length > 1));
                     continue;
                 }
 
@@ -427,10 +442,6 @@ export class MarkdownContent extends React.Component {
             }
             return temp;
         }
-        if (typeof (element) == typeof ({})) {//object
-            if (!element.onlyText && element.content && element.content instanceof Array)
-                element.content = this.normalizeVirtDom(element.content);
-        }
         return element;//заглушка
     }
 
@@ -459,14 +470,14 @@ export class MarkdownContent extends React.Component {
                     case 'a':
                         return <ReactLink key={dom.key} className={dom.className} to={dom.uri}>{dom.content}</ReactLink>
                     default:
-                        return <dom.element key={dom.key} className={dom.className}>{dom.content || ''}</dom.element>;
+                        return <dom.element key={dom.key} className={dom.className}>{this.smile(dom.content || '')}</dom.element>;
                 }
             }
             if (typeof (dom) == typeof ({}))
                 return <dom.element key={dom.key} className={dom.className}>{this.renderTree(dom.content)}</dom.element>;
         }
         if (typeof (dom) == typeof (''))
-            return dom;
+            return this.smile(dom);
         return undefined;
     }
 
