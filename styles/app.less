@@ -4,6 +4,8 @@
 @import 'loading.less';
 @import 'header.less';
 @import 'components.less';
+@import 'cssicon.less';
+
 * {
     margin: 0;
     padding: 0;
@@ -62,7 +64,7 @@ body {
             cursor: pointer;
             position: relative;
             margin: 0 1em;
-            outline: none;
+            outline: 0;
             height: 1.5em;
             @media (max-width: @ExtraSm) {
                 width: 100%;
@@ -143,6 +145,7 @@ body {
         width: 100%;
         z-index: -1;
         min-height: 256px;
+        image-rendering: optimizeSpeed;//для старичков браузеров
         image-rendering: pixelated;
         image-rendering: -webkit-optimize-contrast;
         border-bottom: 10px solid spin(@MainColor + @hover, -@deg);
@@ -150,7 +153,6 @@ body {
         background:spin(@MainColor,
         -@deg) url("@{img-name}.png") no-repeat @background-position;
         background-size: cover;
-        image-rendering: fast;
         @media screen and (-webkit-min-device-pixel-ratio: 1.5), screen and (-moz-min-device-pixel-ratio: 1.5), screen and (-o-min-device-pixel-ratio: 3/2), screen and (min-device-pixel-ratio: 1.5), screen and (min-resolution: 144dpi) {
             background: url("@{img-name}@2x.png") no-repeat @background-position;
             background-size: cover;

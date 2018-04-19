@@ -199,7 +199,7 @@ export class MarkdownContent extends React.Component {
                 br = true;
                 token = new Token('br');
             }
-            if (!br && !/([\~]{2})([\w\W]+)([\~]{2})|([\_])([\w\W]+)([\_])|([\*])([\w\W]+)([\*])|([\*]{2})([\w\W]+)([\*]{2})|([\_]{2})([\w\W]+)([\_]{2})|([\`]{1})([\w\W]+)([\`]{1})|(\!\#)|(\!\([\w\/\.]+\))|(\!\:[\w а-яА-Я\/\.\:\_\-]+\:\!)/i.test(src))
+            if (!br && !/([\~]{2})([\w\W]+)([\~]{2})|([\_])([\w\W]+)([\_])|([\*])([\w\W]+)([\*])|([\*]{2})([\w\W]+)([\*]{2})|([\_]{2})([\w\W]+)([\_]{2})|([\`]{1})([\w\W]+)([\`]{1})|(\!\#)|(\!\([\w\/\.]+\))|(\!\:[\w а-яА-Я#\/\.\:\_\-]+\:\!)/i.test(src))
                 break;
             //блок кода
             if (!br && src[i] == '`') {
@@ -230,8 +230,8 @@ export class MarkdownContent extends React.Component {
                     if (`${src[j]}${src[j + 1]}` == '~~') {
                         br = true;
                         token = new Token('s', src.substring(i + 2, j));
-                        break;
                         j++;
+                        break;
                     }
                 }
             }

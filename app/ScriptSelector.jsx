@@ -3,6 +3,7 @@ import { Lang } from './lang.jsx';
 import { Page } from "./Components/Components.jsx";
 import { Lun } from "./Scripts/Lun.jsx";
 import { BadText } from "./Scripts/BadText.jsx";
+import { Base64 } from "./Scripts/Base64.jsx";
 import { NoMatch } from './NoMatch.jsx';
 import { ApiInstance } from "./Api.jsx";
 import { MarkdownContent } from "./Components/MarkdownContent.jsx";
@@ -32,6 +33,8 @@ export class ScriptSelector extends React.Component {
                 return <Lun />;
             case 'badtext':
                 return <BadText />;
+            case 'base64':
+                return <Base64 />;
         }
     }
 
@@ -72,8 +75,9 @@ export class ScriptSelector extends React.Component {
                     isLoading={$this.state.isLoading}>
                     {page}
                     {$this.state.markdownContent ?
-                        <div className='md-calc-wrapper'> <MarkdownContent
-                            value={$this.state.markdownContent} /> </div> : ''}
+                        <div className='md-calc-wrapper'>
+                            <MarkdownContent
+                                value={$this.state.markdownContent} /> </div> : ''}
                 </Page>
             );
         }

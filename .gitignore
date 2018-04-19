@@ -1,4 +1,7 @@
 /*.db
 /well-known
+/node_modules
 Thumbs.db
 *.css
+*.7z
+*.zip

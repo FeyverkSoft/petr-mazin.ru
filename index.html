@@ -5,9 +5,9 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1.0, maximum-scale=1.0">
     <title>Petr-Mazin personal page</title>
-    <meta name="theme-color" content="#137d76">
-    <meta name="msapplication-TileColor" content="#137d76">
-    <link async="true" href="../styles/app.css?v=20180406" rel="stylesheet" type="text/css">
+    <meta name="theme-color" content="#137d52">
+    <meta name="msapplication-TileColor" content="#137d52">
+    <link async="true" href="../styles/app.css?v=20180416" rel="stylesheet" type="text/css">
 </head>
 
 <body>
@@ -37,6 +37,7 @@
             <div id="copiright" class="copiright">© Petr Mazin 2018</div>
         </div>
     </div>
+    <!--А ниже, объект с новостями, да да, так просто и тупо, прям побомжовски. А смысл брать хостинг с php?? мне пока и так сойдёт Бугагагаг-->
     <script>
         var data = {
             main: {
@@ -44,13 +45,13 @@
                     {
                         id: 'vk',
                         isShareLink: true,
-                        icon: 'fa fa-vk',
+                        icon: 'css-icon vk',
                         uri: 'https://vk.com/share.php',
                         shareParams: [{ name: "url", val: "_Uri" }, { name: "title", val: "_Title" }]
                     },
                     {
                         id: 'vk2',
-                        icon: 'fa fa-user',
+                        icon: 'css-icon user',
                         uri: 'https://vk.com/petr_mazin'
                     }
                 ]
@@ -61,7 +62,7 @@
                     Title: 'Привет Мир!',
                     Description: 'Первая новость моего бложика О_о. Не стоит в ней искать сокрального смысла.',
                     DateTime: '06-04-2018',
-                    Cover:  './img/hw.png',
+                    Cover: './img/hw.png',
                     Markdown: ['##:(center) Привет Мир! Блог родился!',
                         'С пустя долгих 2 месяца работы в свободное от работы и иные занятия время это случилось! Я зарелизил первую версию своего блога О_о',
                         '#####:(center) Звук фанфар',
@@ -73,6 +74,25 @@
                         'Начну сначала с тех что я сам использую буквально каждый день. А потом постепенно буду расширять стандартными алгоритмами и демо примерами.',
                         'Посмотреть скрипты вы всегда сможете в разделе !:/scripts:скриптов:!, а новости и заметки  !:./:тут:!,',
                         '',
+                        'Hello, world!'].join('\n')
+                },
+                {
+                    Id: '2',
+                    Title: 'Base64 преобразователь и планы на будущее!',
+                    Description: 'Вторая новость моего бложика О_о.',
+                    DateTime: '16-04-2018',
+                    Cover: './img/base64.png',
+                    Markdown: ['##:(center) Base64 преобразователь и планы на будущее! :8',
+                        'Вот и начал я постепенно наполнять раздел скриптов разными скриптами. ',
+                        'Тадам, встречайте !:/scripts/base64:base64 калькулятор:!, да да, очередной калькулятор которых в интернетах как де#$ма. :D',
+                        'Не лучше и не хуже других.',
+                        '_Собственно зачем?_ А почему бы и нет?',
+                        'Что он умеет? умеет кодировать текст в utf8, разбивать по длине строки, а так же знает !:https://tools.ietf.org/html/rfc3548#section-4:RFC 3548/4:! ',
+                        '#### Планы',
+                        'Что далее? Далее в планах добавить скрип для кодирования декодирования Punycode. И расчёта масок подсетей ipv4 и ipv6',
+                        '~~Возможно ещё добавлю теги, но пока что не вижу смысла...~~',
+                        '',
+                        'PS: А ещё это обновление исправило просто дохрена багов в движке этого тупичка',
                         'Hello, world!'].join('\n')
                 }
             ],
@@ -133,6 +153,16 @@
                         '    return digits.Select((d, i) => i % 2 == digits.Length % 2 ? ((2 * d) % 10) + d / 5 : d).Sum() % 10 == 0;',
                         '}',
                         '\`\`\`'].join('\n')
+                },
+                {
+                    Name: "base64",
+                    Title: "BASE64 Decode and Encode",
+                    Description: "BASE64 декодер и энкодер",
+                    Date: '10-04-2018',
+                    Cover: './img/base64.png',
+                    Markdown: ['# Base64',
+                        'Это специальный метод кодирования информации в 64-разрядный код. Подробнее можно почитать в !:https://ru.wikipedia.org/wiki/Base64:вики:!.',
+                        'Инфа о том как пользоваться генератором выше, будет чуть позже'].join('\n')
                 }
             ]
         };
@@ -142,9 +172,7 @@
             console.debug(e);
         }
     </script>
-    <script crossorigin async="true" src="../public/bundle.js?v=20180406"></script>
-    <link async="true" rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-
+    <script crossorigin async="true" src="../public/bundle.js?v=20180416"></script>
 
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-115818194-1"></script>

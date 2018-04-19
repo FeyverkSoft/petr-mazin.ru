@@ -1,7 +1,7 @@
 import React from 'react';
 import { Lang } from '../lang.jsx';
 import { getObject } from '../Api.jsx';
-import { AreaInput, Button, Select, LabeledPre } from "../Components/InputAndButton.jsx";
+import { AreaInput, Button, Select, LabeledPre, MaterialList, ListItem } from "../Components/InputAndButton.jsx";
 
 export class BadText extends React.Component {
     constructor(props) {
@@ -56,29 +56,35 @@ export class BadText extends React.Component {
                 <div className='col-wrapper'>
                     <div className='col-2'>
                         <AreaInput
-                            label={Lang('input_text')}
+                            label={'input_text'}
                             onChange={$this.onInputVal}
                             path='srcValue'
                             value={$this.state.srcValue}
                         />
                     </div>
                     <div className='col-2'>
-                        <LabeledPre label={Lang('result')}
+                        <LabeledPre label={'result'}
                             value={$this.state.result} />
                     </div>
                 </div>
                 <div className='col-wrapper col-center'>
-                    <div className='col element-padding'>
-                        <Select
-                            items={[5, 10, 20, 40, 50, 100]}
-                            value={$this.state.textFactor}
-                            onChange={$this.onInputVal}
-                            label={Lang('text_factor')}
-                            path='textFactor'
-                            className='min-screen-100-width'
-                        />
-                    </div>
-                    <div className='col element-padding'>
+                    <MaterialList
+                        title={'settings'}>
+                        <ListItem
+                            label={'text_factor'}
+                            description={'text_factor_description'}>
+                            <Select
+                                items={[5, 10, 20, 40, 50, 100]}
+                                value={$this.state.textFactor}
+                                onChange={$this.onInputVal}
+                                path='textFactor'
+                                className='min-screen-100-width'
+                            />
+                        </ListItem>
+                    </MaterialList>
+                </div>
+                <div className='col-wrapper col-center'>
+                    <div className='col padding-top'>
                         <Button
                             onClick={$this.calc}
                             value={Lang('calc')}

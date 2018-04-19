@@ -4,7 +4,7 @@
 /// Холст 
 import React from 'react';
 import { Lang } from '../lang.jsx';
-import { getObject } from '../api.jsx';
+import { getObject } from '../Api.jsx';
 import { Input, LabeledContent } from "../Components/InputAndButton.jsx";
 export class Lun extends React.Component {
     constructor(props) {
@@ -58,7 +58,7 @@ export class Lun extends React.Component {
         return (
             <div className='calc-wrapper'>
                 <Input
-                    label={Lang('input_number')}
+                    label={'input_number'}
                     onChange={$this.onInputVal}
                     regEx='[\d ]+'
                     value={this.state.value}
@@ -67,12 +67,12 @@ export class Lun extends React.Component {
                 <div className='col-wrapper'>
                     <LabeledContent
                         className='col-2'
-                        label={Lang('result_of_checking')}>
+                        label={'result_of_checking'}>
                         {$this.state.luhn.isValid ? 'valid' : 'invalid'}
                     </LabeledContent>
                     <LabeledContent
                         className='col-2'
-                        label={Lang('next_digit')}>
+                        label={'next_digit'}>
                         {$this.state.luhn.nextDidit}
                     </LabeledContent>
                 </div>

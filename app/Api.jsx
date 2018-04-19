@@ -1,7 +1,7 @@
 /**
  * Мок апи, пока что так, так как хостинг самый дешманский
  */
-import $ from 'jquery';
+import { $ } from 'jQuery';
 
 Array.prototype.getIndex = function getIndex(func) {
     for (let i = 0; i < this.length; i++) {
@@ -156,7 +156,7 @@ class News {
                 Cover: x.Cover,
                 Markdown: x.Markdown
             }
-        });
+        }).sort((x, y) => { return y.Id - x.Id });
     }
 
     GetNews(query, onSuccess) {

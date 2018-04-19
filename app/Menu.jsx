@@ -48,7 +48,9 @@ export class Header extends React.Component {
             <div className="header">
                 <div className="logo"></div>
                 <div className="menu-button" onClick={$this.toggleMenu}>
-                    <span className={`fa ${$this.props.menueHide ? 'fa-bars' : 'fa-ellipsis-v'}`} />
+                    <div className="icon-wr">
+                        <span className={`css-icon ${$this.props.menueHide ? 'menu-ico' : 'more-vertical'}`} />
+                    </div>
                 </div>
                 <nav className={`menu ${$this.props.menueHide ? 'menu-hide' : ''}`}>
                     <ul>

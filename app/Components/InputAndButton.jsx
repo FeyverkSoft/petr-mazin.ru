@@ -2,7 +2,7 @@ import React from 'react';
 import { ApiInstance, getGuid } from "../Api.jsx";
 import { Lang } from '../lang.jsx';
 
-///Текстовое поле поиска в материл дезайн стиле
+///Текстовое поле поиска в материал дезайн стиле
 export class OmniTextBox extends React.Component {
     constructor(props) {
         super(props);
@@ -153,7 +153,8 @@ export class Input extends React.Component {
         let $this = this;
         let val = event.target.value;
         let valid = $this.validate(val);
-
+        if (this.props.ignoreInvalidValue && !valid && val != '')
+            return;
         if ($this.state.typingTimeout) {
             clearTimeout($this.state.typingTimeout);
         }
@@ -175,8 +176,8 @@ export class Input extends React.Component {
         let valid = true;
         if ($this.props.IsRequired && !val)
             valid &= false;
-        if ($this.props.regEx && val) {
-            let reg = new RegExp($this.props.regEx, 'gi');
+        if (($this.props.regEx || $this.props.regExp) && val) {
+            let reg = new RegExp(($this.props.regEx || $this.props.regExp), 'gi');
 
             if ((val || '').match(reg) == (val || ''))
                 valid &= true;
@@ -190,7 +191,7 @@ export class Input extends React.Component {
         let $this = this;
         let label, valid;
         if ($this.props.label)
-            label = <label>{$this.props.label}</label>;
+            label = <label>{Lang($this.props.label)}</label>;
         if (!$this.state.valid && $this.props.regExMessage)
             valid = <span className='valid-message'>{$this.props.regExMessage}</span>;
         return (
@@ -205,6 +206,7 @@ export class Input extends React.Component {
                     value={$this.state.value}
                     autoFocus={!$this.state.IsHide}
                     data-path={$this.state.path}
+                    disabled={$this.props.disabled == true}
                 />
                 <span className="bar main-bar" />
                 {label}
@@ -218,7 +220,7 @@ export class LabeledContent extends React.Component {
     render() {
         let labeledContent =
             <div className='labeled-content'>
-                <div className='label'>{this.props.label}</div>
+                <div className='label'>{Lang(this.props.label)}</div>
                 <div className='content'>{this.props.children}</div>
             </div>;
         if (this.props.className) {
@@ -235,7 +237,7 @@ export class AreaInput extends React.Component {
         this.state = {
             value: this.props.value || '',
             typingTimeOut: 0,
-            timeout: this.props.timeout || 500,
+            timeout: this.props.timeout || 200,
             valid: true,
             path: this.props.path
         };
@@ -296,7 +298,7 @@ export class AreaInput extends React.Component {
         let $this = this;
         let label;
         if ($this.props.label)
-            label = <label>{$this.props.label}</label>;
+            label = <label>{Lang($this.props.label)}</label>;
         return (
             <div className='input-wrapper'>
                 <textarea
@@ -315,6 +317,16 @@ export class AreaInput extends React.Component {
                 {label}
             </div>
         );
+    }
+}
+
+export class Item {
+    constructor(value, name) {
+        this.value = value;
+        this.name = name;
+    }
+    get Key() {
+        return this.value || this.name;
     }
 }
 
@@ -369,7 +381,7 @@ export class Select extends React.Component {
                     value={$this.state.value}>
                     {
                         $this.state.items.map((item) => {
-                            return <option key={item.key || item}> {item.value || item} </option>;
+                            return <option key={item.Key || item} value={item.value || item}> {item.name || item.value || item} </option>;
                         })
                     }
                 </select>
@@ -383,7 +395,7 @@ export class LabeledPre extends React.Component {
     render() {
         let labeledContent =
             <div className='labeled-pre'>
-                <label>{this.props.label}</label>
+                <label>{Lang(this.props.label)}</label>
                 <pre>{this.props.value || this.props.children}</pre>
             </div>;
         if (this.props.className) {
@@ -391,5 +403,106 @@ export class LabeledPre extends React.Component {
         } else {
             return labeledContent;
         }
+    }
+}
+
+export class Toggle extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            value: this.props.value || '',
+            valid: true,
+            path: props.path
+        };
+        this.onChange = this.onChange.bind(this);
+        this.validate = this.validate.bind(this);
+    }
+    componentWillMount() {
+        this.setState({ valid: this.validate() });
+    }
+
+    componentWillReceiveProps(props) {
+        if (this.state.value != (props.value || '')) {
+            this.setState({
+                value: props.value || '',
+                valid: this.validate(props.value)
+            });
+        }
+    }
+
+    onChange(event) {
+        let $this = this;
+        let val = event.target.checked;
+        let valid = $this.validate(val);
+
+        if ($this.props.onChange) {
+            $this.props.onChange(val, valid, $this.state.path);
+            $this.setState({ value: val });
+        } else
+            $this.setState({ value: val });
+    }
+
+    validate(value) {
+        let $this = this;
+        let val = (value || ($this.state || {}).value);
+        let valid = true;
+        if ($this.props.IsRequired && !val)
+            valid &= false;
+        return valid;
+    }
+
+    render() {
+        let $this = this;
+        let id = $this.props.id || getGuid();
+        return (
+            <div className='toggle-wrapper'>
+                <input className={`toggle${$this.state.valid ? '' : ' invalid'}`}
+                    type="checkbox"
+                    id={id}
+                    name={$this.props.id}
+                    onChange={$this.onChange}
+                    checked={$this.state.value}
+                    data-path={$this.state.path}
+                    disabled={$this.props.disabled}
+                />
+                <label htmlFor={id}></label>
+            </div>
+        );
+    }
+}
+
+export class ListItem extends React.Component {
+    render() {
+        return (
+            <div className={`border${this.props.className ? ` ${this.props.className}` : ' smart-padding col-2'}`}>
+                <div className={`list-item${this.props.disabled ? ' disabled' : ''}`}>
+                    <div className="list-content-wrapper">
+                        <label>{Lang(this.props.label)}</label>
+                        <div className={`description${this.props.disabled ? ' disabled' : ''}`}>{Lang(this.props.description)}</div>
+                    </div>
+                    <div className="element-wrapper">
+                        {this.props.children}
+                    </div>
+                </div>
+            </div>
+        );
+    }
+}
+
+export class MaterialList extends React.Component {
+    render() {
+        let label;
+        if (this.props.title)
+            label = <label className="title">{Lang(this.props.title)}</label>;
+        return (
+            <div className='material-list'>
+                {label}
+                <div className="content">
+                    <div className="col-wrapper">
+                        {this.props.children}
+                    </div>
+                </div>
+            </div>
+        );
     }
 }

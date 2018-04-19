@@ -1,0 +1,131 @@
+.icon-wr {
+    position: relative;
+    height: 1.5em;
+}
+
+.css-icon {
+    transition:all 0.2s ease;
+    &::before {
+        transition:all 0.2s ease;
+    }
+    &::after {
+        transition: all 0.2s ease;
+    }
+    &.user {
+        box-sizing: content-box;
+        position: relative;
+        margin-top: 0.5em;
+        width: 0.6em;
+        height: 0.2em;
+        border-left: solid 0.1em currentColor;
+        border-right: solid .16em currentColor;
+        border-top: solid .1em currentColor;
+        border-bottom: solid .1em transparent;
+        background-color: currentColor;
+        border-radius: 0.2em .2em 0 0;
+        &::before {
+            content: '';
+            position: absolute;
+            left: 0.1em;
+            top: -.54em;
+            width: .4em;
+            height: .4em;
+            border-radius: 50%;
+            border: solid .03em currentColor;
+            background-color: currentColor;
+        }
+        &::after {
+            content: '';
+            position: absolute;
+        }
+    }
+    &.vk {
+        position: relative;
+        width: .6em;
+        height: .9em;
+        border-left: solid 5px currentColor;
+        border-radius: 9px 6px 3px 1px;
+        transform: rotate(-45deg);
+        top: -.1em;
+        &::before {
+            content: '';
+            width: 10px;
+            height: 10px;
+            border-top: solid 5px currentColor;
+            border-left: solid 5px currentColor;
+            border-radius: 8px 1px 1px 1px;
+            left: 3px;
+            top: 14px;
+            right: 10px;
+            position: absolute;
+        }
+        &::after {
+            position: absolute;
+            content: '';
+            left: 1px;
+            top: 4px;
+            width: 5px;
+            height: 21px;
+            background-color: currentColor;
+            transform: rotate(45deg);
+            border-radius: 7px 7px 7px 7px;
+        }
+    }
+    &.menu-ico {
+        display: block;
+        color: currentColor;
+        position: absolute;
+        margin-left: 2px;
+        margin-top: 10px;
+        width: 1.5em;
+        height: .2em;
+        background-color: currentColor;
+        &::before {
+            content: '';
+            position: absolute;
+            top: -.4em;
+            left: 0;
+            width: 1.5em;
+            height: .2em;
+            background-color: currentColor;
+        }
+        &::after {
+            content: '';
+            position: absolute;
+            top: .45em;
+            left: 0;
+            width: 1.5em;
+            height: .2em;
+            background-color: currentColor;
+        }
+    }
+    &.more-vertical {
+        color: currentColor;
+        position: absolute;
+        margin-left: 9px;
+        margin-top: 9px;
+        width: 0.3em;
+        height: 0.3em;
+        border-radius: 50%;
+        border: solid 1px currentColor;
+        background-color: currentColor;
+        &::before {
+            content: '';
+            position: absolute;
+            top: -.55em;
+            left: -1px;
+            border: solid 0.2em currentColor;
+            border-radius: 50%;
+            background-color: currentColor;
+        }
+        &::after {
+            content: '';
+            position: absolute;
+            top: .45em;
+            left: -1px;
+            border: solid 0.2em currentColor;
+            border-radius: 50%;
+            background-color: currentColor;
+        }
+    }
+}

@@ -100,7 +100,7 @@ export class Home extends React.Component {
                 CurrentPage={$this.state.CurrentPage}
                 onSelectedTil={$this.onSelectedTil}
                 columnCount={$this.state.columnCount}
-                className='auto-size' />
+                className='auto-size small' />
             <div className={'pagination-wrapper'}>
                 <Pagination
                     CurrentPage={$this.state.CurrentPage}

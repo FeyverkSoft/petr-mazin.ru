@@ -19,7 +19,12 @@ const locString = {
         calc: 'calculate',
         input_text: 'Input text',
         text_factor: 'Aggressiveness filter',
-        result: 'Result'
+        result: 'Result',
+        settings: 'Settings',
+        direction_coding: 'Direction',
+        decode: 'decode',
+        encode: 'encode',
+        split: 'Split'
     },
     ru: {
         menu_home: "Домой",
@@ -45,7 +50,19 @@ const locString = {
         calc: 'Рассчитать',
         input_text: 'Введите текст',
         text_factor: 'Агрессивность фильтра',
-        result: 'Результат'
+        result: 'Результат',
+        settings: 'Настройки',
+        text_factor_description: 'Настройка агрессивности фильтра',
+        direction_coding: 'Направление кодирования/декодирования',
+        direction_coding_description: 'Выберите направление преобразования (кодировать/раскодировать)',
+        decode: 'раскодировать',
+        encode: 'закодировать',
+        RFC_3548_description: 'Cимволы \'+\' и \'/\' заменяются, соответственно, на \'-\' и \'_\'',
+        split: 'Разрезать',
+        split_description: 'Разрезает base64 строку на несколько строк фиксированной ширины',
+        split_MaxWidth: 'Задать максимально допустимую длину строки',
+        split_MaxWidth_description: 'Укажите максимально допустимую длину строки',
+        script_base64: 'BASE64 Decode and Encode'
     }
 }
 export const getCookie = function getCookie(name) {
@@ -62,6 +79,8 @@ export const CurrentLang = function () {
     return getCookie("Lang") || 'ru';
 }
 function getTranslate(value) {
+    if (!value)
+        return value;
     var lang = CurrentLang();
     var locStr = {};
     if (locString[lang])
@@ -70,7 +89,18 @@ function getTranslate(value) {
         locStr = locString["ru"];
         setCookie("Lang", "ru");
     }
-    return locStr[value] || locString["ru"][value];
+
+    let loc = locStr[value];
+    if (loc)
+        return loc;
+
+    let lowerVal = value.replace(/ /gi, '').toLowerCase();
+
+    for (let key in locStr) {
+        if (key.toLowerCase() == lowerVal)
+            return locStr[key];
+    }
+    return locString["ru"][value];
 }
 
 export const Lang = function (value) {
