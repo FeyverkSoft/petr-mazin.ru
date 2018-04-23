@@ -104,16 +104,17 @@
         position: absolute;
         margin-left: 9px;
         margin-top: 9px;
-        width: 0.3em;
-        height: 0.3em;
+        width: 0.39em;
+        height: 0.39em;
         border-radius: 50%;
-        border: solid 1px currentColor;
+        border: solid 0px currentColor;
         background-color: currentColor;
+        box-sizing: border-box;
         &::before {
             content: '';
             position: absolute;
-            top: -.55em;
-            left: -1px;
+            top: -.6em;
+            left: 0px;
             width: 0.2em;
             height: 0.2em;
             border: solid 0.1em currentColor;
@@ -123,13 +124,61 @@
         &::after {
             content: '';
             position: absolute;
-            top: .45em;
-            left: -1px;
+            top: .65em;
+            left: 0px;
             width: 0.2em;
             height: 0.2em;
             border: solid 0.1em currentColor;
             border-radius: 50%;
             background-color: currentColor;
+        }
+    }
+    &.search {
+        color: currentColor;
+        position: relative;
+        width: 1em;
+        height: 1em;
+        border: solid .15em currentColor;
+        border-radius: 100%;
+        -webkit-transform: rotate(-45deg);
+        transform: rotate(-45deg);
+        &::before {}
+        &::after {
+            content: '';
+            position: absolute;
+            top: 1em;
+            left: .5em;
+            background-color: currentColor;
+            height: 1em;
+            width: .15em;
+        }
+    }
+    &.close {
+        color: currentColor;
+        position: relative;
+        margin-top: 0;
+        margin-left: 0;
+        width: 1em;
+        height: 1em;
+        &::before {
+            content: '';
+            position: absolute;
+            top: .5em;
+            width: 1em;
+            height: .15em;
+            background-color: currentColor;
+            -webkit-transform: rotate(45deg);
+            transform: rotate(45deg);
+        }
+        &::after {
+            content: '';
+            position: absolute;
+            top: .5em;
+            width: 1em;
+            height: .15em;
+            background-color: currentColor;
+            -webkit-transform: rotate(-45deg);
+            transform: rotate(-45deg);
         }
     }
 }

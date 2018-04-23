@@ -79,7 +79,10 @@
     .flex();
     align-items: center;
     .open-icon {
-        margin: 0 .5em -.4em 0;
+        margin: 0 0.7em -0.2em 0;
+        font-size: .75em;
+        color: @MainColor;
+        user-select: none;
         cursor: pointer;
         &:hover {
             color: @DarkTextColor + @hover;
@@ -95,8 +98,10 @@
         .close-icon {
             cursor: pointer;
             position: absolute;
-            top: 0.25em;
+            top: .5em;
             right: 0;
+            font-size: 1em;
+            color: @MainColor;
             &:hover {
                 color: @DarkTextColor + @hover;
             }
@@ -218,7 +223,7 @@
     .auto-size {
         height: 100%;
     }
-    .wer-small{
+    .wer-small {
         margin: 0 auto .15rem auto;
     }
     .small {

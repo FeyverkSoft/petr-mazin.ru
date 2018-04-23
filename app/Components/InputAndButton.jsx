@@ -55,9 +55,9 @@ export class OmniTextBox extends React.Component {
         let $this = this;
         return (
             <div className="omni-field">
-                <span className="open-icon material-icon"
+                <span className="open-icon"
                     onClick={$this.show}>
-                    {$this.props.icons}
+                    <div className={`css-icon ${$this.props.icons}`}></div>
                 </span>
                 <div className={`input-field-wrapper ${$this.state.IsHide ? 'hide-field' : ''}`}>
                     <input className="input-field"
@@ -69,9 +69,9 @@ export class OmniTextBox extends React.Component {
                         data-path={$this.state.path}
                     />
                     <span className="bar main-bar" />
-                    <span className={`close-icon material-icon ${$this.state.IsHide ? 'hide' : ''}`}
+                    <span className={`close-icon ${$this.state.IsHide ? 'hide' : ''}`}
                         onClick={$this.hide}>
-                        close
+                        <div className={`css-icon close`}></div>
                     </span>
                 </div>
             </div>);
