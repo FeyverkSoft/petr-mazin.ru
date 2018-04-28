@@ -4,6 +4,7 @@ import { Page } from "./Components/Components.jsx";
 import { Lun } from "./Scripts/Lun.jsx";
 import { BadText } from "./Scripts/BadText.jsx";
 import { Base64 } from "./Scripts/Base64.jsx";
+import { Translit } from "./Scripts/Translit.jsx";
 import { NoMatch } from './NoMatch.jsx';
 import { ApiInstance } from "./Api.jsx";
 import { MarkdownContent } from "./Components/MarkdownContent.jsx";
@@ -35,6 +36,8 @@ export class ScriptSelector extends React.Component {
                 return <BadText />;
             case 'base64':
                 return <Base64 />;
+            case 'translit':
+                return <Translit />;
         }
     }
 

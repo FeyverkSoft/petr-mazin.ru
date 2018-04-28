@@ -1,4 +1,4 @@
-@deg: 55deg; //110deg;
+@deg: 40deg; //110deg;
 @Color: spin(#237d13, @deg); //#237d13
 @MainColor: @Color;
 @BorderColor: lighten(@MainColor , 25%);
@@ -7,7 +7,7 @@
 @PaperColor: contrast(@DarkTextColor, darken(@DarkTextColor, 5.5%), lighten(@DarkTextColor, 92%));
 @IconPaperColor: contrast(@PaperColor, mix(lighten(@PaperColor, 50), @Color, 60%), mix(darken(@PaperColor, 50), @Color, 60%));
 @BgColor: #E6E6E6;
-@TillColor: @PaperColor + 5;
+@TillColor: @PaperColor +5;
 @InvalidColor: rgb(218, 141, 0);
 @z-shadow-0_5: 0 2px 4px darken(fade(@MainColor, 15%), 15%),
 0 2px 2px darken(fade(@MainColor, 25%), 25%);
@@ -18,6 +18,9 @@
 @z-shadow-3: 0 16px 24px 2px mix(darken(fade(@MainColor, 14%), 50%), @Color, 95%),
 0 6px 30px 5px mix(darken(fade(@MainColor, 12%), 50%), @Color, 98%),
 0 8px 10px -5px mix(darken(fade(@MainColor, 20%), 50%), @Color, 98%);
+@z-shadow-3_1: 0 10px 30px -12px rgba(0, 0, 0, 0.42),
+0 4px 25px 0 rgba(0, 0, 0, 0.12),
+0 8px 10px -5px rgba(0, 0, 0, 0.2);
 @NormalFontSize: 1em;
 @Font150: @NormalFontSize * 1.5;
 @Font125: @NormalFontSize * 1.25;

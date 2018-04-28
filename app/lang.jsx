@@ -103,10 +103,19 @@ function getTranslate(value) {
     return locString["ru"][value];
 }
 
-export const Lang = function (value) {
+export const Lang = function (value, count) {
+    let res;
     if (value)
-        return getTranslate(value) || value;
+        res = getTranslate(value) || value;
     else
-        return getTranslate(CurrentLang()) || value;
+        res = getTranslate(CurrentLang()) || value;
+
+    if (count && res instanceof Array) {
+        if (res[count])
+            return res[count].replace(/\{\{\0\}\}/ig, count);
+        return res[res.length - 1].replace(/\{\{\0\}\}/ig, count);
+    }
+
+    return res;
 }
 
