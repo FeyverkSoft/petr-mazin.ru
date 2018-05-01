@@ -9,9 +9,11 @@ import { Scripts } from './ScriptsPage.jsx';
 import { News } from './News.jsx';
 import { ScriptSelector } from './ScriptSelector.jsx';
 import { NoMatch } from './NoMatch.jsx';
+import { getRandomInt } from './Api.jsx';
 
 /**Блок гугл гавнолитики */
 import createBrowserHistory from 'history/createBrowserHistory';
+
 const history = createBrowserHistory();
 if (window.ga)
     window.ga('create', 'UA-115818194-1', 'auto');
@@ -21,7 +23,8 @@ export default class MyApp extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            menueHide: true
+            menueHide: true,
+            bg: "bg-1"
         }
         this.onLocationChange = this.onLocationChange.bind(this);
         this.onToggleMenu = this.onToggleMenu.bind(this);
@@ -35,15 +38,17 @@ export default class MyApp extends React.Component {
             window.addEventListener('scroll', this.onScroll);
     }
 
-    onLocationChange(action, location) {
+    onLocationChange(location, action) {
         let $this = this;
         if (!$this.state.menueHide)
             $this.setState({ menueHide: true });
-        console.log(action, location.pathname);
+        //console.log(action, location.pathname);
         if (window.ga) {
             window.ga('set', 'page', location.pathname + location.search);
             window.ga('send', 'pageview', location.pathname + location.search);
         }
+        if (location)
+            this.calcBg(location.pathname);
     }
 
     onChangeLang(lng) {
@@ -55,6 +60,15 @@ export default class MyApp extends React.Component {
     }
     onToggleMenu() {
         this.setState({ menueHide: !this.state.menueHide });
+    }
+
+    calcBg = (location) => {
+        if (location && (location.indexOf('script') != -1)) {
+            this.setState({ bg: `bg-2` });
+        }
+        else {
+            this.setState({ bg: `bg-1` });
+        }
     }
 
     render() {
@@ -87,7 +101,7 @@ export default class MyApp extends React.Component {
                             </NavLink>
                         </li>
                     </Header>
-                    <div className="cover"></div>
+                    <div className={`cover ${this.state.bg}`}></div>
                     <div className="body-wrapper">
                         <Switch>
                             <Route path='/scripts/:id' component={ScriptSelector} />

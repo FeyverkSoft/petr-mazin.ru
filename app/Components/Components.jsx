@@ -119,7 +119,8 @@ export class AdditionalIcons extends React.Component {
                 {
                     $this.state.items.map(item => {
                         return (
-                            <div className="icons">
+                            <div className="icons"
+                                key={`icon${item.id || item.icon}`}>
                                 <div className={`${item.icon}`}
                                     data-id={item.id || item.icon}
                                     key={`icon${item.id || item.icon}`}

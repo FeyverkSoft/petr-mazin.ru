@@ -24,7 +24,8 @@ const locString = {
         direction_coding: 'Direction',
         decode: 'decode',
         encode: 'encode',
-        split: 'Split'
+        split: 'Split',
+        translit_default: 'Default'
     },
     ru: {
         menu_home: "Домой",
@@ -62,7 +63,13 @@ const locString = {
         split_description: 'Разрезает base64 строку на несколько строк фиксированной ширины',
         split_MaxWidth: 'Задать максимально допустимую длину строки',
         split_MaxWidth_description: 'Укажите максимально допустимую длину строки',
-        script_base64: 'BASE64 Decode and Encode'
+        script_base64: 'BASE64 Decode and Encode',
+        translit_gost: 'ГОСТ 7.79-2000',
+        translit_uri: 'Translit Uri',
+        translit_default: 'По умолчанию',
+        translit_type: 'Алгоритм транслитирации',
+        translit_type_description: 'Выберете алгоритм транслитирации',
+        script_translit: 'Транслит - перевод на латиницу'
     }
 }
 export const getCookie = function getCookie(name) {
@@ -90,17 +97,17 @@ function getTranslate(value) {
         setCookie("Lang", "ru");
     }
 
-    let loc = locStr[value];
+    let lowerVal = value.replace(/ /gi, '').toLowerCase();
+
+    let loc = locStr[value] || locStr[lowerVal];
     if (loc)
         return loc;
-
-    let lowerVal = value.replace(/ /gi, '').toLowerCase();
 
     for (let key in locStr) {
         if (key.toLowerCase() == lowerVal)
             return locStr[key];
     }
-    return locString["ru"][value];
+    return locString["ru"][lowerVal] || locString["ru"][value];
 }
 
 export const Lang = function (value, count) {

@@ -5,7 +5,6 @@
 @import 'header.less';
 @import 'components.less';
 @import 'cssicon.less';
-
 * {
     margin: 0;
     padding: 0;
@@ -41,8 +40,29 @@ body {
         .app-wrapper {
             flex: 1 0 auto;
             .header();
-            .cover('.//img/header',
-            @MainColor);
+            .cover {
+                -o-filter: hue-rotate(@deg) sepia(50%);
+                -moz-filter: hue-rotate(@deg) sepia(50%);
+                -webkit-filter: hue-rotate(@deg) sepia(50%);
+                filter: hue-rotate(@deg) sepia(50%);
+                contain: paint;
+                display: block;
+                position: absolute;
+                width: 100%;
+                z-index: -1;
+                min-height: 256px;
+                image-rendering: optimizeSpeed; //для старичков браузеров
+                image-rendering: pixelated;
+                image-rendering: -webkit-optimize-contrast;
+                border-bottom: 10px solid spin(@MainColor + @hover, -@deg);
+                background-color: spin(@MainColor, -@deg);
+                &.bg-1 {
+                    .bg-cover('.//img/header');
+                }
+                &.bg-2 {
+                    .bg-cover('.//img/header_2');
+                }
+            }
             .body-wrapper {
                 padding-top: 4em;
             }
@@ -131,47 +151,29 @@ body {
     user-select: none;
 }
 
-.cover(@img-name,
-@color,
+.bg-cover(@img-name,
 @background-position : center center) {
-    .cover {
-        -o-filter: hue-rotate(@deg) sepia(50%);
-        -moz-filter: hue-rotate(@deg) sepia(50%);
-        -webkit-filter: hue-rotate(@deg) sepia(50%);
-        filter: hue-rotate(@deg) sepia(50%);
-        contain: paint;
-        display: block;
-        position: absolute;
-        width: 100%;
-        z-index: -1;
-        min-height: 256px;
-        image-rendering: optimizeSpeed;//для старичков браузеров
-        image-rendering: pixelated;
-        image-rendering: -webkit-optimize-contrast;
-        border-bottom: 10px solid spin(@MainColor + @hover, -@deg);
-        background-color: spin(@MainColor, -@deg);
-        background:spin(@MainColor,
-        -@deg) url("@{img-name}.png") no-repeat @background-position;
+    background:spin(@MainColor,
+    -@deg) url("@{img-name}.png") no-repeat @background-position;
+    background-size: cover;
+    @media screen and (-webkit-min-device-pixel-ratio: 1.5), screen and (-moz-min-device-pixel-ratio: 1.5), screen and (-o-min-device-pixel-ratio: 3/2), screen and (min-device-pixel-ratio: 1.5), screen and (min-resolution: 144dpi) {
+        background: url("@{img-name}@2x.png") no-repeat @background-position;
         background-size: cover;
-        @media screen and (-webkit-min-device-pixel-ratio: 1.5), screen and (-moz-min-device-pixel-ratio: 1.5), screen and (-o-min-device-pixel-ratio: 3/2), screen and (min-device-pixel-ratio: 1.5), screen and (min-resolution: 144dpi) {
-            background: url("@{img-name}@2x.png") no-repeat @background-position;
-            background-size: cover;
-        }
-        @media screen and (-webkit-min-device-pixel-ratio: 2),
-        screen and (-moz-min-device-pixel-ratio: 2),
-        screen and (-o-min-device-pixel-ratio: 2),
-        screen and (min-device-pixel-ratio: 2),
-        screen and (min-resolution: 192dpi) {
-            background: url("@{img-name}@2x.png") no-repeat @background-position;
-            background-size: cover;
-        }
-        @media screen and (-webkit-min-device-pixel-ratio: 3),
-        screen and (-moz-min-device-pixel-ratio: 3),
-        screen and (-o-min-device-pixel-ratio: 3),
-        screen and (min-device-pixel-ratio: 3),
-        screen and (min-resolution: 288dpi) {
-            background: url("@{img-name}@2x.png") no-repeat @background-position;
-            background-size: cover;
-        }
+    }
+    @media screen and (-webkit-min-device-pixel-ratio: 2),
+    screen and (-moz-min-device-pixel-ratio: 2),
+    screen and (-o-min-device-pixel-ratio: 2),
+    screen and (min-device-pixel-ratio: 2),
+    screen and (min-resolution: 192dpi) {
+        background: url("@{img-name}@2x.png") no-repeat @background-position;
+        background-size: cover;
+    }
+    @media screen and (-webkit-min-device-pixel-ratio: 3),
+    screen and (-moz-min-device-pixel-ratio: 3),
+    screen and (-o-min-device-pixel-ratio: 3),
+    screen and (min-device-pixel-ratio: 3),
+    screen and (min-resolution: 288dpi) {
+        background: url("@{img-name}@2x.png") no-repeat @background-position;
+        background-size: cover;
     }
 }

@@ -5,9 +5,9 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1.0, maximum-scale=1.0">
     <title>Petr-Mazin personal page</title>
-    <meta name="theme-color" content="#137d52">
-    <meta name="msapplication-TileColor" content="#137d52">
-    <link async="true" href="../styles/app.css?v=20180416" rel="stylesheet" type="text/css">
+    <meta name="theme-color" content="#137d4a">
+    <meta name="msapplication-TileColor" content="#137d4a">
+    <link async="true" href="../styles/app.css?v=20180429" rel="stylesheet" type="text/css">
 </head>
 
 <body>
@@ -160,15 +160,23 @@
                     Description: "BASE64 декодер и энкодер",
                     Date: '10-04-2018',
                     Cover: './img/base64.png',
-                    Markdown: ['# Base64',
+                    Markdown: [
+                        '# Base64',
                         'Это специальный метод кодирования информации в 64-разрядный код. Подробнее можно почитать в !:https://ru.wikipedia.org/wiki/Base64:вики:!.',
-                        'Инфа о том как пользоваться генератором выше, будет чуть позже'].join('\n')
+                        'Пользоваться данный декодером/энкодером очень просто.',
+                        'Необходимо ввести нужный текст в поле **"Введите текст"**.',
+                        '**Данный декодер/энкодер поддерживает не только английский язык, но и utf-8**',
+                        'После чего выбрать направление кодирование/декодирование, и нажать кнопку **"рассчитать"**.',
+                        'Так же данный декодер/энкодер поддерживает стандарт !:https://tools.ietf.org/html/rfc3548#section-4:RFC 3548/4.:!',
+                        'Настройка **"Разрезать"** отвечает за разбиение base64 строки на несколько строк фиксированной длины (работает только для кодирования).'
+                    ].join('\n')
                 },
                 {
                     Name: "translit",
                     Title: "Транслит - перевод на латиницу",
                     Description: "Скрипт для конвертирование русского текста в английские буквы",
                     Date: '27-04-2018',
+                    Cover: './img/translit.png',
                     Markdown: [].join('\n')
                 }
             ]
@@ -179,7 +187,7 @@
             console.debug(e);
         }
     </script>
-    <script crossorigin async="true" src="../public/bundle.js?v=20180416"></script>
+    <script crossorigin async="true" src="../public/bundle.js?v=20180429"></script>
 
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-115818194-1"></script>
