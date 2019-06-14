@@ -1,7 +1,6 @@
 /**
  * Мок апи, пока что так, так как хостинг самый дешманский
  */
-import { $ } from 'jQuery';
 
 Array.prototype.getIndex = function getIndex(func) {
     for (let i = 0; i < this.length; i++) {

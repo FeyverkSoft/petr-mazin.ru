@@ -5,3 +5,5 @@ Thumbs.db
 *.css
 *.7z
 *.zip
+/package-lock.json
+/public/bundle.js

@@ -1,6 +1,5 @@
 import React from 'react';
 import { Lang, CurrentLang } from './lang.jsx';
-import { $ } from 'jQuery';
 
 class LangSelector extends React.Component {
     constructor(props) {

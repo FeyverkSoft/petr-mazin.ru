@@ -2,6 +2,68 @@ import React from 'react';
 import { ApiInstance, getGuid } from "../Api.jsx";
 import { Lang } from '../lang.jsx';
 
+export class BaseInput extends React.Component {
+
+    onChange = (event) => {
+        let $this = this;
+        let val = event.target.value;
+        let valid = $this.validate(val);
+        if (this.props.ignoreInvalidValue && !valid && val != '')
+            return;
+        if ($this.state.typingTimeout) {
+            clearTimeout($this.state.typingTimeout);
+        }
+
+        $this.setState({
+            value: val,
+            typingTimeout: setTimeout(function () {
+                if ($this.props.onChange) {
+                    $this.props.onChange(val, valid, $this.state.path);
+                }
+            }, $this.state.timeout || 100),
+            valid: valid
+        });
+    }
+
+    validate = (value) => {
+        let $this = this;
+        let val = (value || ($this.state || {}).value);
+        let valid = true;
+        if ($this.props.IsRequired && !val)
+            valid &= false;
+        if (($this.props.regEx || $this.props.regExp) && val) {
+            let reg = new RegExp(($this.props.regEx || $this.props.regExp), 'gi');
+
+            if ((val || '').match(reg) == (val || ''))
+                valid &= true;
+            else
+                valid &= false;
+        }
+        return valid;
+    }
+
+    componentWillMount() {
+        this.setState({ valid: this.validate() });
+    }
+
+    componentWillReceiveProps(props) {
+        if (this.state.value != (props.value || '')) {
+            this.setState({
+                value: props.value || '',
+                valid: this.validate(props.value)
+            });
+        }
+    }
+}
+
+export class BaseButton extends React.Component {
+    onClick = (e) => {
+        if (!this.props.disabled && this.props.onClick) {
+            this.props.onClick(e);
+        }
+    }
+}
+
 ///Текстовое поле поиска в материал дезайн стиле
 export class OmniTextBox extends React.Component {
     constructor(props) {
@@ -79,16 +141,11 @@ export class OmniTextBox extends React.Component {
 }
 
 //кнопка ссылка.
-export class LinkButton extends React.Component {
+export class LinkButton extends BaseButton {
     constructor(props) {
         super(props);
-        this.onClick = this.onClick.bind(this);
     }
-    onClick(e) {
-        if (!this.props.disabled && this.props.onClick) {
-            this.props.onClick(e);
-        }
-    }
+
     render() {
         let disabled = this.props.disabled ? ' disabled' : '';
         return (
@@ -101,16 +158,11 @@ export class LinkButton extends React.Component {
 }
 
 //кнопка.
-export class Button extends React.Component {
+export class Button extends BaseButton {
     constructor(props) {
         super(props);
-        this.onClick = this.onClick.bind(this);
     }
-    onClick(e) {
-        if (!this.props.disabled) {
-            this.props.onClick(e);
-        }
-    }
+
     render() {
         let disabled = this.props.disabled ? ' disabled' : '';
         return (
@@ -123,7 +175,7 @@ export class Button extends React.Component {
     }
 }
 
-export class Input extends React.Component {
+export class Input extends BaseInput {
     constructor(props) {
         super(props);
         this.state = {
@@ -135,56 +187,6 @@ export class Input extends React.Component {
         };
         this.onChange = this.onChange.bind(this);
         this.validate = this.validate.bind(this);
-    }
-    componentWillMount() {
-        this.setState({ valid: this.validate() });
-    }
-
-    componentWillReceiveProps(props) {
-        if (this.state.value != (props.value || '')) {
-            this.setState({
-                value: props.value || '',
-                valid: this.validate(props.value)
-            });
-        }
-    }
-
-    onChange(event) {
-        let $this = this;
-        let val = event.target.value;
-        let valid = $this.validate(val);
-        if (this.props.ignoreInvalidValue && !valid && val != '')
-            return;
-        if ($this.state.typingTimeout) {
-            clearTimeout($this.state.typingTimeout);
-        }
-
-        $this.setState({
-            value: val,
-            typingTimeout: setTimeout(function () {
-                if ($this.props.onChange) {
-                    $this.props.onChange(val, valid, $this.state.path);
-                }
-            }, $this.state.timeout),
-            valid: valid
-        });
-    }
-
-    validate(value) {
-        let $this = this;
-        let val = (value || ($this.state || {}).value);
-        let valid = true;
-        if ($this.props.IsRequired && !val)
-            valid &= false;
-        if (($this.props.regEx || $this.props.regExp) && val) {
-            let reg = new RegExp(($this.props.regEx || $this.props.regExp), 'gi');
-
-            if ((val || '').match(reg) == (val || ''))
-                valid &= true;
-            else
-                valid &= false;
-        }
-        return valid;
     }
 
     render() {
@@ -231,7 +233,7 @@ export class LabeledContent extends React.Component {
     }
 }
 
-export class AreaInput extends React.Component {
+export class AreaInput extends BaseInput {
     constructor(props) {
         super(props);
         this.state = {
@@ -243,55 +245,6 @@ export class AreaInput extends React.Component {
         };
         this.onChange = this.onChange.bind(this);
         this.validate = this.validate.bind(this);
-    }
-    componentWillMount() {
-        this.setState({ valid: this.validate() });
-    }
-
-    componentWillReceiveProps(props) {
-        if (this.state.value != (props.value || '')) {
-            this.setState({
-                value: props.value || '',
-                valid: this.validate(props.value)
-            });
-        }
-    }
-
-    onChange(event) {
-        let $this = this;
-        let val = event.target.value;
-        let valid = $this.validate(val);
-
-        if ($this.state.typingTimeout) {
-            clearTimeout($this.state.typingTimeout);
-        }
-
-        $this.setState({
-            value: val,
-            typingTimeout: setTimeout(function () {
-                if ($this.props.onChange) {
-                    $this.props.onChange(val, valid, $this.state.path);
-                }
-            }, $this.state.timeout),
-            valid: valid
-        });
-    }
-
-    validate(value) {
-        let $this = this;
-        let val = (value || ($this.state || {}).value);
-        let valid = true;
-        if ($this.props.IsRequired && !val)
-            valid &= false;
-        if ($this.props.regEx && val) {
-            let reg = new RegExp($this.props.regEx, 'gi');
-
-            if ((val || '').match(reg) == (val || ''))
-                valid &= true;
-            else
-                valid &= false;
-        }
-        return valid;
     }
 
     render() {
