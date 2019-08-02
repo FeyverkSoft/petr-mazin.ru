@@ -69,7 +69,10 @@ const locString = {
         translit_default: 'По умолчанию',
         translit_type: 'Алгоритм транслитирации',
         translit_type_description: 'Выберете алгоритм транслитирации',
-        script_translit: 'Транслит - перевод на латиницу'
+        script_translit: 'Транслит - перевод на латиницу',
+        guid_count: 'Кол-во записей',
+        guid_count_description: '-',
+        script_guid:'Генератор GUID'
     }
 }
 export const getCookie = function getCookie(name) {
