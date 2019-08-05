@@ -22,6 +22,7 @@ class LangSelector extends React.Component {
                     {langList.map((item) => {
                         return (<li key={`lang+${item}`}
                             className="item"
+                            lang={item}
                             onClick={() => $this.setLang(item)}>
                             {Lang(item)}
                         </li>);
@@ -44,7 +45,7 @@ export class Header extends React.Component {
     render() {
         let $this = this;
         return (
-            <div className="header">
+            <header className="header">
                 <div className="logo"></div>
                 <div className="menu-button" onClick={$this.toggleMenu}>
                     <div className="icon-wr">
@@ -59,7 +60,7 @@ export class Header extends React.Component {
                 <LangSelector
                     onChangeLangCallback={$this.props.onChangeLangCallback}
                     langList={['ru', 'en']} />
-            </div>
+            </header>
         );
     }
 }

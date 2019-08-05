@@ -134,7 +134,7 @@ export class AdditionalIcons extends React.Component {
 }
 
 ///Плашки
-export class Tils extends React.Component {
+class _Tils extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -176,8 +176,9 @@ export class Tils extends React.Component {
             </div>);
     }
 }
+export const Tils = React.memo((props) => <_Tils {...props} />);
 ///Плашка
-export class Til extends React.Component {
+class _Til extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -217,9 +218,9 @@ export class Til extends React.Component {
             </div>);
     }
 }
-
+export const Til = React.memo((props) => <_Til {...props} />);
 ///Пагинатор
-export class Pagination extends React.Component {
+class _Pagination extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -312,6 +313,7 @@ export class Pagination extends React.Component {
             </div>);
     }
 }
+export const Pagination = React.memo((props) => <_Pagination {...props} />);
 
 export class Spinner extends React.Component {
     render() {

@@ -49,7 +49,7 @@ class Flex extends Token {
     }
 }
 
-export class MarkdownContent extends React.Component {
+class _MarkdownContent extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -493,3 +493,5 @@ export class MarkdownContent extends React.Component {
         return <div className='markdown-wrapper' >{content}</div>;
     }
 }
+
+export const MarkdownContent = React.memo((props) => <_MarkdownContent {...props} />);

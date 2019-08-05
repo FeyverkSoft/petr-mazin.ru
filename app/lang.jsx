@@ -72,11 +72,13 @@ const locString = {
         script_translit: 'Транслит - перевод на латиницу'
     }
 }
+
+let _CurrentLang;
 export const getCookie = function getCookie(name) {
     var matches = document.cookie.match(new RegExp(
         "(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
     ));
-    return matches ? decodeURIComponent(matches[1]) : null;
+    return matches ? decodeURIComponent(matches[1]) : undefined;
 }
 
 export const setCookie = function setCookie(name, val) {
