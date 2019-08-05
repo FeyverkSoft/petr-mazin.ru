@@ -255,6 +255,7 @@ export class AreaInput extends BaseInput {
         return (
             <div className='input-wrapper'>
                 <textarea
+                    style={$this.props.style}
                     id={$this.props.id}
                     name={$this.props.id}
                     className={`input-textarea${$this.state.value ? ' full' : ''}${$this.state.valid ? '' : ' invalid'}`}
