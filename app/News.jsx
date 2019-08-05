@@ -5,13 +5,13 @@ import { ApiInstance } from "./Api.jsx";
 import { MarkdownContent } from "./Components/MarkdownContent.jsx";
 import { NoMatch } from './NoMatch.jsx'
 
-export class News extends React.Component {
+class _News extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             id: props.match.params.id,
             markdownContent: '',
-            title:'',
+            title: '',
             isLoading: false
         }
         this.getMarkdownContent = this.getMarkdownContent.bind(this);
@@ -62,3 +62,5 @@ export class News extends React.Component {
         }
     }
 }
+
+export const News = React.memo((props) => <_News {...props} />)

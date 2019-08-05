@@ -10,7 +10,7 @@ import { NoMatch } from './NoMatch.jsx';
 import { ApiInstance } from "./Api.jsx";
 import { MarkdownContent } from "./Components/MarkdownContent.jsx";
 
-export class ScriptSelector extends React.Component {
+class _ScriptSelector extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -92,3 +92,5 @@ export class ScriptSelector extends React.Component {
         }
     }
 }
+
+export const ScriptSelector = React.memo((props) => <_ScriptSelector {...props} />)

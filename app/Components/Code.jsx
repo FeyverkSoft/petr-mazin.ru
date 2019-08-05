@@ -1,6 +1,6 @@
 import React from 'react';
 
-export class ColoredCode extends React.Component {
+class _ColoredCode extends React.Component {
     constructor(props) {
         super(props);
     }
@@ -50,3 +50,5 @@ export class ColoredCode extends React.Component {
             </code>);
     }
 }
+
+export const ColoredCode = React.memo((props) => <_ColoredCode {...props} />)
